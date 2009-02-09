@@ -1,0 +1,11 @@
+mnw is a wordpress plugin which adds openmicroblogging support to wordpress.
+
+== Integration ==
+mnw should use user informations (favicon as avatar, url, blogtitle as username) from wordpress and allow display of mu-messages (sidebar)
+
+== Use cases ==
+A user subscribes to the wordpress blog via omb. Notices from mnw are sent to the user's omb instance.
+
+== How to add a custom page ==
+add new page to theme, declare it as template
+add a page based on the template
