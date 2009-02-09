@@ -95,7 +95,6 @@ class Auth_Yadis_PlainHTTPFetcher extends Auth_Yadis_HTTPFetcher {
                     $headers[] = $h;
                 }
             }
-
             @$sock = fsockopen($host, $parts['port'], $errno, $errstr,
                                $this->timeout);
             if ($sock === false) {

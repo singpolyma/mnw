@@ -12,35 +12,72 @@ Author URI: http://adrianlang.de
 
 set_include_path(get_include_path() . PATH_SEPARATOR . ABSPATH . 'wp-content/plugins/mnw/extlib');
 
+add_action('future_to_publish', 'mnw_publish_post');
+add_action('new_to_publish', 'mnw_publish_post');
+add_action('draft_to_publish', 'mnw_publish_post');
+
+function mnw_publish_post ($post) {
+    
+}
+
+function common_root_url() {
+    return get_bloginfo('url');
+}
+
+function common_have_session()
+{
+    return (0 != strcmp(session_id(), ''));
+}
+
+function common_ensure_session()
+{
+    if (!common_have_session()) {
+        @session_start();
+    }
+}
+
+function common_redirect($url, $code=307)
+{
+    static $status = array(301 => "Moved Permanently",
+                           302 => "Found",
+                           303 => "See Other",
+                           307 => "Temporary Redirect");
+
+    header("Status: ${code} $status[$code]");
+    header("Location: $url");
+    echo '<?xml version="1.0" encoding="UTF-8"?>';
+    echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">';
+    echo "<a href='$url'>$url</a>";
+    exit;
+}
+
+
 require_once ('Validate.php');
 require_once ('Auth/Yadis/Yadis.php');
 require_once ('omb.php');
 
-function mnw_subscribe_form() {
-?>
-<?php
+// @list(continue, error) = mnw_parse_request();
+function mnw_parse_request() {
+    // TODO: locally save subscribers
+
     if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-        mnw_show_subscribe_form();
-        return;
+        return array(true, '');
     }
 
     if (!isset($_POST['profile_url'])) {
-        mnw_show_subscribe_form('No remote profile submitted.');
-        return;
+        return array(true, 'No remote profile submitted.');
     }
     
     $target = $_POST['profile_url'];                
     if (!Validate::uri($target, array('allowed_schemes' => array('http', 'https')))) {
-        mnw_show_subscribe_form('Invalid profile URL.', $target);
-        return;
+        return array(true, 'Invalid profile URL.');
     }
 
-    $fetcher = Auth_Yadis_Yadis::getHTTPFetcher();
+    $fetcher = Auth_Yadis_Yadis::getHTTPFetcher(20);
     $yadis = Auth_Yadis_Yadis::discover($target, $fetcher);
 
     if (!$yadis || $yadis->failed) {
-        mnw_show_subscribe_form('Invalid profile URL (no YADIS document).', $target);
-        return;
+        return array(true, 'Invalid profile URL (no YADIS document).');
     }
 
     # XXX: a little liberal for sites that accidentally put whitespace before the xml declaration
@@ -48,39 +85,68 @@ function mnw_subscribe_form() {
     $xrds =& Auth_Yadis_XRDS::parseXRDS(trim($yadis->response_text));
 
     if (!$xrds) {
-        mnw_show_subscribe_form('Invalid profile URL (no XRDS defined).');
-        return;
+        return array(true, 'Invalid profile URL (no XRDS defined).');
     }
 
     $omb = getOmb($xrds);
 
         if (!$omb) {
-            $this->showForm(_('Not a valid profile URL (incorrect services).'));
-            return;
+            return array(true,'Not a valid profile URL (incorrect services).');
         }
 
-        if (omb_service_uri($omb[OAUTH_ENDPOINT_REQUEST]) ==
-            common_local_url('requesttoken'))
-        {
-            $this->showForm(_('That\'s a local profile! Login to subscribe.'));
-            return;
-        }
-
-        if (User::staticGet('uri', omb_local_id($omb[OAUTH_ENDPOINT_REQUEST]))) {
-            $this->showForm(_('That\'s a local profile! Login to subscribe.'));
-            return;
-        }
-
-        list($token, $secret) = $this->requestToken($omb);
+        list($token, $secret) = requestToken($omb);
 
         if (!$token || !$secret) {
-            $this->showForm(_('Couldn\'t get a request token.'));
-            return;
+            return array(true, 'Couldn\'t get a request token.');
+        }
+        requestAuthorization($omb, $token, $secret);
+    return array(false, '');
+}
+
+   function requestToken($omb)
+    {
+        $con = omb_oauth_consumer();
+
+        $url = omb_service_uri($omb[OAUTH_ENDPOINT_REQUEST]);
+
+        # XXX: Is this the right thing to do? Strip off GET params and make them
+        # POST params? Seems wrong to me.
+
+        $parsed = parse_url($url);
+        $params = array();
+        parse_str($parsed['query'], $params);
+
+        $req = OAuthRequest::from_consumer_and_token($con, null, "POST", $url, $params);
+
+        $listener = omb_local_id($omb[OAUTH_ENDPOINT_REQUEST]);
+
+        if (!$listener) {
+            return null;
         }
 
-        $this->requestAuthorization($user, $omb, $token, $secret);
+        $req->set_parameter('omb_listener', $listener);
+        $req->set_parameter('omb_version', OMB_VERSION_01);
 
-}
+        # XXX: test to see if endpoint accepts this signature method
+
+        $req->sign_request(omb_hmac_sha1(), $con, null);
+
+        # We re-use this tool's fetcher, since it's pretty good
+
+        $fetcher = Auth_Yadis_Yadis::getHTTPFetcher();
+
+        $result = $fetcher->post($req->get_normalized_http_url(),
+                                 $req->to_postdata(),
+                                 array(/*'User-Agent' => 'mnw/0.1'*/));
+
+        if ($result->status != 200) {
+            return null;
+        }
+        parse_str($result->body, $return);
+
+        return array($return['oauth_token'], $return['oauth_token_secret']);
+    }
+
 
     function getOmb($xrds)
     {
@@ -99,13 +165,13 @@ function mnw_subscribe_form() {
 
         $oauth_service = $oauth_services[0];
 
-        $oauth_xrd = $this->getXRD($oauth_service, $xrds);
+        $oauth_xrd = getXRD($oauth_service, $xrds);
 
         if (!$oauth_xrd) {
             return null;
         }
 
-        if (!$this->addServices($oauth_xrd, $oauth_endpoints, $omb)) {
+        if (!addServices($oauth_xrd, $oauth_endpoints, $omb)) {
             return null;
         }
 
@@ -117,13 +183,13 @@ function mnw_subscribe_form() {
 
         $omb_service = $omb_services[0];
 
-        $omb_xrd = $this->getXRD($omb_service, $xrds);
+        $omb_xrd = getXRD($omb_service, $xrds);
 
         if (!$omb_xrd) {
             return null;
         }
 
-        if (!$this->addServices($omb_xrd, $omb_endpoints, $omb)) {
+        if (!addServices($omb_xrd, $omb_endpoints, $omb)) {
             return null;
         }
 
@@ -142,10 +208,115 @@ function mnw_subscribe_form() {
         return $omb;
     }
 
-function mnw_show_subscribe_form($errormsg = '', $preload = '') {
+    function addServices($xrd, $types, &$omb)
+    {
+        foreach ($types as $type) {
+            $matches = omb_get_services($xrd, $type);
+            if ($matches) {
+                $omb[$type] = $matches[0];
+            } else {
+                # no match for type
+                return false;
+            }
+        }
+        return true;
+    }
+
+    function getXRD($main_service, $main_xrds)
+    {
+        $uri = omb_service_uri($main_service);
+        if (strpos($uri, "#") !== 0) {
+            # FIXME: more rigorous handling of external service definitions
+            return null;
+        }
+        $id = substr($uri, 1);
+        $nodes = $main_xrds->allXrdNodes;
+        $parser = $main_xrds->parser;
+        foreach ($nodes as $node) {
+            $attrs = $parser->attributes($node);
+            if (array_key_exists('xml:id', $attrs) &&
+                $attrs['xml:id'] == $id) {
+                # XXX: trick the constructor into thinking this is the only node
+                $bogus_nodes = array($node);
+                return new Auth_Yadis_XRDS($parser, $bogus_nodes);
+            }
+        }
+        return null;
+    }
+
+    function requestAuthorization($omb, $token, $secret)
+    {
+        global $config; # for license URL
+
+        $con = omb_oauth_consumer();
+        $tok = new OAuthToken($token, $secret);
+
+        $url = omb_service_uri($omb[OAUTH_ENDPOINT_AUTHORIZE]);
+
+        # XXX: Is this the right thing to do? Strip off GET params and make them
+        # POST params? Seems wrong to me.
+
+        $parsed = parse_url($url);
+        $params = array();
+        parse_str($parsed['query'], $params);
+
+        $req = OAuthRequest::from_consumer_and_token($con, $tok, 'GET', $url, $params);
+
+        # We send over a ton of information. This lets the other
+        # server store info about our user, and it lets the current
+        # user decide if they really want to authorize the subscription.
+
+        $req->set_parameter('omb_version', OMB_VERSION_01);
+        $req->set_parameter('omb_listener', omb_local_id($omb[OAUTH_ENDPOINT_REQUEST]));
+        $req->set_parameter('omb_listenee', get_bloginfo('url'));
+        $req->set_parameter('omb_listenee_profile', get_bloginfo('url'));
+        $req->set_parameter('omb_listenee_nickname', 'adriansblog');
+        $req->set_parameter('omb_listenee_license', 'http://creativecommons.org/licenses/by/3.0/');
+
+        $req->set_parameter('omb_listenee_fullname', get_bloginfo('title'));
+        $req->set_parameter('omb_listenee_homepage', get_bloginfo('url'));
+        $req->set_parameter('omb_listenee_bio', 'Here be description');
+        $req->set_parameter('omb_listenee_location', 'Here be location');
+
+        $avatar = get_bloginfo('template_url') . '/mnw_avatar.png';
+        if ($avatar) {
+            $req->set_parameter('omb_listenee_avatar', $avatar);
+        }
+
+        # XXX: add a nonce to prevent replay attacks
+
+        $req->set_parameter('oauth_callback', 'http://virtual/wordpress/?page_id=3');
+
+        # XXX: test to see if endpoint accepts this signature method
+
+        $req->sign_request(omb_hmac_sha1(), $con, $tok);
+        # store all our info here
+
+        $omb['listenee'] = 'adriansblog';
+        $omb['listener'] = omb_local_id($omb[OAUTH_ENDPOINT_REQUEST]);
+        $omb['token'] = $token;
+        $omb['secret'] = $secret;
+        # call doesn't work after bounce back so we cache; maybe serialization issue...?
+        $omb['access_token_url'] = omb_service_uri($omb[OAUTH_ENDPOINT_ACCESS]);
+        $omb['post_notice_url'] = omb_service_uri($omb[OMB_ENDPOINT_POSTNOTICE]);
+        $omb['update_profile_url'] = omb_service_uri($omb[OMB_ENDPOINT_UPDATEPROFILE]);
+
+        common_ensure_session();
+
+        $_SESSION['oauth_authorization_request'] = $omb;
+
+        # Redirect to authorization service
+
+        common_redirect($req->to_url());
+        #echo "<a href='" . $req->to_url() . "'>Continue</a>";
+        return;
+    }
+
+function mnw_subscribe_form($errormsg = '', $preload = '') {
     if ($errormsg != '') {
         echo "<p>ERROR: $errormsg</p>";
     }
+
 ?>
 <?php
 // XXX: Make this dynamic!!

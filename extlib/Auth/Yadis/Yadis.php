@@ -231,7 +231,7 @@ function Auth_Yadis_getServiceEndpoints($input_url, $xrds_parse_func,
  * See {@link SERVICES_YADIS_MATCH_ALL} and {@link
  * SERVICES_YADIS_MATCH_ANY}.
  *
- * Services described in an XRDS should have a library which you'll
+ * Services described in an XRDS should have a library which youll
  * probably be using.  Those libraries are responsible for defining
  * filters that can be used with the "services()" call.  If you need
  * to write your own filter, see the documentation for {@link
