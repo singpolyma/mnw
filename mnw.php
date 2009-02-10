@@ -14,6 +14,8 @@ add_action('future_to_publish', 'mnw_publish_post');
 add_action('new_to_publish', 'mnw_publish_post');
 add_action('draft_to_publish', 'mnw_publish_post');
 
+define('MNW_SUBSCRIBER_TABLE', $wpdb->prefix . 'mnw_subscribers');
+
 require_once('admin_menu.php');
 #require_once('db.php');
 
@@ -22,12 +24,9 @@ register_activation_hook(__FILE__, 'mnw_install');
 function mnw_install () {
    global $wpdb;
 
-echo "execd";
-
-   $table_name = $wpdb->prefix . "mnw_subscribers";
-   if($wpdb->get_var("show tables like '$table_name'") != $table_name) {
+   if($wpdb->get_var("show tables like '" . MNW_SUBSCRIBER_TABLE . "'") != MNW_SUBSCRIBER_TABLE) {
       
-      $sql = "CREATE TABLE " . $table_name . " (
+      $sql = "CREATE TABLE " . MNW_SUBSCRIBER_TABLE . " (
       id mediumint(9) NOT NULL AUTO_INCREMENT,
       url VARCHAR(2255) NOT NULL,
       UNIQUE KEY id (id)
@@ -38,7 +37,6 @@ echo "execd";
 
    }
 }
-
 
 function mnw_publish_post ($post) {
     
@@ -82,7 +80,25 @@ require_once ('omb.php');
 
 // @list(continue, error) = mnw_parse_request();
 function mnw_parse_request() {
-    // TODO: locally save subscribers
+
+    if (isset($_GET['mnw_action']) && ($_GET['mnw_action'] == 'finishsubscribe')) {
+        // Subscription is finished. Now store the subscriber in our database.
+        global $wpdb;
+        $profile = $wpdb->escape($_GET['omb_listener_profile']);
+        $select = "SELECT * FROM " . MNW_SUBSCRIBER_TABLE . " WHERE url = '$profile'";
+        if ($wpdb->query($select) > 0) {
+            return array(true, "Already in database.");
+        }
+
+        $insert = "INSERT INTO " . MNW_SUBSCRIBER_TABLE . " (url) " . "VALUES ('" . $wpdb->escape($_GET['omb_listener_profile']) . "')";
+        $results = $wpdb->query( $insert );
+
+        if ($results == 0) {
+            return array(true, "Error storing subscriber in local database");
+        }
+        common_redirect(get_bloginfo('url'));
+        return array(false, '');
+    }
 
     if ($_SERVER['REQUEST_METHOD'] != 'POST') {
         return array(true, '');
@@ -309,7 +325,7 @@ function mnw_parse_request() {
 
         # XXX: add a nonce to prevent replay attacks
 
-        $req->set_parameter('oauth_callback', 'http://virtual/wordpress/?page_id=3');
+        $req->set_parameter('oauth_callback', 'http://virtual/wordpress/?page_id=3&mnw_action=finishsubscribe');
 
         # XXX: test to see if endpoint accepts this signature method
 
