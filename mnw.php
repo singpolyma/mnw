@@ -8,13 +8,37 @@ Author: Adrian Lang
 Author URI: http://adrianlang.de
 */
 
-# require_once ('extlib/omb.php');
-
 set_include_path(get_include_path() . PATH_SEPARATOR . ABSPATH . 'wp-content/plugins/mnw/extlib');
 
 add_action('future_to_publish', 'mnw_publish_post');
 add_action('new_to_publish', 'mnw_publish_post');
 add_action('draft_to_publish', 'mnw_publish_post');
+
+require_once('admin_menu.php');
+#require_once('db.php');
+
+register_activation_hook(__FILE__, 'mnw_install');
+
+function mnw_install () {
+   global $wpdb;
+
+echo "execd";
+
+   $table_name = $wpdb->prefix . "mnw_subscribers";
+   if($wpdb->get_var("show tables like '$table_name'") != $table_name) {
+      
+      $sql = "CREATE TABLE " . $table_name . " (
+      id mediumint(9) NOT NULL AUTO_INCREMENT,
+      url VARCHAR(2255) NOT NULL,
+      UNIQUE KEY id (id)
+    );";
+
+      require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+      dbDelta($sql);
+
+   }
+}
+
 
 function mnw_publish_post ($post) {
     
@@ -270,15 +294,15 @@ function mnw_parse_request() {
         $req->set_parameter('omb_listener', omb_local_id($omb[OAUTH_ENDPOINT_REQUEST]));
         $req->set_parameter('omb_listenee', get_bloginfo('url'));
         $req->set_parameter('omb_listenee_profile', get_bloginfo('url'));
-        $req->set_parameter('omb_listenee_nickname', 'adriansblog');
-        $req->set_parameter('omb_listenee_license', 'http://creativecommons.org/licenses/by/3.0/');
+        $req->set_parameter('omb_listenee_nickname', get_option('omb_nickname'));
+        $req->set_parameter('omb_listenee_license', get_option('omb_license'));
 
-        $req->set_parameter('omb_listenee_fullname', get_bloginfo('title'));
+        $req->set_parameter('omb_listenee_fullname', get_option('omb_full_name'));
         $req->set_parameter('omb_listenee_homepage', get_bloginfo('url'));
-        $req->set_parameter('omb_listenee_bio', 'Here be description');
-        $req->set_parameter('omb_listenee_location', 'Here be location');
+        $req->set_parameter('omb_listenee_bio', get_option('omb_bio'));
+        $req->set_parameter('omb_listenee_location', get_option('omb_location'));
 
-        $avatar = get_bloginfo('template_url') . '/mnw_avatar.png';
+        $avatar = get_option('omb_avatar');
         if ($avatar) {
             $req->set_parameter('omb_listenee_avatar', $avatar);
         }
@@ -292,7 +316,7 @@ function mnw_parse_request() {
         $req->sign_request(omb_hmac_sha1(), $con, $tok);
         # store all our info here
 
-        $omb['listenee'] = 'adriansblog';
+        $omb['listenee'] = get_option('omb_nickname');
         $omb['listener'] = omb_local_id($omb[OAUTH_ENDPOINT_REQUEST]);
         $omb['token'] = $token;
         $omb['secret'] = $secret;
