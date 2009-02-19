@@ -17,7 +17,6 @@ add_action('draft_to_publish', 'mnw_publish_post');
 define('MNW_SUBSCRIBER_TABLE', $wpdb->prefix . 'mnw_subscribers');
 
 require_once('admin_menu.php');
-#require_once('db.php');
 
 register_activation_hook(__FILE__, 'mnw_install');
 
@@ -28,7 +27,9 @@ function mnw_install () {
       
       $sql = "CREATE TABLE " . MNW_SUBSCRIBER_TABLE . " (
       id mediumint(9) NOT NULL AUTO_INCREMENT,
-      url VARCHAR(2255) NOT NULL,
+      url VARCHAR(255) NOT NULL,
+      token VARCHAR(255),
+      secret VARCHAR(255),
       UNIQUE KEY id (id)
     );";
 
@@ -73,7 +74,6 @@ function common_redirect($url, $code=307)
     exit;
 }
 
-
 require_once ('Validate.php');
 require_once ('Auth/Yadis/Yadis.php');
 require_once ('omb.php');
@@ -82,16 +82,35 @@ require_once ('omb.php');
 function mnw_parse_request() {
 
     if (isset($_GET['mnw_action']) && ($_GET['mnw_action'] == 'finishsubscribe')) {
+        // Validate a bit.
+        common_ensure_session();
+        $omb = $_SESSION['oauth_authorization_request'];
+
+        if (!$omb) {
+            return array(true, 'No session found.');
+        }
+
+        $req = OAuthRequest::from_request();
+
+        $token = $req->get_parameter('oauth_token');
+
+        if ($token != $omb['token']) {
+            return array(true, 'Not authorized.');
+        }
+
+        list($newtok, $newsecret) = access_token($omb);
+
         // Subscription is finished. Now store the subscriber in our database.
         global $wpdb;
         $profile = $wpdb->escape($_GET['omb_listener_profile']);
         $select = "SELECT * FROM " . MNW_SUBSCRIBER_TABLE . " WHERE url = '$profile'";
-        if ($wpdb->query($select) > 0) {
-            return array(true, "Already in database.");
-        }
 
-        $insert = "INSERT INTO " . MNW_SUBSCRIBER_TABLE . " (url) " . "VALUES ('" . $wpdb->escape($_GET['omb_listener_profile']) . "')";
-        $results = $wpdb->query( $insert );
+        if ($wpdb->query($select) > 0) {
+            $query = "UPDATE " . MNW_SUBSCRIBER_TABLE . " SET token= '" . $wpdb->escape($newtok) . "', secret= '" . $wpdb->escape($newsecret) . "' where url = '$profile'";
+        } else {
+            $query = "INSERT INTO " . MNW_SUBSCRIBER_TABLE . " (url, token, secret) " . "VALUES ('" . $wpdb->escape($_GET['omb_listener_profile']) . "','" . $wpdb->escape($newtok) . "','" . $wpdb->escape($newsecret) . "')";
+        }
+        $results = $wpdb->query( $query );
 
         if ($results == 0) {
             return array(true, "Error storing subscriber in local database");
@@ -142,6 +161,46 @@ function mnw_parse_request() {
         requestAuthorization($omb, $token, $secret);
     return array(false, '');
 }
+
+    function access_token($omb)
+    {
+
+        $con = omb_oauth_consumer();
+        $tok = new OAuthToken($omb['token'], $omb['secret']);
+
+        $url = $omb['access_token_url'];
+
+        # XXX: Is this the right thing to do? Strip off GET params and make them
+        # POST params? Seems wrong to me.
+
+        $parsed = parse_url($url);
+        $params = array();
+        parse_str($parsed['query'], $params);
+
+        $req = OAuthRequest::from_consumer_and_token($con, $tok, "POST", $url, $params);
+
+        $req->set_parameter('omb_version', OMB_VERSION_01);
+
+        # XXX: test to see if endpoint accepts this signature method
+
+        $req->sign_request(omb_hmac_sha1(), $con, $tok);
+
+        # We re-use this tool's fetcher, since it's pretty good
+
+        $fetcher = Auth_Yadis_Yadis::getHTTPFetcher();
+        $result = $fetcher->post($req->get_normalized_http_url(),
+                                 $req->to_postdata(),
+                                 array(/*'User-Agent' => 'Laconica/' . LACONICA_VERSION*/));
+
+        if ($result->status != 200) {
+            return null;
+        }
+
+        parse_str($result->body, $return);
+
+        return array($return['oauth_token'], $return['oauth_token_secret']);
+    }
+
 
    function requestToken($omb)
     {
@@ -348,7 +407,6 @@ function mnw_parse_request() {
         # Redirect to authorization service
 
         common_redirect($req->to_url());
-        #echo "<a href='" . $req->to_url() . "'>Continue</a>";
         return;
     }
 
