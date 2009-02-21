@@ -21,7 +21,7 @@ Additional features could be
 - configure post/page/comment broadcasting on a per-post/page base and in general
 - customize notice format for post/page/comment notices
 - url shortening! text shortening!
-- add user setting to exclude subscribe page from all_pages
+- add user setting to exclude microblog page from all_pages
 - i18n
 
 == Bugs ==

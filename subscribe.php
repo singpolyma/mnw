@@ -11,13 +11,19 @@ function mnw_parse_subscribe() {
     if (isset($_GET[MNW_SUBSCRIBE_ACTION])) {
         switch ($_GET[MNW_SUBSCRIBE_ACTION]) {
         case 'continue':
-            return continue_subscription();
+            $ret = continue_subscription();
         case 'finish':
-            return finish_subscription();
+            $ret = finish_subscription();
         }
     } else {
-        return array('', array());
+        $ret = array('', array());
     }
+    if (isset($_POST['profile_url'])) {
+        $ret[1]['profile_url'] = attribute_escape($_POST['profile_url']);
+    } else if (isset($_GET['profile_url'])) {
+        $ret[1]['profile_url'] = attribute_escape($_GET['profile_url']);
+    }
+    return $ret;
 }
 
 function finish_subscription() {
@@ -248,29 +254,5 @@ function requestAuthorization($omb, $token, $secret) {
     # Redirect to authorization service
     wp_redirect($req->to_url());
     return;
-}
-
-function mnw_subscribe_form($errormsg = '') {
-    if (isset($_POST['profile_url'])) {
-        $preload = attribute_escape($_POST['profile_url']);
-    } else if (isset($_GET['profile_url'])) {
-        $preload = attribute_escape($_GET['profile_url']);
-    } else {
-        $preload = '';
-    }
-
-    global $wp_query;
-    $action = attribute_escape(mnw_append_param($wp_query->queried_object->guid, MNW_ACTION, 'subscribe') . '&' . MNW_SUBSCRIBE_ACTION . '=continue');
-
-    if ($errormsg != '') {
-        echo "<p>ERROR: $errormsg</p>";
-    }
-?>
-    <form id='omb-subscribe' method='post' action='<?php echo $action; ?>'>
-        <label for="profile_url">OMB Profile URL</label>
-        <input name="profile_url" type="text" class="input_text" id="profile_url" value='<?php echo $preload; ?>'/>
-        <input type="submit" id="submit" name="submit" class="submit" value="Subscribe"/>
-    </form>
-<?php
 }
 ?>
