@@ -14,11 +14,16 @@ add a page based on the template
 0.1 should be able to send messages on new blog posts
 1.0 should be able to send (arbitrary and on blog post) & receive (probably direct responses) messages. Display of them in widgets. Clean code.
 Check all the (micro) formats which could be necessary
-Additional features could be multiuser support
+Additional features could be
+- multiuser support
+- configure post/page/comment broadcasting on a per-post/page base and in general
+- customize notice format for post/page/comment notices
+- url shortening! text shortening!
 
 == Bugs ==
 Push avatar
 Subscribe page URL should be retrieved dynamically
+omb service target links should use a smoother regexp
 Delete users which are not subscribed anymore
 Target after successful subscription should be chosen by user
 User settings should be validated

@@ -65,10 +65,10 @@ function mnw_upd_settings() {
     if ($result->status == 403) { # not authorized, don't send again
     //    $subscription->delete();
     }
-// if ($result->status != 200) {
+ if ($result->status != 200) {
 print_r($req);
 print_r($result);
-// }
+ }
 }
 }
 
