@@ -113,7 +113,7 @@ function mnw_parse_request() {
             return finish_subscription();
         }
     } else {
-        return array(true, '');
+        return array('', array());
     }
 }
 
@@ -122,12 +122,12 @@ function finish_subscription() {
     common_ensure_session();
     $omb = $_SESSION['oauth_authorization_request'];
     if (!$omb) {
-        return array(true, 'No session found.');
+        return array('subscribe', array('error' => 'No session found.'));
     }
     $req = OAuthRequest::from_request();
     $token = $req->get_parameter('oauth_token');
     if ($token != $omb['token']) {
-        return array(true, 'Not authorized.');
+        return array('subscribe', array('error' => 'Not authorized.'));
     }
     list($newtok, $newsecret) = access_token($omb);
 
@@ -142,40 +142,40 @@ function finish_subscription() {
     }
     $results = $wpdb->query($query);
     if ($results == 0) {
-        return array(true, "Error storing subscriber in local database");
+        return array('subscribe', array('error' => 'Error storing subscriber in local database'));
     }
     wp_redirect(get_bloginfo('url'));
-    return array(false, '');
+    return array(false, array());
 }
 
 function continue_subscription() {
     if (!isset($_POST['profile_url'])) {
-        return array(true, 'No remote profile submitted.');
+        return array('subscribe', array('error' => 'No remote profile submitted.'));
     }
     $target = $_POST['profile_url'];
     if (!Validate::uri($target, array('allowed_schemes' => array('http', 'https')))) {
-        return array(true, 'Invalid profile URL.');
+        return array('subscribe', array('error' => 'Invalid profile URL.'));
     }
     $fetcher = Auth_Yadis_Yadis::getHTTPFetcher(20);
     $yadis = Auth_Yadis_Yadis::discover($target, $fetcher);
     if (!$yadis || $yadis->failed) {
-        return array(true, 'Invalid profile URL (no YADIS document).');
+        return array('subscribe', array('error' => 'Invalid profile URL (no YADIS document).'));
     }
     # XXX: a little liberal for sites that accidentally put whitespace before the xml declaration
     $xrds = & Auth_Yadis_XRDS::parseXRDS(trim($yadis->response_text));
     if (!$xrds) {
-        return array(true, 'Invalid profile URL (no XRDS defined).');
+        return array('subscribe', array('error' => 'Invalid profile URL (no XRDS defined).'));
     }
     $omb = getOmb($xrds);
     if (!$omb) {
-        return array(true, 'Not a valid profile URL (incorrect services).');
+        return array('subscribe', array('error' => 'Not a valid profile URL (incorrect services).'));
     }
     list($token, $secret) = requestToken($omb);
     if (!$token || !$secret) {
-        return array(true, 'Couldn\'t get a request token.');
+        return array('subscribe', array('error' => 'Couldn\'t get a request token.'));
     }
     requestAuthorization($omb, $token, $secret);
-    return array(false, '');
+    return array(false, array());
 }
 function access_token($omb) {
     $con = omb_oauth_consumer();
