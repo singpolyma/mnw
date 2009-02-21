@@ -19,6 +19,7 @@ Additional features could be
 - configure post/page/comment broadcasting on a per-post/page base and in general
 - customize notice format for post/page/comment notices
 - url shortening! text shortening!
+- add user setting to exclude subscribe page from all_pages
 
 == Bugs ==
 Push avatar
@@ -27,3 +28,5 @@ omb service target links should use a smoother regexp
 Delete users which are not subscribed anymore
 Target after successful subscription should be chosen by user
 User settings should be validated
+Use better default omb_bio
+Use user-agent
