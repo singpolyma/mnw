@@ -22,11 +22,8 @@ Additional features could be
 - add user setting to exclude subscribe page from all_pages
 
 == Bugs ==
-Push avatar
-Subscribe page URL should be retrieved dynamically
 omb service target links should use a smoother regexp
-Delete users which are not subscribed anymore
 Target after successful subscription should be chosen by user
 User settings should be validated
 Use better default omb_bio
-Use user-agent
+Push only once to every service url (postNotice, updateProfile)

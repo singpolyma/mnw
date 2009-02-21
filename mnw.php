@@ -12,6 +12,8 @@ set_include_path(get_include_path() . PATH_SEPARATOR . ABSPATH . 'wp-content/plu
 define('MNW_SUBSCRIBER_TABLE', $wpdb->prefix . 'mnw_subscribers');
 define('MNW_ACTION', 'mnw_action');
 
+require_once ('lib.php');
+
 require_once ('admin_menu.php');
 
 /*
@@ -62,41 +64,27 @@ function mnw_publish_post($post) {
     // Get all subscribers.
     $select = "SELECT url, token, secret FROM " . MNW_SUBSCRIBER_TABLE;
     $result = $wpdb->get_results($select, ARRAY_A);
-    foreach($result as $subscriber) {
-        $target = $subscriber['url'];
-        if (!Validate::uri($target, array('allowed_schemes' => array('http', 'https')))) {
-            continue;
-        }
-        $fetcher = Auth_Yadis_Yadis::getHTTPFetcher(20);
-        $yadis = Auth_Yadis_Yadis::discover($target, $fetcher);
-        if (!$yadis || $yadis->failed) {
-            continue;
-        }
-        if (preg_match('/<Service>\s*<URI>([^<]+)<\/URI>\s*<Type>http:\/\/openmicroblogging.org\/protocol\/0.1\/postNotice<\/Type>\s*<\/Service>/', $yadis->response_text, $matches) == 0) {
-            continue;
-        }
-        $con = omb_oauth_consumer();
-        $token = new OAuthToken($subscriber['token'], $subscriber['secret']);
-        $url = $matches[1];
-        $parsed = parse_url($url);
-        $params = array();
-        parse_str($parsed['query'], $params);
-        $req = OAuthRequest::from_consumer_and_token($con, $token, "POST", $url, $params);
-        $req->set_parameter('omb_version', OMB_VERSION_01);
-        $req->set_parameter('omb_listenee', get_bloginfo('url'));
-        $req->set_parameter('omb_notice', get_permalink($post->ID));
-        $req->set_parameter('omb_notice_content', '„' . $post->post_title . '“ see ' . get_permalink($post->ID));
-        $req->sign_request(omb_hmac_sha1(), $con, $token);
-        # We re-use this tool's fetcher, since it's pretty good
-        $fetcher = Auth_Yadis_Yadis::getHTTPFetcher();
-        $result = $fetcher->post($req->get_normalized_http_url(), $req->to_postdata(), array( /*'User-Agent' => 'mnw/1.0'*/));
 
-        if ($result->status == 403) { # not authorized, don't send again
-            //    $subscription->delete();
-            
-        } else if ($result->status != 200) {
-            print_r($req);
-            print_r($result);
+    if ($result == 0) {
+        return;
+    }
+
+    $omb_params = array(
+                    'omb_listenee' => get_bloginfo('url'),
+                    'omb_notice' => get_permalink($post->ID),
+                    'omb_notice_content' => '„' . $post->post_title . '“ see ' . get_permalink($post->ID));
+
+    foreach($result as $subscriber) {
+        try {
+            $result = perform_omb_action($subscriber['url'], 'http://openmicroblogging.org/protocol/0.1/postNotice', $subscriber['token'], $subscriber['secret'], $omb_params);
+            if ($result->status == 403) { # not authorized, don't send again
+                throw new PermanentError('Remote user is not subscribed anymore.'); 
+            } else if ($result->status != 200) {
+                print_r($req);
+                print_r($result);
+            }
+        } catch (PermanentError $e) {
+            delete_subscription($subscriber['url']);
         }
     }
 }
@@ -339,7 +327,8 @@ function requestAuthorization($omb, $token, $secret) {
         $req->set_parameter('omb_listenee_avatar', $avatar);
     }
     # XXX: add a nonce to prevent replay attacks
-    $req->set_parameter('oauth_callback',  mnw_append_param($wp_query->queried_object->guid, MNW_ACTION, 'finish'));
+    global $wp_query;
+    $req->set_parameter('oauth_callback',  mnw_append_param($wp_query->post->guid, MNW_ACTION, 'finish'));
     # XXX: test to see if endpoint accepts this signature method
     $req->sign_request(omb_hmac_sha1(), $con, $tok);
     # store all our info here
@@ -369,13 +358,23 @@ function mnw_append_param($url, $name, $val) {
 }
 
 
-function mnw_subscribe_form($errormsg = '', $preload = '') {
+function mnw_subscribe_form($errormsg = '') {
+    if (isset($_POST['profile_url'])) {
+        $preload = attribute_escape($_POST['profile_url']);
+    } else if (isset($_GET['profile_url'])) {
+        $preload = attribute_escape($_GET['profile_url']);
+    } else {
+        $preload = '';
+    }
+
+    global $wp_query;
+    $action = attribute_escape(mnw_append_param($wp_query->queried_object->guid, MNW_ACTION, 'continue'));
+
     if ($errormsg != '') {
         echo "<p>ERROR: $errormsg</p>";
     }
-    global $wp_query;
 ?>
-    <form id='omb-subscribe' method='post' action='<?php echo mnw_append_param($wp_query->queried_object->guid, MNW_ACTION, 'continue'); ?>'>
+    <form id='omb-subscribe' method='post' action='<?php echo $action; ?>'>
         <label for="profile_url">OMB Profile URL</label>
         <input name="profile_url" type="text" class="input_text" id="profile_url" value='<?php echo $preload; ?>'/>
         <input type="submit" id="submit" name="submit" class="submit" value="Subscribe"/>
