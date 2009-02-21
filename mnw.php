@@ -40,61 +40,7 @@ function mnw_install () {
 }
 
 function mnw_publish_post ($post) {
-    // Get all subscribers.
-    global $wpdb;
-
-    $select = "SELECT url, token, secret FROM " . MNW_SUBSCRIBER_TABLE;
-    $result = $wpdb->get_results($select, ARRAY_A);
-    if ($result == 0) {
-        return;
-    }
-
-    foreach ($result as $subscriber) {
-    $target = $subscriber['url'];
-    if (!Validate::uri($target, array('allowed_schemes' => array('http', 'https')))) {
-        continue;
-    }
-
-    $fetcher = Auth_Yadis_Yadis::getHTTPFetcher(20);
-    $yadis = Auth_Yadis_Yadis::discover($target, $fetcher);
-
-    if (!$yadis || $yadis->failed) {
-        continue;
-    }
-    if (preg_match('/<Service>\s*<URI>([^<]+)<\/URI>\s*<Type>http:\/\/openmicroblogging.org\/protocol\/0.1\/postNotice<\/Type>\s*<\/Service>/',$yadis->response_text, $matches) == 0) {
-        continue;
-    }
-        $con = omb_oauth_consumer();
-        $token = new OAuthToken($subscriber['token'], $subscriber['secret']);
-        $url = $matches[1];
-    $parsed = parse_url($url);
-    $params = array();
-    parse_str($parsed['query'], $params);
-    $req = OAuthRequest::from_consumer_and_token($con, $token,
-                                                 "POST", $url, $params);
-
-       $req->set_parameter('omb_version', OMB_VERSION_01);
-        $req->set_parameter('omb_listenee', get_bloginfo('url'));
-        $req->set_parameter('omb_notice', get_permalink($post->ID));
-        $req->set_parameter('omb_notice_content', '„' . $post->post_title . '“ see ' . get_permalink($post->ID));
-    $req->sign_request(omb_hmac_sha1(), $con, $token);
-
-    # We re-use this tool's fetcher, since it's pretty good
-
-    $fetcher = Auth_Yadis_Yadis::getHTTPFetcher();
-
-    $result = $fetcher->post($req->get_normalized_http_url(),
-                             $req->to_postdata(),
-                             array(/*'User-Agent' => 'mnw/1.0'*/));
-
-    if ($result->status == 403) { # not authorized, don't send again
-    //    $subscription->delete();
-    }
- if ($result->status != 200) {
-print_r($req);
-print_r($result);
- }
-}
+    
 }
 
 function common_root_url() {
