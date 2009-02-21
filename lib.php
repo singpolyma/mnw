@@ -40,4 +40,27 @@ function perform_omb_action($yadis_url, $omb_action, $token, $secret, $omb_param
 
 class PermanentError extends Exception {
 }
+
+function common_root_url() {
+    return get_bloginfo('url');
+}
+function common_have_session() {
+    return (0 != strcmp(session_id(), ''));
+}
+function common_ensure_session() {
+    if (!common_have_session()) {
+        @session_start();
+    }
+}
+
+function mnw_append_param($url, $name, $val) {
+    $newurl = $url;
+    if (strrpos($newurl, '?') === false) {
+        $newurl .= '?';
+    } else {
+        $newurl .= '&';
+    }
+    return $newurl . $name . '=' . $val;
+}
+
 ?>
