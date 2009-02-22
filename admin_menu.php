@@ -75,12 +75,12 @@ function mnw_admin_options() {
         <h3>OMB profile</h3>
         <table class="form-table">
             <tr valign="top">
-                <th scope="row">Full name</th>
-                <td><input type="text" name="omb_full_name" value="<?php echo get_option('omb_full_name'); ?>" /></td>
+                <th scope="row">Nickname. Should not be changed often.</th>
+                <td><input type="text" name="omb_nickname" value="<?php echo get_option('omb_nickname'); ?>" /></td>
             </tr>
             <tr valign="top">
-                <th scope="row">Nickname</th>
-                <td><input type="text" name="omb_nickname" value="<?php echo get_option('omb_nickname'); ?>" /></td>
+                <th scope="row">Full name</th>
+                <td><input type="text" name="omb_full_name" value="<?php echo get_option('omb_full_name'); ?>" /></td>
             </tr>
             <tr valign="top">
                 <th scope="row">Bio</th>
@@ -106,6 +106,10 @@ function mnw_admin_options() {
                 <td><input type="text" name="mnw_themepage_url" value="<?php echo get_option('mnw_themepage_url'); ?>" /></td>
             </tr>
             <tr valign="top">
+                <th scope="row">Redirect target after successful subscription.</th>
+                <td><input type="text" name="mnw_after_subscribe" value="<?php echo get_option('mnw_after_subscribe'); ?>" /></td>
+            </tr>
+            <tr valign="top">
                 <th scope="row">
                     Template used to generate microblog posts on blog post or page publication.<br />
                     You may use the following placeholders:<br />
@@ -129,7 +133,7 @@ function mnw_admin_options() {
             </tr>
         </table>
         <input type="hidden" name="action" value="update" />
-        <input type="hidden" name="page_options" value="<?php echo join(",", $mnw_options); ?>, mnw_themepage_url, mnw_post_template, mnw_on_post, mnw_on_page, mnw_on_attachment" />
+        <input type="hidden" name="page_options" value="<?php echo join(",", $mnw_options); ?>, mnw_after_subscribe, mnw_themepage_url, mnw_post_template, mnw_on_post, mnw_on_page, mnw_on_attachment" />
         <p class="submit">
             <input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
         </p>

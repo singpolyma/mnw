@@ -89,7 +89,7 @@ function finish_subscription() {
     if ($results == 0) {
         return array('subscribe', array('error' => 'Error storing subscriber in local database'));
     }
-    wp_redirect(get_bloginfo('url'));
+    wp_redirect(get_option('mnw_after_subscribe'));
     return array(false, array());
 }
 

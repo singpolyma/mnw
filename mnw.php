@@ -57,6 +57,7 @@ add_action('future_to_publish', 'mnw_publish_post');
 add_action('new_to_publish', 'mnw_publish_post');
 add_action('draft_to_publish', 'mnw_publish_post');
 
+if(!function_exists('mnw_publish_post')) {
 function mnw_publish_post($post) {
     if (($post->post_type == 'post' && get_option('mnw_on_post')) ||
         ($post->post_type == 'page' && get_option('mnw_on_page')) ||
@@ -85,5 +86,6 @@ function mnw_parse_request() {
     } else {
         return array('', array());
     }
+}
 }
 ?>
