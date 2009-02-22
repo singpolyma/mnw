@@ -1,0 +1,35 @@
+mnw is a wordpress plugin which adds openmicroblogging support to wordpress.
+
+== Installation ==
+- Copy the plugin to your wordpress‘ plugin directory.
+- Copy one of the themepage.LANG.php files as mnw.php to the directory of your current theme.
+- Adjust the mnw.php to fit to your theme (archives.php is a good start to see how your theme looks like on costum pages).
+- Create a new page in wordpress. This page is the main frontend of your OMB instance. Give it a sensible name,
+   keep the content empty and select 'mnw' as template.
+- Activate the plugin.
+- Configure the plugin in the settings admin menu.
+
+== Current features ==
+mnw gives users of an OMB service the possibility to subscribe to your blog directly.
+Your blog will automatically send OMB notices to subscribers when you publish a new post, page or attachment (configurable).
+
+== Versions ==
+0.1 First public release. Complete profile settings, profile updating through omb, consistent frontend, notice sending on publish.
+
+== Milestones, future features ==
+1.0 should be able to send (arbitrary and on blog post) & receive (probably direct responses) messages. Display of them in widgets. Clean code.
+
+Check all the (micro) formats which could be necessary
+Additional features could be
+- multiuser support
+- configure post/page/comment broadcasting on a per-post/page base
+- notice for new comments
+- url shortening!
+- add user setting to exclude microblog page from all_pages
+- allow tags display in post template
+
+== Bugs ==
+Use better regexp for omb service target links retrieval
+Validate user settings
+Use better default for omb_bio
+Push only once to every service url (postNotice, updateProfile)
