@@ -65,4 +65,41 @@ function mnw_append_param($url, $name, $val) {
     return $newurl . $name . '=' . $val;
 }
 
+function mnw_send_notice($content, $uri) {
+    /* Insert notice into MNW_NOTICES_TABLE. */
+    $insert = 'INSERT INTO ' . MNW_NOTICES_TABLE . " (uri, content, created) VALUES ('$uri', '$content', '" . common_sql_now() . "')";
+    $result = $wpdb->query($insert);
+
+    if ($result == 0) {
+        return;
+    }
+
+    // Get all subscribers.
+    $select = "SELECT url, token, secret FROM " . MNW_SUBSCRIBER_TABLE;
+    $result = $wpdb->get_results($select, ARRAY_A);
+
+    if ($result == 0) {
+        return;
+    }
+
+    $omb_params = array(
+                    'omb_listenee' => get_bloginfo('url'),
+                    'omb_notice' => mnw_append_param(get_option('mnw_themepage_url'), MNW_ACTION, 'get_notice') . '&mnw_notice_id=' . $wpdb->insert_id,
+                    'omb_notice_content' => $content);
+
+    foreach($result as $subscriber) {
+        try {
+            $result = perform_omb_action($subscriber['url'], 'http://openmicroblogging.org/protocol/0.1/postNotice', $subscriber['token'], $subscriber['secret'], $omb_params);
+            if ($result->status == 403) { # not authorized, don't send again
+                delete_subscription($subscriber['url']);
+            } else if ($result->status != 200) {
+                print_r($req);
+                print_r($result);
+            }
+        } catch (Exception $e) {
+            continue;
+        }
+    }
+}
+
 ?>

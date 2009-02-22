@@ -19,7 +19,7 @@ Check all the (micro) formats which could be necessary
 Additional features could be
 - multiuser support
 - configure post/page/comment broadcasting on a per-post/page base and by type
-- customize notice format for post/page/comment notices
+- notice for new comments
 - url shortening! text shortening!
 - add user setting to exclude microblog page from all_pages
 - i18n
