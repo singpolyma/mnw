@@ -67,7 +67,8 @@ function mnw_install() {
                 'omb_bio'           => get_bloginfo('name'),
                 'mnw_themepage_url' => $wpdb->get_var('SELECT p.guid FROM ' . $wpdb->prefix . 'postmeta m ' .
                                                         'LEFT JOIN ' . $wpdb->prefix . 'posts p ON m.post_id = p.ID ' . 
-                                                        'WHERE m.meta_key = "_wp_page_template" AND m.meta_value = "mnw.php"'));
+                                                        'WHERE m.meta_key = "_wp_page_template" AND m.meta_value = "mnw.php"'),
+               'mnw_post_template'  => '„%t“ (see %u)');
 
     foreach($options as $key => $value) {
         add_option($key, $value);
@@ -86,7 +87,7 @@ function mnw_publish_post($post) {
     global $wpdb;
 
     $uri = get_permalink($post->ID);
-    $content = $wpdb->escape('„' . $post->post_title . '“ see ' . get_permalink($post->ID));
+    $content = $wpdb->escape(preg_replace(array('/%t/', '/%u/'), array ($post->post_title, get_permalink($post->ID)), get_option('mnw_post_template')));
 
     /* Insert notice into MNW_NOTICES_TABLE. */
     $insert = 'INSERT INTO ' . MNW_NOTICES_TABLE . " (uri, content, created) VALUES ('$uri', '$content', '" . common_sql_now() . "')";

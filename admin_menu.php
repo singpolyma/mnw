@@ -80,8 +80,19 @@ function mnw_admin_options() {
                 <td><input type="text" name="omb_license" value="<?php echo get_option('omb_license'); ?>" /></td>
             </tr>
         </table>
+        <h3>General mnw settings</h3>
+        <table class="form-table">
+            <tr valign="top">
+                <th scope="row">URL of a wordpress page which uses mnw.php as template. All public URLs are based on this URL; you should never change it.</th>
+                <td><input type="text" name="mnw_themepage_url" value="<?php echo get_option('mnw_themepage_url'); ?>" /></td>
+            </tr>
+            <tr valign="top">
+                <th scope="row">Template used to generate microblog posts on blog post. %t is the title of the post and %u the post url</th>
+                <td><input type="text" name="mnw_post_template" value="<?php echo get_option('mnw_post_template'); ?>" /></td>
+            </tr>
+        </table>
         <input type="hidden" name="action" value="update" />
-        <input type="hidden" name="page_options" value="<?php echo join(",", $mnw_options); ?>" />
+        <input type="hidden" name="page_options" value="<?php echo join(",", $mnw_options); ?>, mnw_themepage_url, mnw_post_template" />
         <p class="submit">
             <input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
         </p>
