@@ -16,6 +16,9 @@ msgstr ""
 "Language-Team: German\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "OpenMicroBlogging compatible Microblogging for Wordpress"
+msgstr "OpenMicroBlogging-kompatibles Mikroblogging für Wordpress"
+
 #: admin_menu.php:75
 msgid "OMB profile"
 msgstr "OMB-Profil"

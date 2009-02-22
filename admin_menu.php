@@ -137,6 +137,13 @@ function mnw_admin_options() {
                 <th scope="row"><?php _e('Send a microblog notice when an attachment is published', 'mnw'); ?></th>
                 <td><input type="checkbox" name="mnw_on_attachment" <?php if (get_option('mnw_on_attachment')) echo 'checked="checked"'; ?> /></td>
             </tr>
+<!--            <tr valign="top">
+                <th scope="row"><?php _e('Mirror subscription', 'mnw'); ?></th>
+                <td>
+                    <input type="checkbox" name="mnw_mirror_subscription" <?php if (get_option('mnw_mirror_subscription')) echo 'checked="checked"'; ?> /><br />
+                    <?php _e('Automatically subscribe to a subscriber, automatically unsubscribe if the other user unsubscribes.', 'mnw'); ?>
+                </td>
+            </tr>-->
         </table>
         <input type="hidden" name="action" value="update" />
         <input type="hidden" name="page_options" value="<?php echo join(",", $mnw_options); ?>, mnw_after_subscribe, mnw_themepage_url, mnw_post_template, mnw_on_post, mnw_on_page, mnw_on_attachment" />

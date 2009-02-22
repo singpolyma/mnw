@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: mupress not wordless
+Plugin Name: mnw
 Plugin URI: adrianlang.de/mnw
 Description: OpenMicroBlogging compatible Microblogging for Wordpress
 Version: 0.1
