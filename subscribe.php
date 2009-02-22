@@ -1,8 +1,6 @@
 <?php
 require_once ('lib.php');
 
-define('MNW_SUBSCRIBE_ACTION', 'mnw_subscribe_action');
-
 require_once ('Validate.php');
 require_once ('Auth/Yadis/Yadis.php');
 require_once ('omb.php');
@@ -237,7 +235,7 @@ function requestAuthorization($omb, $token, $secret) {
     }
     # XXX: add a nonce to prevent replay attacks
     global $wp_query;
-    $req->set_parameter('oauth_callback',  mnw_append_param($wp_query->post->guid, MNW_ACTION, 'subscribe') . '&' . MNW_SUBSCRIBE_ACTION . '=finish');
+    $req->set_parameter('oauth_callback',  mnw_append_param(get_option('mnw_themepage_url'), MNW_ACTION, 'subscribe') . '&' . MNW_SUBSCRIBE_ACTION . '=finish');
     # XXX: test to see if endpoint accepts this signature method
     $req->sign_request(omb_hmac_sha1(), $con, $tok);
     # store all our info here

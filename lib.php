@@ -8,10 +8,10 @@ function discover_yadis_service($url, $service) {
     $fetcher = Auth_Yadis_Yadis::getHTTPFetcher(20);
     $yadis = Auth_Yadis_Yadis::discover($url, $fetcher);
     if (!$yadis || $yadis->failed) {
-        throw new PermanentError('Yadis discovery failed.');
+        throw new Exception('Yadis discovery failed.');
     }
     if (preg_match('/<Service>\s*<URI>([^<]+)<\/URI>\s*<Type>' . preg_quote($service, '/') . '<\/Type>\s*<\/Service>/', $yadis->response_text, $matches) == 0) {
-        throw new PermanentError('Requested service not available.');
+        throw new Exception('Requested service not available.');
     }
     return $matches[1];
 }
@@ -38,7 +38,9 @@ function perform_omb_action($yadis_url, $omb_action, $token, $secret, $omb_param
         return $fetcher->post($req->get_normalized_http_url(), $req->to_postdata(), array('User-Agent: mnw/1.0'));
 }
 
-class PermanentError extends Exception {
+function common_sql_now()
+{
+    return strftime('%Y-%m-%d %H:%M:%S', time());
 }
 
 function common_root_url() {

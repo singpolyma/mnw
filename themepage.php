@@ -27,7 +27,7 @@ if ($continue !== false) {
     case 'subscribe':
         /* Gather data for subscribe form. */
         global $wp_query;
-        $action = attribute_escape(mnw_append_param($wp_query->queried_object->guid, MNW_ACTION, 'subscribe') . '&' . MNW_SUBSCRIBE_ACTION . '=continue');
+        $action = attribute_escape(mnw_append_param(get_option('mnw_themepage_url'), MNW_ACTION, 'subscribe') . '&' . MNW_SUBSCRIBE_ACTION . '=continue');
 
         /* Start displaying the form. */
 ?>

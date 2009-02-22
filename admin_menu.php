@@ -31,12 +31,10 @@ function mnw_upd_settings() {
         try {
             $result = perform_omb_action($subscriber['url'], 'http://openmicroblogging.org/protocol/0.1/updateProfile', $subscriber['token'], $subscriber['secret'], $omb_params);
             if ($result->status == 403) { # not authorized, don't send again
-                throw new PermanentError('Remote user is not subscribed anymore.');
+                delete_subscription($subscriber['url']);
             } else if ($result->status != 200) {
                 print_r($result);
             }
-        } catch (PermanentError $e) {
-            delete_subscription($subscriber['url']);
         } catch (Exception $e) {
             continue;
         }

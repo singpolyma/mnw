@@ -18,7 +18,7 @@ add a page based on the template
 Check all the (micro) formats which could be necessary
 Additional features could be
 - multiuser support
-- configure post/page/comment broadcasting on a per-post/page base and in general
+- configure post/page/comment broadcasting on a per-post/page base and by type
 - customize notice format for post/page/comment notices
 - url shortening! text shortening!
 - add user setting to exclude microblog page from all_pages
