@@ -1,0 +1,1 @@
+xgettext --default-domain=mnw --keyword=__ --keyword=_e --from-code=UTF-8 *.php

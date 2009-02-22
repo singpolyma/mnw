@@ -1,0 +1,3 @@
+#!/bin/bash
+msgfmt $1.po 
+mv messages.mo mnw-$1.mo

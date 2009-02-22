@@ -6,6 +6,7 @@ Description: OpenMicroBlogging compatible Microblogging for Wordpress
 Version: 0.1
 Author: Adrian Lang
 Author URI: http://adrianlang.de
+Text Domain: mnw
 */
 
 /**
@@ -28,7 +29,9 @@ Author URI: http://adrianlang.de
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-set_include_path(get_include_path() . PATH_SEPARATOR . ABSPATH . 'wp-content/plugins/mnw/extlib');
+set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__) . '/extlib');
+$plugin_dir = basename(dirname(__FILE__));
+load_plugin_textdomain( 'mnw', '', $plugin_dir . '/languages/');
 
 global $wpdb;
 define('MNW_SUBSCRIBER_TABLE', $wpdb->prefix . 'mnw_subscribers');

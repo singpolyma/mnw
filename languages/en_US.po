@@ -1,0 +1,155 @@
+# mnw translation 
+# Copyright (C) 2008 Adrian Lang
+# This file is distributed under the same license as the mnw package.
+# Adrian Lang (mail@adrianlang.de), 2008
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-02-22 07:12+0100\n"
+"PO-Revision-Date: 2009-02-22 07:17+0100\n"
+"Last-Translator: root <mail@adrianlang.de>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language-Team: English\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: admin_menu.php:75
+msgid "OMB profile"
+msgstr "OMB profile"
+
+#: admin_menu.php:78
+msgid "Nickname (1-64 characters, only lowercase letters and digits)"
+msgstr "Nickname (1-64 characters, only lowercase letters and digits)"
+
+#: admin_menu.php:81
+msgid ""
+"The nickname is the name under which remote users will know you. You should "
+"consider thoroughly if you really want to change this setting."
+msgstr ""
+"The nickname is the name under which remote users will know you. You should "
+"consider thoroughly if you really want to change this setting."
+
+#: admin_menu.php:85
+msgid "Full name (up to 255 characters)"
+msgstr "Full name (up to 255 characters)"
+
+#: admin_menu.php:89
+msgid "Bio (less than 140 characters)"
+msgstr "Bio (less than 140 characters)"
+
+#: admin_menu.php:93
+msgid "Location (less than 255 characters)"
+msgstr "Location (less than 255 characters)"
+
+#: admin_menu.php:97
+msgid "Avatar URL"
+msgstr "Avatar URL"
+
+#: admin_menu.php:101
+msgid "License URL"
+msgstr "License URL"
+
+#: admin_menu.php:105
+msgid "General settings"
+msgstr "General settings"
+
+#: admin_menu.php:108
+msgid "Wordpress mnw page URL"
+msgstr "Wordpress mnw page URL"
+
+#: admin_menu.php:111
+msgid ""
+"URL of a wordpress page which uses mnw.php as template. All public URLs are "
+"based on this URL; you should never change it."
+msgstr ""
+"URL of a wordpress page which uses mnw.php as template. All public URLs are "
+"based on this URL; you should never change it."
+
+#: admin_menu.php:115
+msgid "Redirect target after successful subscription."
+msgstr "Redirect target after successful subscription."
+
+#: admin_menu.php:119
+msgid "Post template"
+msgstr "Post template"
+
+#: admin_menu.php:121
+msgid ""
+"Template used to generate microblog posts on blog post or page publication."
+"<br />\n"
+"                    You may use the following placeholders:<br />\n"
+"                    %t: title of the post or page<br />\n"
+"                    %u: url of the post or page<br />\n"
+"                    %e: excerpt of the post or page<br />\n"
+"                    %c: content of the post or page"
+msgstr ""
+"Template used to generate microblog posts on blog post or page publication."
+"<br />\n"
+"                    You may use the following placeholders:<br />\n"
+"                    %t: title of the post or page<br />\n"
+"                    %u: url of the post or page<br />\n"
+"                    %e: excerpt of the post or page<br />\n"
+"                    %c: content of the post or page"
+
+#: admin_menu.php:129
+msgid "Send a microblog notice when a post is published"
+msgstr "Send a microblog notice when a post is published"
+
+#: admin_menu.php:133
+msgid "Send a microblog notice when a page is published"
+msgstr "Send a microblog notice when a page is published"
+
+#: admin_menu.php:137
+msgid "Send a microblog notice when an attachment is published"
+msgstr "Send a microblog notice when an attachment is published"
+
+#: admin_menu.php:144
+msgid "Save Changes"
+msgstr "Save Changes"
+
+#: mnw_install.php:59
+msgid "Teh web"
+msgstr "Teh web"
+
+#: mnw_install.php:66
+msgid "“%t” (see %u)"
+msgstr "“%t” (see %u)"
+
+#: subscribe.php:70
+msgid "No session found."
+msgstr "No session found."
+
+#: subscribe.php:75
+msgid "Not authorized."
+msgstr "Not authorized."
+
+#: subscribe.php:90
+msgid "Error storing subscriber in local database."
+msgstr "Error storing subscriber in local database."
+
+#: subscribe.php:98
+msgid "No remote profile submitted."
+msgstr "No remote profile submitted."
+
+#: subscribe.php:102
+msgid "Invalid profile URL."
+msgstr "Invalid profile URL."
+
+#: subscribe.php:107
+msgid "Invalid profile URL (no YADIS document)."
+msgstr "Invalid profile URL (no YADIS document)."
+
+#: subscribe.php:112
+msgid "Invalid profile URL (no XRDS defined)."
+msgstr "Invalid profile URL (no XRDS defined)."
+
+#: subscribe.php:116
+msgid "Invalid profile URL (incorrect services)."
+msgstr "Invalid profile URL (incorrect services)."
+
+#: subscribe.php:120
+msgid "Couldn't get a request token."
+msgstr "Couldn't get a request token."

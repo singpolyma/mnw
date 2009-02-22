@@ -72,63 +72,69 @@ function mnw_admin_options() {
     <h2>mnw</h2>
     <form method="post" action="options.php">
         <?php wp_nonce_field('update-options'); ?>
-        <h3>OMB profile</h3>
+        <h3><?php _e('OMB profile', 'mnw'); ?></h3>
         <table class="form-table">
             <tr valign="top">
-                <th scope="row">Nickname. Should not be changed often.</th>
-                <td><input type="text" name="omb_nickname" value="<?php echo get_option('omb_nickname'); ?>" /></td>
+                <th scope="row"><?php _e('Nickname (1-64 characters, only lowercase letters and digits)', 'mnw'); ?></th>
+                <td>
+                    <input type="text" name="omb_nickname" value="<?php echo get_option('omb_nickname'); ?>" /><br />
+                    <?php _e('The nickname is the name under which remote users will know you. You should consider thoroughly if you really want to change this setting.', 'mnw'); ?>
+                </td>
             </tr>
             <tr valign="top">
-                <th scope="row">Full name</th>
-                <td><input type="text" name="omb_full_name" value="<?php echo get_option('omb_full_name'); ?>" /></td>
+                <th scope="row"><?php _e('Full name (up to 255 characters)', 'mnw'); ?></th>
+                <td><input type="text" class="regular-text" name="omb_full_name" value="<?php echo get_option('omb_full_name'); ?>" /></td>
             </tr>
             <tr valign="top">
-                <th scope="row">Bio</th>
+                <th scope="row"><?php _e('Bio (less than 140 characters)', 'mnw'); ?></th>
                 <td><textarea cols="40" rows="3" name="omb_bio"><?php echo get_option('omb_bio'); ?></textarea></td>
             </tr>
             <tr valign="top">
-                <th scope="row">Location</th>
-                <td><input type="text" name="omb_location" value="<?php echo get_option('omb_location'); ?>" /></td>
+                <th scope="row"><?php _e('Location (less than 255 characters)', 'mnw'); ?></th>
+                <td><input type="text" class="regular-text" name="omb_location" value="<?php echo get_option('omb_location'); ?>" /></td>
             </tr>
             <tr valign="top">
-                <th scope="row">Avatar URL</th>
-                <td><input type="text" name="omb_avatar" value="<?php echo get_option('omb_avatar'); ?>" /></td>
+                <th scope="row"><?php _e('Avatar URL', 'mnw'); ?></th>
+                <td><input type="text" class="regular-text" name="omb_avatar" value="<?php echo get_option('omb_avatar'); ?>" /></td>
             </tr>
             <tr valign="top">
-                <th scope="row">License URL</th>
-                <td><input type="text" name="omb_license" value="<?php echo get_option('omb_license'); ?>" /></td>
+                <th scope="row"><?php _e('License URL', 'mnw'); ?></th>
+                <td><input type="text" class="regular-text" name="omb_license" value="<?php echo get_option('omb_license'); ?>" /></td>
             </tr>
         </table>
-        <h3>General mnw settings</h3>
+        <h3><?php _e('General settings', 'mnw'); ?></h3>
         <table class="form-table">
             <tr valign="top">
-                <th scope="row">URL of a wordpress page which uses mnw.php as template. All public URLs are based on this URL; you should never change it.</th>
-                <td><input type="text" name="mnw_themepage_url" value="<?php echo get_option('mnw_themepage_url'); ?>" /></td>
+                <th scope="row"><?php _e('Wordpress mnw page URL', 'mnw'); ?></th>
+                <td>
+                    <input type="text" class="regular-text" name="mnw_themepage_url" value="<?php echo get_option('mnw_themepage_url'); ?>" /><br />
+                    <?php _e('URL of a wordpress page which uses mnw.php as template. All public URLs are based on this URL; you should never change it.', 'mnw'); ?>
+                </td>
             </tr>
             <tr valign="top">
-                <th scope="row">Redirect target after successful subscription.</th>
-                <td><input type="text" name="mnw_after_subscribe" value="<?php echo get_option('mnw_after_subscribe'); ?>" /></td>
+                <th scope="row"><?php _e('Redirect target after successful subscription.', 'mnw'); ?></th>
+                <td><input type="text" class="regular-text" name="mnw_after_subscribe" value="<?php echo get_option('mnw_after_subscribe'); ?>" /></td>
             </tr>
             <tr valign="top">
-                <th scope="row">
-                    Template used to generate microblog posts on blog post or page publication.<br />
+                <th scope="row"><?php _e('Post template', 'mnw'); ?></th>
+                <td><input type="text" class="regular-text" name="mnw_post_template" value="<?php echo get_option('mnw_post_template'); ?>" /><br />
+                    <?php _e('Template used to generate microblog posts on blog post or page publication.<br />
                     You may use the following placeholders:<br />
                     %t: title of the post or page<br />
                     %u: url of the post or page<br />
                     %e: excerpt of the post or page<br />
-                    %c: content of the post or page</th>
-                <td><input type="text" name="mnw_post_template" value="<?php echo get_option('mnw_post_template'); ?>" /></td>
+                    %c: content of the post or page', 'mnw'); ?></td>
             </tr>
             <tr valign="top">
-                <th scope="row">Send a microblog notice when a post is published</th>
+                <th scope="row"><?php _e('Send a microblog notice when a post is published', 'mnw'); ?></th>
                 <td><input type="checkbox" name="mnw_on_post" <?php if (get_option('mnw_on_post')) echo 'checked="checked"'; ?> /></td>
             </tr>
             <tr valign="top">
-                <th scope="row">Send a microblog notice when a page is published</th>
+                <th scope="row"><?php _e('Send a microblog notice when a page is published', 'mnw'); ?></th>
                 <td><input type="checkbox" name="mnw_on_page" <?php if (get_option('mnw_on_page')) echo 'checked="checked"'; ?> /></td>
             </tr>
             <tr valign="top">
-                <th scope="row">Send a microblog notice when an attachment is published</th>
+                <th scope="row"><?php _e('Send a microblog notice when an attachment is published', 'mnw'); ?></th>
                 <td><input type="checkbox" name="mnw_on_attachment" <?php if (get_option('mnw_on_attachment')) echo 'checked="checked"'; ?> /></td>
             </tr>
         </table>

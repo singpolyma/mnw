@@ -56,14 +56,14 @@ function mnw_install() {
                 'omb_full_name'       => get_bloginfo('name'),
                 'omb_nickname'        => preg_replace('/[^A-Za-z0-9_\-\.]/', '', strtolower(get_bloginfo('name'))),
                 'omb_license'         => 'http://creativecommons.org/licenses/by/3.0/',
-                'omb_location'        => 'Teh web', // sic
+                'omb_location'        => __('Teh web', 'mnw'), // sic
                 'omb_avatar'          => '',
                 'omb_bio'             => get_bloginfo('name'),
                 'mnw_themepage_url'   => $wpdb->get_var('SELECT p.guid FROM ' . $wpdb->prefix . 'postmeta m ' .
                                                         'LEFT JOIN ' . $wpdb->prefix . 'posts p ON m.post_id = p.ID ' .
                                                         'WHERE m.meta_key = "_wp_page_template" AND m.meta_value = "mnw.php"'),
                 'mnw_after_subscribe' => get_bloginfo('url'),
-                'mnw_post_template'   => '„%t“ (see %u)',
+                'mnw_post_template'   => __('“%t” (see %u)', 'mnw'),
                 'mnw_on_post'         => true,
                 'mnw_on_page'         => false,
                 'mnw_on_attachment'   => false);

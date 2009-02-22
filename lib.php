@@ -72,7 +72,7 @@ function perform_omb_action($yadis_url, $omb_action, $token, $secret, $omb_param
         $req->sign_request(omb_hmac_sha1(), $con, $token);
         # We re-use this tool's fetcher, since it's pretty good
         $fetcher = Auth_Yadis_Yadis::getHTTPFetcher();
-        return $fetcher->post($req->get_normalized_http_url(), $req->to_postdata(), array('User-Agent: mnw/1.0'));
+        return $fetcher->post($req->get_normalized_http_url(), $req->to_postdata(), array('User-Agent: mnw/0.1'));
 }
 
 function common_sql_now()

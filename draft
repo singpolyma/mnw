@@ -22,12 +22,10 @@ Additional features could be
 - notice for new comments
 - url shortening!
 - add user setting to exclude microblog page from all_pages
-- i18n
 - allow tags display in post template
 
 == Bugs ==
 omb service target links should use a smoother regexp
-Target after successful subscription should be chosen by user
 User settings should be validated
 Use better default omb_bio
 Push only once to every service url (postNotice, updateProfile)
