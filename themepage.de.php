@@ -23,6 +23,9 @@ if ($continue !== false) {
             <?php bloginfo('name'); ?> unterstützt den <a href="//openmicroblogging.org" title="Offizielle Website des OpenMicroBlogging-Standards">OpenMicroBlogging</a>-Standard.
             Wenn du einen Account bei einem anderen OMB-Dienst wie <a href="//identi.ca" title="identi.ca, der größte offene Mikroblogging-Dienst">identi.ca</a> hast, kannst du <?php bloginfo('name'); ?> besonders einfach abonnieren.
         </p>
+        <p>
+            <?php bloginfo('name'); ?> verwendet das freie Plugin <a href="//adrianlang.de/mnw" title="mnw-Website">mnw</a> für OMB-Unterstützung.
+        </p>
 <?php
     case 'subscribe':
         /* Gather data for subscribe form. */
@@ -35,7 +38,7 @@ if ($continue !== false) {
         <p>
             Gib die URL deines Profils bei einem OMB-Dienst an, um <?php bloginfo('name'); ?> zu abonnieren.
             Du wirst gebeten, dich einzuloggen, wenn du es noch nicht bist.
-            Danach zeigt eine Bestätigungsseite Details von  <?php bloginfo('name'); ?> an.
+            Danach zeigt eine Bestätigungsseite Details von <?php bloginfo('name'); ?> an.
         </p>
 <?php   if (isset($data['error'])) { ?>
             <p>Error: <?php echo $data['error'];?></p>

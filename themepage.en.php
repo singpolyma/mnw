@@ -23,6 +23,9 @@ if ($continue !== false) {
             <?php bloginfo('name'); ?> supports the <a href="//openmicroblogging.org" title="Official website of the OpenMicroBlogging standard">OpenMicroBlogging</a> standard.
             So, if you have an user account at another OMB service like <a href="//identi.ca" title="identi.ca, the largest open microblogging service">identi.ca</a>, you can easily subscribe to <?php bloginfo('name'); ?>.
         </p>
+        <p>
+            <?php bloginfo('name'); ?> uses the free plugin <a href="//adrianlang.de/mnw" title="mnw Website">mnw</a> for OMB support.
+        </p>
 <?php
     case 'subscribe':
         /* Gather data for subscribe form. */
