@@ -24,11 +24,11 @@ require_once ('lib.php');
  */
 register_activation_hook(__FILE__, 'mnw_install');
 
-require_once ('mwn_install.php');
+require_once ('mnw_install.php');
 require_once ('admin_menu.php');
 require_once ('subscribe.php');
 require_once ('get_notice.php');
-
+require_once ('Notice.php');
 /*
  * Publish notice on post/page publication.
  */
@@ -38,11 +38,11 @@ add_action('new_to_publish', 'mnw_publish_post');
 add_action('draft_to_publish', 'mnw_publish_post');
 
 function mnw_publish_post($post) {
-    global $wpdb;
+# post_type 
+#    (string) (post|page|attachment) 
 
-    $uri = get_permalink($post->ID);
-    $content = $wpdb->escape(preg_replace(array('/%t/', '/%u/'), array ($post->post_title, get_permalink($post->ID)), get_option('mnw_post_template')));
-    mnw_send_notice($content, $uri);
+    $notice = mnw_Notice::fromPost($post);
+    $notice->send();
 }
 
 function mnw_parse_request() {

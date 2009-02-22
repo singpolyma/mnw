@@ -87,7 +87,13 @@ function mnw_admin_options() {
                 <td><input type="text" name="mnw_themepage_url" value="<?php echo get_option('mnw_themepage_url'); ?>" /></td>
             </tr>
             <tr valign="top">
-                <th scope="row">Template used to generate microblog posts on blog post. %t is the title of the post and %u the post url</th>
+                <th scope="row">
+                    Template used to generate microblog posts on blog post or page publication.<br />
+                    You may use the following placeholders:<br />
+                    %t: title of the post or page<br />
+                    %u: url of the post or page<br />
+                    %e: excerpt of the post or page<br />
+                    %c: content of the post or page</th>
                 <td><input type="text" name="mnw_post_template" value="<?php echo get_option('mnw_post_template'); ?>" /></td>
             </tr>
         </table>
