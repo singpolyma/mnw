@@ -18,11 +18,12 @@ add a page based on the template
 Check all the (micro) formats which could be necessary
 Additional features could be
 - multiuser support
-- configure post/page/comment broadcasting on a per-post/page base and by type
+- configure post/page/comment broadcasting on a per-post/page base
 - notice for new comments
-- url shortening! text shortening!
+- url shortening!
 - add user setting to exclude microblog page from all_pages
 - i18n
+- allow tags display in post template
 
 == Bugs ==
 omb service target links should use a smoother regexp

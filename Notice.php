@@ -34,26 +34,28 @@ class mnw_Notice {
         $vals = array(
                     'u' => get_permalink($post->ID),
 #                    'd' => $post->post_date,
-                    't' => $post->post_title,
+                    'n' => $post->post_title,
                     'e' => $post->post_excerpt,
                     'c' => $post->post_content);
-        foreach ($vals as $char -> $content) {
-            $spleft = 140 - length(preg_replace('/%\w/', '', $str));
-            if ($spleft >= length($content)) {
+        foreach ($vals as $char => $content) {
+            $spleft = 140 - strlen(preg_replace('/%\w/', '', $str));
+            if ($spleft >= strlen($content)) {
                 $repl = $content;
             } else if ($spleft > 0) {
-                $repl = substr($content, $spleft - 1) . '…';
+                $repl = substr($content, 0, $spleft - 1) . '…';
             } else {
                 $repl = '';
             }
             $str = preg_replace('/%' . $char . '/', $repl, $str);
         }
+        global $wpdb;
         $content = $wpdb->escape($str);
         $uri = get_permalink($post->ID);
-        return new Notice($content, $uri);
+        return new mnw_Notice($content, $uri);
     }
 
     function send() {
+    global $wpdb;
     /* Insert notice into MNW_NOTICES_TABLE. */
     $insert = 'INSERT INTO ' . MNW_NOTICES_TABLE . " (uri, content, created) VALUES ('$this->uri', '$this->content', '" . common_sql_now() . "')";
     $result = $wpdb->query($insert);

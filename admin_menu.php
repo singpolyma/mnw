@@ -115,9 +115,21 @@ function mnw_admin_options() {
                     %c: content of the post or page</th>
                 <td><input type="text" name="mnw_post_template" value="<?php echo get_option('mnw_post_template'); ?>" /></td>
             </tr>
+            <tr valign="top">
+                <th scope="row">Send a microblog notice when a post is published</th>
+                <td><input type="checkbox" name="mnw_on_post" <?php if (get_option('mnw_on_post')) echo 'checked="checked"'; ?> /></td>
+            </tr>
+            <tr valign="top">
+                <th scope="row">Send a microblog notice when a page is published</th>
+                <td><input type="checkbox" name="mnw_on_page" <?php if (get_option('mnw_on_page')) echo 'checked="checked"'; ?> /></td>
+            </tr>
+            <tr valign="top">
+                <th scope="row">Send a microblog notice when an attachment is published</th>
+                <td><input type="checkbox" name="mnw_on_attachment" <?php if (get_option('mnw_on_attachment')) echo 'checked="checked"'; ?> /></td>
+            </tr>
         </table>
         <input type="hidden" name="action" value="update" />
-        <input type="hidden" name="page_options" value="<?php echo join(",", $mnw_options); ?>, mnw_themepage_url, mnw_post_template" />
+        <input type="hidden" name="page_options" value="<?php echo join(",", $mnw_options); ?>, mnw_themepage_url, mnw_post_template, mnw_on_post, mnw_on_page, mnw_on_attachment" />
         <p class="submit">
             <input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
         </p>

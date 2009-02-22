@@ -54,7 +54,7 @@ function mnw_install() {
     /* Set wordpress-managed settings to default values. */
     $options = array (
                 'omb_full_name'     => get_bloginfo('name'),
-                'omb_nickname'      => preg_replace('/[^A-Za-z0-9_\-\.]/', '', get_bloginfo('name')),
+                'omb_nickname'      => preg_replace('/[^A-Za-z0-9_\-\.]/', '', tolower(get_bloginfo('name'))),
                 'omb_license'       => 'http://creativecommons.org/licenses/by/3.0/',
                 'omb_location'      => 'Teh web', // sic
                 'omb_avatar'        => '',
@@ -62,7 +62,10 @@ function mnw_install() {
                 'mnw_themepage_url' => $wpdb->get_var('SELECT p.guid FROM ' . $wpdb->prefix . 'postmeta m ' .
                                                         'LEFT JOIN ' . $wpdb->prefix . 'posts p ON m.post_id = p.ID ' .
                                                         'WHERE m.meta_key = "_wp_page_template" AND m.meta_value = "mnw.php"'),
-               'mnw_post_template'  => '„%t“ (see %u)');
+               'mnw_post_template'  => '„%t“ (see %u)',
+               'mnw_on_post'        => true,
+               'mnw_on_page'        => false,
+               'mnw_on_attachment'  => false);
 
     foreach($options as $key => $value) {
         add_option($key, $value);

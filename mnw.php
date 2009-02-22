@@ -58,14 +58,21 @@ add_action('new_to_publish', 'mnw_publish_post');
 add_action('draft_to_publish', 'mnw_publish_post');
 
 function mnw_publish_post($post) {
-# post_type 
-#    (string) (post|page|attachment) 
-
-    $notice = mnw_Notice::fromPost($post);
-    $notice->send();
+    if (($post->post_type == 'post' && get_option('mnw_on_post')) ||
+        ($post->post_type == 'page' && get_option('mnw_on_page')) ||
+        ($post->post_type == 'attachment' && get_option('mnw_on_attachment'))) {
+        $notice = mnw_Notice::fromPost($post);
+        $notice->send();
+    }
 }
 
 function mnw_parse_request() {
+    /* Assure that we have a valid themepage. Since mnw_parse_request is called from the themepage,
+       we can just copy the current url if something‘s broken. */
+    if (get_option('mnw_themepage_url') == '') {
+        global $wp_query;
+        update_option('mnw_themepage_url', $wp_query->post->guid);
+    }
     if (isset($_GET[MNW_ACTION])) {
         switch ($_GET[MNW_ACTION]) {
         case 'subscribe':
