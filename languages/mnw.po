@@ -1,4 +1,0 @@
-
-# Wordpress Description field in mnw.php
-msgid ""
-msgstr ""
