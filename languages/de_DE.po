@@ -6,18 +6,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-22 07:12+0100\n"
+"Report-Msgid-Bugs-To: mail@adrianlang.de\n"
+"POT-Creation-Date: 2009-02-24 18:31+0100\n"
 "PO-Revision-Date: 2009-02-22 07:17+0100\n"
 "Last-Translator: root <mail@adrianlang.de>\n"
+"Language-Team: German\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language-Team: German\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-msgid "OpenMicroBlogging compatible Microblogging for Wordpress"
-msgstr "OpenMicroBlogging-kompatibles Mikroblogging für Wordpress"
 
 #: admin_menu.php:75
 msgid "OMB profile"
@@ -31,7 +28,9 @@ msgstr "Nickname (1-64 Zeichen, nur Kleinbuchstaben und Ziffern)"
 msgid ""
 "The nickname is the name under which remote users will know you. You should "
 "consider thoroughly if you really want to change this setting."
-msgstr "Der Nickname ist der Name unter dem Nutzer anderer Dienste dich kennen werden. Änderungen sollten gründlich überlegt werden."
+msgstr ""
+"Der Nickname ist der Name unter dem Nutzer anderer Dienste dich kennen "
+"werden. Änderungen sollten gründlich überlegt werden."
 
 #: admin_menu.php:85
 msgid "Full name (up to 255 characters)"
@@ -65,7 +64,10 @@ msgstr "URL der Wordpress-mnw-Seite"
 msgid ""
 "URL of a wordpress page which uses mnw.php as template. All public URLs are "
 "based on this URL; you should never change it."
-msgstr "URL einer Wordpress-Seite, die mnw.php als Vorlage verwendet. Alle öffentlichen URLs basieren auf dieser URL; sie sollte niemals geändert werden."
+msgstr ""
+"URL einer Wordpress-Seite, die mnw.php als Vorlage verwendet. Alle "
+"öffentlichen URLs basieren auf dieser URL; sie sollte niemals geändert "
+"werden."
 
 #: admin_menu.php:115
 msgid "Redirect target after successful subscription."
@@ -85,7 +87,8 @@ msgid ""
 "                    %e: excerpt of the post or page<br />\n"
 "                    %c: content of the post or page"
 msgstr ""
-"Vorlage für Microblog-Posts nach der Veröffentlichung eines Blog-Posts oder einer -Seite.<br />\n"
+"Vorlage für Microblog-Posts nach der Veröffentlichung eines Blog-Posts oder "
+"einer -Seite.<br />\n"
 "Du kannst die folgenden Platzhalter verwenden:<br />\n"
 "%n: Post- oder Seiten-Titel<br />\n"
 "%u: Post- oder Seiten-URL<br />\n"
@@ -104,6 +107,20 @@ msgstr "Sende eine Notiz wenn eine Seite veröffentlicht wird"
 msgid "Send a microblog notice when an attachment is published"
 msgstr "Sende eine Notiz wenn ein Anhang veröffentlicht wird"
 
+#: admin_menu.php:141
+msgid "Mirror subscription"
+msgstr ""
+
+#: admin_menu.php:144
+msgid ""
+"Automatically subscribe to a subscriber, automatically unsubscribe if the "
+"other user unsubscribes."
+msgstr ""
+
+#: admin_menu.php:151
+msgid "Save Changes"
+msgstr ""
+
 #: mnw_install.php:59
 msgid "Teh web"
 msgstr "Zwischennetz"
@@ -112,38 +129,41 @@ msgstr "Zwischennetz"
 msgid "“%n” (see %u)"
 msgstr "„%n“ (siehe %u)"
 
-#: subscribe.php:70
+#: subscribe.php:72
 msgid "No session found."
 msgstr "Keine Session gefunden."
 
-#: subscribe.php:75
+#: subscribe.php:77
 msgid "Not authorized."
 msgstr "Nicht authorisiert."
 
-#: subscribe.php:90
+#: subscribe.php:92
 msgid "Error storing subscriber in local database."
 msgstr "Fehler beim Speichern in der lokalen Datenbank."
 
-#: subscribe.php:98
+#: subscribe.php:100
 msgid "No remote profile submitted."
 msgstr "Kein Profil angegeben."
 
-#: subscribe.php:102
+#: subscribe.php:104
 msgid "Invalid profile URL."
 msgstr "Ungültige Profil-URL."
 
-#: subscribe.php:107
+#: subscribe.php:109
 msgid "Invalid profile URL (no YADIS document)."
 msgstr "Ungültige Profil-URL (Kein YADIS-Dokument)."
 
-#: subscribe.php:112
+#: subscribe.php:114
 msgid "Invalid profile URL (no XRDS defined)."
 msgstr "Ungültige Profil-URL (Kein XRDS definiert)."
 
-#: subscribe.php:116
-msgid "Not a valid profile URL (incorrect services)."
+#: subscribe.php:118
+msgid "Invalid profile URL (incorrect services)."
 msgstr "Ungültige Profil-URL (Falsche Dienste)."
 
-#: subscribe.php:120
+#: subscribe.php:122
 msgid "Couldn‘t get a request token."
 msgstr "Konnte keinen Request-Token erhalten."
+
+msgid "OpenMicroBlogging compatible Microblogging for Wordpress"
+msgstr "OpenMicroBlogging-kompatibles Mikroblogging für Wordpress"

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ -e $1.po ]
+then
+    echo "File exists, updating"
+    msgmerge -U --backup=off $1.po mnw.pot
+else
+    echo "File does not exist, copying template"
+    cp mnw.pot $1.po
+fi
