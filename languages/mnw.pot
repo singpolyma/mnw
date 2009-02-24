@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-22 07:12+0100\n"
-"PO-Revision-Date: 2009-02-22 07:12+0100\n"
+"POT-Creation-Date: 2009-02-23 05:15+0100\n"
+"PO-Revision-Date: 2009-02-23 05:15+0100\n"
 "Last-Translator: Adrian Lang <mail@adrianlang.de>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -79,7 +79,7 @@ msgid ""
 "Template used to generate microblog posts on blog post or page publication."
 "<br />\n"
 "                    You may use the following placeholders:<br />\n"
-"                    %t: title of the post or page<br />\n"
+"                    %n: title of the post or page<br />\n"
 "                    %u: url of the post or page<br />\n"
 "                    %e: excerpt of the post or page<br />\n"
 "                    %c: content of the post or page"
@@ -97,7 +97,17 @@ msgstr ""
 msgid "Send a microblog notice when an attachment is published"
 msgstr ""
 
+#: admin_menu.php:141
+msgid "Mirror subscription"
+msgstr ""
+
 #: admin_menu.php:144
+msgid ""
+"Automatically subscribe to a subscriber, automatically unsubscribe if the "
+"other user unsubscribes."
+msgstr ""
+
+#: admin_menu.php:151
 msgid "Save Changes"
 msgstr ""
 
@@ -106,41 +116,41 @@ msgid "Teh web"
 msgstr ""
 
 #: mnw_install.php:66
-msgid "“%t” (see %u)"
+msgid "“%n” (see %u)"
 msgstr ""
 
-#: subscribe.php:70
+#: subscribe.php:72
 msgid "No session found."
 msgstr ""
 
-#: subscribe.php:75
+#: subscribe.php:77
 msgid "Not authorized."
 msgstr ""
 
-#: subscribe.php:90
+#: subscribe.php:92
 msgid "Error storing subscriber in local database."
 msgstr ""
 
-#: subscribe.php:98
+#: subscribe.php:100
 msgid "No remote profile submitted."
 msgstr ""
 
-#: subscribe.php:102
+#: subscribe.php:104
 msgid "Invalid profile URL."
 msgstr ""
 
-#: subscribe.php:107
+#: subscribe.php:109
 msgid "Invalid profile URL (no YADIS document)."
 msgstr ""
 
-#: subscribe.php:112
+#: subscribe.php:114
 msgid "Invalid profile URL (no XRDS defined)."
 msgstr ""
 
-#: subscribe.php:116
+#: subscribe.php:118
 msgid "Invalid profile URL (incorrect services)."
 msgstr ""
 
-#: subscribe.php:120
-msgid "Couldn't get a request token."
+#: subscribe.php:122
+msgid "Couldn‘t get a request token."
 msgstr ""

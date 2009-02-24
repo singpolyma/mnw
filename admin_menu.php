@@ -120,7 +120,7 @@ function mnw_admin_options() {
                 <td><input type="text" class="regular-text" name="mnw_post_template" value="<?php echo get_option('mnw_post_template'); ?>" /><br />
                     <?php _e('Template used to generate microblog posts on blog post or page publication.<br />
                     You may use the following placeholders:<br />
-                    %t: title of the post or page<br />
+                    %n: title of the post or page<br />
                     %u: url of the post or page<br />
                     %e: excerpt of the post or page<br />
                     %c: content of the post or page', 'mnw'); ?></td>

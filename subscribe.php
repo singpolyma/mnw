@@ -48,8 +48,10 @@ function mnw_parse_subscribe() {
         switch ($_GET[MNW_SUBSCRIBE_ACTION]) {
         case 'continue':
             $ret = continue_subscription();
+            break;
         case 'finish':
             $ret = finish_subscription();
+            break;
         }
     } else {
         $ret = array('', array());
@@ -117,7 +119,7 @@ function continue_subscription() {
     }
     list($token, $secret) = requestToken($omb);
     if (!$token || !$secret) {
-        return array('subscribe', array('error' => __('Couldn\'t get a request token.', 'mnw')));
+        return array('subscribe', array('error' => __('Couldn‘t get a request token.', 'mnw')));
     }
     requestAuthorization($omb, $token, $secret);
     return array(false, array());
