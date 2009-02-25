@@ -1,5 +1,5 @@
 <?php
-/*
+/**
 Plugin Name: mnw
 Plugin URI: adrianlang.de/mnw
 Description: OpenMicroBlogging compatible Microblogging for Wordpress
@@ -29,9 +29,10 @@ Text Domain: mnw
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__) . '/extlib');
+set_include_path(get_include_path() . PATH_SEPARATOR .
+                    dirname(__FILE__) . '/extlib');
 $plugin_dir = basename(dirname(__FILE__));
-load_plugin_textdomain( 'mnw', '', $plugin_dir . '/languages/');
+load_plugin_textdomain('mnw', '', $plugin_dir . '/languages/');
 
 global $wpdb;
 define('MNW_SUBSCRIBER_TABLE', $wpdb->prefix . 'mnw_subscribers');
@@ -40,18 +41,19 @@ define('MNW_ACTION', 'mnw_action');
 define('MNW_SUBSCRIBE_ACTION', 'mnw_subscribe_action');
 define('MNW_NOTICE_ID', 'mnw_notice_id');
 
-require_once ('lib.php');
+require_once 'lib.php';
 
 /*
  * Initialize database on activation.
  */
 register_activation_hook(__FILE__, 'mnw_install');
 
-require_once ('mnw_install.php');
-require_once ('admin_menu.php');
-require_once ('subscribe.php');
-require_once ('get_notice.php');
-require_once ('Notice.php');
+require_once 'mnw_install.php';
+require_once 'admin_menu.php';
+require_once 'subscribe.php';
+require_once 'get_notice.php';
+require_once 'Notice.php';
+require_once 'mnw_sidebar.php';
 /*
  * Publish notice on post/page publication.
  */

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: mail@adrianlang.de\n"
-"POT-Creation-Date: 2009-02-24 18:31+0100\n"
-"PO-Revision-Date: 2009-02-24 19:06+0100\n"
+"POT-Creation-Date: 2009-02-25 16:23+0100\n"
+"PO-Revision-Date: 2009-02-25 16:25+0100\n"
 "Last-Translator: Adrian Lang <mail@adrianlang.de>\n"
 "Language-Team: English\n"
 "MIME-Version: 1.0\n"
@@ -127,6 +127,21 @@ msgstr "Teh web"
 #: mnw_install.php:66
 msgid "“%n” (see %u)"
 msgstr "“%n” (see %u)"
+
+#: mnw_sidebar.php:6
+msgid "mnw Subscribe"
+msgstr "mnw Subscribe"
+
+#: mnw_sidebar.php:18
+#, php-format
+msgid "%d OMB subscriber"
+msgid_plural "%d OMB subscribers"
+msgstr[0] "%d OMB subscriber"
+msgstr[1] "%d OMB subscribers"
+
+#: mnw_sidebar.php:19
+msgid "Subscribe!"
+msgstr "Subscribe!"
 
 #: subscribe.php:72
 msgid "No session found."
