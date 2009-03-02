@@ -10,7 +10,7 @@ Text Domain: mnw
 */
 
 /**
- * This file is part of mnw. Other files in mnw may have different copyright notices.
+ * This file is part of mnw.
  *
  * mnw - an OpenMicroBlogging compatible Microblogging plugin for Wordpress
  * Copyright (C) 2009, Adrian Lang
