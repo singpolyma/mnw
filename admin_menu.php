@@ -20,6 +20,7 @@
  */
 
 require_once 'lib.php';
+require_once 'libomb/service_consumer.php';
 
 $mnw_options = array("omb_full_name", "omb_nickname", "omb_license", "omb_bio", "omb_location", "omb_avatar");
 
@@ -39,7 +40,7 @@ function mnw_upd_settings() {
 
     foreach($result as $subscriber) {
         try {
-            $service = new OMB_Service($subscriber['url'], get_bloginfo('url'));
+            $service = new OMB_Service_Consumer($subscriber['url'], get_bloginfo('url'));
             $service->setToken($subscriber['token'], $subscriber['secret']);
             $result = $service->updateProfile(get_own_profile());
             if ($result->status == 403) { # not authorized, don't send again

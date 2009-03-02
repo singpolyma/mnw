@@ -21,7 +21,7 @@
 
 require_once 'lib.php';
 
-require_once 'libomb/service.php';
+require_once 'libomb/service_consumer.php';
 require_once 'libomb/profile.php';
 
 function mnw_parse_subscribe() {
@@ -50,7 +50,7 @@ function continue_subscription() {
         return array('subscribe', array('error' => __('No remote profile submitted.', 'mnw')));
     }
     try {
-      $service = new OMB_Service($_POST['profile_url'], get_bloginfo('url')); 
+      $service = new OMB_Service_Consumer($_POST['profile_url'], get_bloginfo('url')); 
     } catch (Exception $e) {
       return array('subscribe', array('error' => __('Invalid profile URL.', 'mnw')));
     }
