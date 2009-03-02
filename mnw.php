@@ -43,6 +43,7 @@ define('MNW_NOTICE_ID', 'mnw_notice_id');
 
 require_once 'lib.php';
 
+require_once 'libomb/notice.php';
 /*
  * Initialize database on activation.
  */

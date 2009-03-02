@@ -80,12 +80,10 @@ function common_sql_now()
     return strftime('%Y-%m-%d %H:%M:%S', time());
 }
 
-function common_root_url() {
-    return get_bloginfo('url');
-}
 function common_have_session() {
     return (0 != strcmp(session_id(), ''));
 }
+
 function common_ensure_session() {
     if (!common_have_session()) {
         @session_start();
