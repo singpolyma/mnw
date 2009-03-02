@@ -47,16 +47,15 @@ function delete_subscription($url) {
 function get_own_profile() {
   static $profile;
   if (is_null($profile)) {
-    $profile = new OMB_Profile();
-    $profile->identifier_uri = get_bloginfo('url');
-    $profile->profile_url = get_bloginfo('url');
-    $profile->nickname = get_option('omb_nickname');
-    $profile->license_url = get_option('omb_license');
-    $profile->fullname = get_option('omb_full_name');
-    $profile->homepage = get_bloginfo('url');
-    $profile->bio = get_option('omb_bio');
-    $profile->location = get_option('omb_location');
-    $profile->avatar_url = get_option('omb_avatar');
+    $profile = new OMB_Profile(get_bloginfo('url'));
+    $profile->setProfileURL(get_bloginfo('url'));
+    $profile->setNickname(get_option('omb_nickname'));
+    $profile->setLicenseURL(get_option('omb_license'));
+    $profile->setFullname(get_option('omb_full_name'));
+    $profile->setHomepage(get_bloginfo('url'));
+    $profile->setBio(get_option('omb_bio'));
+    $profile->setLocation(get_option('omb_location'));
+    $profile->setAvatarURL(get_option('omb_avatar'));
   }
   return $profile;
 }
