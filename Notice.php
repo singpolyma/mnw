@@ -71,6 +71,7 @@ class mnw_Notice extends OMB_Notice {
     }
 
     $this->uri = mnw_append_param(get_option('mnw_themepage_url'), MNW_ACTION, 'get_notice') . '&mnw_notice_id=' . $wpdb->insert_id;
+    $this->param_array = false;
 
     foreach($result as $subscriber) {
         try {
