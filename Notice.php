@@ -37,8 +37,8 @@ class mnw_Notice extends OMB_Notice {
                     'e' => $post->post_excerpt,
                     'c' => $post->post_content);
         foreach ($vals as $char => $content) {
-            $spleft = 140 - strlen(preg_replace('/%\w/', '', $str));
-            if ($spleft >= strlen($content)) {
+            $spleft = 140 - mb_strlen(preg_replace('/%\w/', '', $str));
+            if ($spleft >= mb_strlen($content)) {
                 $repl = $content;
             } else if ($spleft > 0) {
                 $repl = substr($content, 0, $spleft - 1) . '…';
