@@ -19,6 +19,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+require_once 'lib.php';
+
 $mnw_options = array("omb_full_name", "omb_nickname", "omb_license", "omb_bio", "omb_location", "omb_avatar");
 
 foreach($mnw_options as $option_name) {
@@ -35,20 +37,11 @@ function mnw_upd_settings() {
         return;
     }
 
-    $omb_params = array(
-                    'omb_listenee'          => get_bloginfo('url'),
-                    'omb_listenee_profile'  => get_bloginfo('url'),
-                    'omb_listenee_homepage' => get_bloginfo('url'),
-                    'omb_listenee_nickname' => get_option('omb_nickname'),
-                    'omb_listenee_license'  => get_option('omb_license'),
-                    'omb_listenee_fullname' => get_option('omb_full_name'),
-                    'omb_listenee_bio'      => get_option('omb_bio'),
-                    'omb_listenee_location' => get_option('omb_location'),
-                    'omb_listenee_avatar'   => get_option('omb_avatar'));
-
     foreach($result as $subscriber) {
         try {
-            $result = perform_omb_action($subscriber['url'], 'http://openmicroblogging.org/protocol/0.1/updateProfile', $subscriber['token'], $subscriber['secret'], $omb_params);
+            $service = new OMB_Service($subscriber['url'], get_bloginfo('url'));
+            $service->setToken($subscriber['token'], $subscriber['secret']);
+            $result = $service->updateProfile(get_own_profile());
             if ($result->status == 403) { # not authorized, don't send again
                 delete_subscription($subscriber['url']);
             } else if ($result->status != 200) {
