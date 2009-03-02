@@ -33,7 +33,6 @@ Additional features could be
 - allow tags display in post template
 
 == Bugs ==
-Use better regexp for omb service target links retrieval
 Validate user settings
 Use better default for omb_bio
 Push only once to every service url (postNotice, updateProfile)
