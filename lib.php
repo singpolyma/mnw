@@ -36,9 +36,29 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+require_once 'libomb/profile.php';
+
 function delete_subscription($url) {
     global $wpdb;
     return $wpdb->query('DELETE FROM ' . MNW_SUBSCRIBER_TABLE . ' WHERE url = "' . $url . '"');
+}
+
+function get_own_profile() {
+  static $profile;
+  if (is_null($profile)) {
+    $profile = new OMB_Profile();
+    $profile->identifier_uri = get_bloginfo('url');
+    $profile->profile_url = get_bloginfo('url');
+    $profile->nickname = get_option('omb_nickname');
+    $profile->license_url = get_option('omb_license');
+    $profile->fullname = get_option('omb_full_name');
+    $profile->homepage = get_bloginfo('url');
+    $profile->bio = get_option('omb_bio');
+    $profile->location = get_option('omb_location');
+    $profile->avatar_url = get_option('omb_avatar');
+  }
+  return $profile;
 }
 
 function discover_yadis_service($url, $service) {

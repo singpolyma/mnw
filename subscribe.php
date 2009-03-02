@@ -56,18 +56,7 @@ function continue_subscription() {
     }
     $service->requestToken();
 
-    $profile = new OMB_Profile();
-    $profile->identifier_uri = get_bloginfo('url');
-    $profile->profile_url = get_bloginfo('url');
-    $profile->nickname = get_option('omb_nickname');
-    $profile->license_url = get_option('omb_license');
-    $profile->fullname = get_option('omb_full_name');
-    $profile->homepage = get_bloginfo('url');
-    $profile->bio = get_option('omb_bio');
-    $profile->location = get_option('omb_location');
-    $profile->avatar_url = get_option('omb_avatar');
-
-    $redir = $service->requestAuthorization($profile, mnw_append_param(get_option('mnw_themepage_url'), MNW_ACTION, 'subscribe') . '&' . MNW_SUBSCRIBE_ACTION . '=finish');
+    $redir = $service->requestAuthorization(get_own_profile(), mnw_append_param(get_option('mnw_themepage_url'), MNW_ACTION, 'subscribe') . '&' . MNW_SUBSCRIBE_ACTION . '=finish');
     common_ensure_session();
     $_SESSION['omb_service'] = $service;
     wp_redirect($redir);

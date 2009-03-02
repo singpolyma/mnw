@@ -19,14 +19,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class mnw_Notice {
+require_once 'libomb/notice.php';
+require_once 'libomb/service.php';
 
-    private $content;
-    private $uri;
+class mnw_Notice extends OMB_Notice {
 
     function __construct($content, $uri) {
-        $this->content = $content;
-        $this->uri = $uri;
+      parent::__construct(get_own_profile(), $uri, $content);
     }
 
     static function fromPost($post) {
@@ -50,7 +49,7 @@ class mnw_Notice {
         }
         global $wpdb;
         $content = $wpdb->escape($str);
-        $uri = get_permalink($post->ID);
+        $uri = get_permalink($post->ID); /* temporary uri */
         return new mnw_Notice($content, $uri);
     }
 
@@ -59,7 +58,6 @@ class mnw_Notice {
     /* Insert notice into MNW_NOTICES_TABLE. */
     $insert = 'INSERT INTO ' . MNW_NOTICES_TABLE . " (uri, content, created) VALUES ('$this->uri', '$this->content', '" . common_sql_now() . "')";
     $result = $wpdb->query($insert);
-
     if ($result == 0) {
         return;
     }
@@ -72,14 +70,13 @@ class mnw_Notice {
         return;
     }
 
-    $omb_params = array(
-                    'omb_listenee' => get_bloginfo('url'),
-                    'omb_notice' => mnw_append_param(get_option('mnw_themepage_url'), MNW_ACTION, 'get_notice') . '&mnw_notice_id=' . $wpdb->insert_id,
-                    'omb_notice_content' => $this->content);
+    $this->uri = mnw_append_param(get_option('mnw_themepage_url'), MNW_ACTION, 'get_notice') . '&mnw_notice_id=' . $wpdb->insert_id;
 
     foreach($result as $subscriber) {
         try {
-            $result = perform_omb_action($subscriber['url'], 'http://openmicroblogging.org/protocol/0.1/postNotice', $subscriber['token'], $subscriber['secret'], $omb_params);
+            $service = new OMB_Service($subscriber['url'], get_bloginfo('url'));
+            $service->setToken($subscriber['token'], $subscriber['secret']);
+            $result = $service->postNotice($this);
             if ($result->status == 403) { # not authorized, don't send again
                 delete_subscription($subscriber['url']);
             } else if ($result->status != 200) {
