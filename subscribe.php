@@ -97,7 +97,7 @@ function finish_subscription() {
 
 function continue_subscription() {
     if (!isset($_POST['profile_url'])) {
-        return array('subscribe', array('error' => __('No remote profile submitted.', 'mwn')));
+        return array('subscribe', array('error' => __('No remote profile submitted.', 'mnw')));
     }
     $target = $_POST['profile_url'];
     if (!Validate::uri($target, array('allowed_schemes' => array('http', 'https')))) {
