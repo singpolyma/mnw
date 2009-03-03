@@ -23,6 +23,7 @@ require_once 'mnw.php';
 
 function mnw_subscribe_widget_register() {
     register_sidebar_widget (__('mnw Subscribe'), 'mnw_subscribe_widget');
+    register_widget_control (__('mnw Subscribe'), 'mnw_subscribe_widget_control');
 }
 add_action('init', 'mnw_subscribe_widget_register');
 
@@ -32,12 +33,25 @@ function mnw_subscribe_widget($args) {
     $count = $wpdb->get_var('SELECT COUNT(*) FROM ' . MNW_SUBSCRIBER_TABLE);
     echo $before_widget;
 ?>
-        <div style="height: 45px; padding-left: 45px; background: transparent url(<?php echo get_template_directory_uri(); ?>/omb.png) no-repeat scroll left center;
-            text-align: right; font-size:170%;">
+        <img style="float: left;" src="<?php echo get_template_directory_uri(); ?>/omb.png"/>
+        <div style="<?php echo get_option('mnw_subscribe_style'); ?>">
             <?php printf(__ngettext('%d OMB subscriber', '%d OMB subscribers', $count, 'mnw'), $count); ?><br />
             <a href="<?php echo get_option('mnw_themepage_url'); ?>"><?php _e('Subscribe!', 'mnw'); ?></a>
         </div>
 <?php
     echo $after_widget;
+}
+
+function mnw_subscribe_widget_control() {
+  if (isset($_POST['mnw-subscribe-submit']) && $_POST['mnw-subscribe-submit'] === '1') {
+    update_option('mnw_subscribe_style', $_POST['mnw-subscribe-style']);
+  }
+?>
+  <p style="text-align:right;" class="mnw_field">
+    <label for="mnw-subscribe-style"><?php _e('Style', 'mnw'); ?></label>
+    <input id="mnw-subscribe-style" name="mnw-subscribe-style" type="text" value="<?php echo get_option('mnw_subscribe_style'); ?>" class="mnw_field" />
+  </p>
+  <input type="hidden" id="mnw-subscribe-submit" name="mnw-subscribe-submit" value="1" />
+<?php
 }
 ?>
