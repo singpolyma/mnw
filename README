@@ -10,7 +10,7 @@ mnw is a wordpress plugin which adds openmicroblogging support to wordpress.
   instance. Give it a sensible name, keep the content empty and select 'mnw' as
   template. Publish this page.
 - Activate the plugin.
-- Configure the plugin in the settings admin menu.
+- Configure the plugin in the corresponding admin menu.
 - (Optional) Copy omb.png to the directory of your current theme. Enable the sidebar
   widget displaying a count of your omb subscribers.
 
