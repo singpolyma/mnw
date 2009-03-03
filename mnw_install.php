@@ -66,7 +66,8 @@ function mnw_install() {
                 'mnw_post_template'       => __('“%n” (see %u)', 'mnw'),
                 'mnw_on_post'             => true,
                 'mnw_on_page'             => false,
-                'mnw_on_attachment'       => false);
+                'mnw_on_attachment'       => false,
+                'mnw_subscribe_style'     => 'text-align: right; font-size:170%;');
 #                'mnw_mirror_subscription' => true
 
     foreach($options as $key => $value) {
