@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: mail@adrianlang.de\n"
-"POT-Creation-Date: 2009-02-25 16:23+0100\n"
+"POT-Creation-Date: 2009-03-03 02:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
@@ -116,19 +116,23 @@ msgstr ""
 msgid "“%n” (see %u)"
 msgstr ""
 
-#: mnw_sidebar.php:6
+#: mnw_sidebar.php:25 mnw_sidebar.php:26
 msgid "mnw Subscribe"
 msgstr ""
 
-#: mnw_sidebar.php:18
+#: mnw_sidebar.php:38
 #, php-format
 msgid "%d OMB subscriber"
 msgid_plural "%d OMB subscribers"
 msgstr[0] ""
 msgstr[1] ""
 
-#: mnw_sidebar.php:19
+#: mnw_sidebar.php:39
 msgid "Subscribe!"
+msgstr ""
+
+#: mnw_sidebar.php:51
+msgid "Style"
 msgstr ""
 
 #: subscribe.php:72
