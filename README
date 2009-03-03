@@ -2,26 +2,36 @@ mnw is a wordpress plugin which adds openmicroblogging support to wordpress.
 
 == Installation ==
 - Copy the plugin to your wordpress‘ plugin directory.
-- Copy one of the themepage.LANG.php files as mnw.php to the directory of your current theme.
-- Adjust the mnw.php to fit to your theme (archives.php is a good start to see how your theme looks like on costum pages).
-- Create a new page in wordpress. This page is the main frontend of your OMB instance. Give it a sensible name,
-   keep the content empty and select 'mnw' as template.
+- Copy one of the themepage.LANG.php files as mnw.php to the directory of your
+  current theme.
+- Adjust the mnw.php to fit to your theme (archives.php is a good start to see
+  how your theme looks like on costum pages).
+- Create a new page in wordpress. This page is the main frontend of your OMB
+  instance. Give it a sensible name, keep the content empty and select 'mnw' as
+  template. Publish this page.
 - Activate the plugin.
 - Configure the plugin in the settings admin menu.
+- (Optional) Copy omb.png to the directory of your current theme. Enable the sidebar
+  widget displaying a count of your omb subscribers.
 
-Note that mnw is published under the GNU Affero General Public License. You have to publish the source code for mnw.
-If you change nothing, just link to the mnw website.
+Note that mnw is published under the GNU Affero General Public License. You have to
+publish the source code for mnw. If you change nothing, just link to the mnw website.
 
 == Current features ==
 mnw gives users of an OMB service the possibility to subscribe to your blog directly.
-Your blog will automatically send OMB notices to subscribers when you publish a new post, page or attachment (configurable).
+Your blog will automatically send OMB notices to subscribers when you publish a new
+post, page or attachment (configurable).
 
 == Versions ==
-22. February 2009: 0.1. First public release. Complete profile settings, profile updating through omb, consistent frontend, notice sending on publish.
-24. February 2009: 0.1b. Service release, fixes a serious fault in the description of the microblog notice template.
+22. February 2009: 0.1.  First public release. Complete profile settings, profile
+                         updating through omb, consistent frontend, notice sending on
+                         publish.
+24. February 2009: 0.1b. Service release, fixes a serious fault in the description of
+                         the microblog notice template.
 
 == Milestones, future features ==
-1.0 should be able to send (arbitrary and on blog post) & receive (probably direct responses) messages. Display of them in widgets. Clean code.
+1.0 should be able to send (arbitrary and on blog post) & receive (probably direct
+    responses) messages. Display of them in widgets. Clean code.
 
 Check all the (micro) formats which could be necessary
 Additional features could be
