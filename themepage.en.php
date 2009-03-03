@@ -14,7 +14,7 @@ if ($continue !== false) {
     get_header();
 ?>
     <div id="content" class="narrowcolumn">
-        <h2><?php wp_title('',true,''); ?></h2>
+        <h2><?php wp_title('', true, ''); ?></h2>
 <?php
     switch ($continue) {
     case '':

@@ -22,8 +22,8 @@
 require_once 'mnw.php';
 
 function mnw_subscribe_widget_register() {
-    register_sidebar_widget (__('mnw Subscribe'), 'mnw_subscribe_widget');
-    register_widget_control (__('mnw Subscribe'), 'mnw_subscribe_widget_control');
+    register_sidebar_widget(__('mnw Subscribe', 'mnw'), 'mnw_subscribe_widget');
+    register_widget_control(__('mnw Subscribe', 'mnw'), 'mnw_subscribe_widget_control');
 }
 add_action('init', 'mnw_subscribe_widget_register');
 
