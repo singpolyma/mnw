@@ -23,11 +23,13 @@ Your blog will automatically send OMB notices to subscribers when you publish a 
 post, page or attachment (configurable).
 
 == Versions ==
-22. February 2009: 0.1.  First public release. Complete profile settings, profile
+22. February 2009: 0.1   First public release. Complete profile settings, profile
                          updating through omb, consistent frontend, notice sending on
                          publish.
-24. February 2009: 0.1b. Service release, fixes a serious fault in the description of
+24. February 2009: 0.1b  Service release, fixes a serious fault in the description of
                          the microblog notice template.
+03. March 2009:    0.1c  Adds an optional sidebar widget which displays the count of
+                         OMB subscribers and a link to the subscribe page.
 
 == Milestones, future features ==
 1.0 should be able to send (arbitrary and on blog post) & receive (probably direct
@@ -41,6 +43,7 @@ Additional features could be
 - url shortening!
 - add user setting to exclude microblog page from all_pages
 - allow tags display in post template
+- Optionally send post/page/attachment url as seealso
 
 == Bugs ==
 Use better regexp for omb service target links retrieval
