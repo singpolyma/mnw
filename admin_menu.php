@@ -21,7 +21,7 @@
 
 $mnw_options = array("omb_full_name", "omb_nickname", "omb_license", "omb_bio", "omb_location", "omb_avatar");
 
-foreach($mnw_options as $option_name) {
+foreach ($mnw_options as $option_name) {
     add_action("update_option_{$option_name}", 'mnw_upd_settings');
 }
 
@@ -46,7 +46,7 @@ function mnw_upd_settings() {
                     'omb_listenee_location' => get_option('omb_location'),
                     'omb_listenee_avatar'   => get_option('omb_avatar'));
 
-    foreach($result as $subscriber) {
+    foreach ($result as $subscriber) {
         try {
             $result = perform_omb_action($subscriber['url'], 'http://openmicroblogging.org/protocol/0.1/updateProfile', $subscriber['token'], $subscriber['secret'], $omb_params);
             if ($result->status == 403) { # not authorized, don't send again
