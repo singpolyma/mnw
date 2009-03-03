@@ -5,7 +5,7 @@ mnw is a wordpress plugin which adds openmicroblogging support to wordpress.
 - Copy one of the themepage.LANG.php files as mnw.php to the directory of your
   current theme.
 - Adjust the mnw.php to fit to your theme (archives.php is a good start to see
-  how your theme looks like on costum pages).
+  how your theme looks like on custom pages).
 - Create a new page in wordpress. This page is the main frontend of your OMB
   instance. Give it a sensible name, keep the content empty and select 'mnw' as
   template. Publish this page.
