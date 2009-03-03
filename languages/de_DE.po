@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: mail@adrianlang.de\n"
-"POT-Creation-Date: 2009-02-25 16:23+0100\n"
-"PO-Revision-Date: 2009-02-25 16:24+0100\n"
+"POT-Creation-Date: 2009-03-03 02:22+0100\n"
+"PO-Revision-Date: 2009-03-03 02:24+0100\n"
 "Last-Translator: root <mail@adrianlang.de>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
@@ -129,20 +129,24 @@ msgstr "Zwischennetz"
 msgid "“%n” (see %u)"
 msgstr "„%n“ (siehe %u)"
 
-#: mnw_sidebar.php:6
+#: mnw_sidebar.php:25 mnw_sidebar.php:26
 msgid "mnw Subscribe"
 msgstr "mnw-Abonnieren"
 
-#: mnw_sidebar.php:18
+#: mnw_sidebar.php:38
 #, php-format
 msgid "%d OMB subscriber"
 msgid_plural "%d OMB subscribers"
 msgstr[0] "%d OMB-Abonnent"
 msgstr[1] "%d OMB-Abonnenten"
 
-#: mnw_sidebar.php:19
+#: mnw_sidebar.php:39
 msgid "Subscribe!"
 msgstr "Abonnieren!"
+
+#: mnw_sidebar.php:51
+msgid "Style"
+msgstr "Style"
 
 #: subscribe.php:72
 msgid "No session found."
