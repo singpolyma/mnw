@@ -8,70 +8,60 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: mail@adrianlang.de\n"
-"POT-Creation-Date: 2009-03-03 02:22+0100\n"
+"POT-Creation-Date: 2009-03-03 11:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: admin_menu.php:75
-msgid "OMB profile"
+#: admin_menu.php:28
+msgid "General mnw plugin settings"
 msgstr ""
 
-#: admin_menu.php:78
-msgid "Nickname (1-64 characters, only lowercase letters and digits)"
+#: admin_menu.php:28
+msgid "Plugin settings"
 msgstr ""
 
-#: admin_menu.php:81
-msgid ""
-"The nickname is the name under which remote users will know you. You should "
-"consider thoroughly if you really want to change this setting."
+#: admin_menu.php:29
+msgid "mnw OMB profile settings"
 msgstr ""
 
-#: admin_menu.php:85
-msgid "Full name (up to 255 characters)"
+#: admin_menu.php:29
+msgid "OMB Profile"
 msgstr ""
 
-#: admin_menu.php:89
-msgid "Bio (less than 140 characters)"
+#: admin_menu.php:30
+msgid "mnw OMB subscribers"
 msgstr ""
 
-#: admin_menu.php:93
-msgid "Location (less than 255 characters)"
+#: admin_menu.php:30
+msgid "Subscribers"
 msgstr ""
 
-#: admin_menu.php:97
-msgid "Avatar URL"
-msgstr ""
-
-#: admin_menu.php:101
-msgid "License URL"
-msgstr ""
-
-#: admin_menu.php:105
+#: admin_menu.php:41
 msgid "General settings"
 msgstr ""
 
-#: admin_menu.php:108
+#: admin_menu.php:44
 msgid "Wordpress mnw page URL"
 msgstr ""
 
-#: admin_menu.php:111
+#: admin_menu.php:47
 msgid ""
 "URL of a wordpress page which uses mnw.php as template. All public URLs are "
 "based on this URL; you should never change it."
 msgstr ""
 
-#: admin_menu.php:115
+#: admin_menu.php:51
 msgid "Redirect target after successful subscription."
 msgstr ""
 
-#: admin_menu.php:119
+#: admin_menu.php:55
 msgid "Post template"
 msgstr ""
 
-#: admin_menu.php:121
+#: admin_menu.php:57
 msgid ""
 "Template used to generate microblog posts on blog post or page publication."
 "<br />\n"
@@ -82,30 +72,117 @@ msgid ""
 "                    %c: content of the post or page"
 msgstr ""
 
-#: admin_menu.php:129
+#: admin_menu.php:65
 msgid "Send a microblog notice when a post is published"
 msgstr ""
 
-#: admin_menu.php:133
+#: admin_menu.php:69
 msgid "Send a microblog notice when a page is published"
 msgstr ""
 
-#: admin_menu.php:137
+#: admin_menu.php:73
 msgid "Send a microblog notice when an attachment is published"
 msgstr ""
 
-#: admin_menu.php:141
+#: admin_menu.php:77
 msgid "Mirror subscription"
 msgstr ""
 
-#: admin_menu.php:144
+#: admin_menu.php:80
 msgid ""
 "Automatically subscribe to a subscriber, automatically unsubscribe if the "
 "other user unsubscribes."
 msgstr ""
 
-#: admin_menu.php:151
+#: admin_menu.php:87 admin_menu_profile.php:97
 msgid "Save Changes"
+msgstr ""
+
+#: admin_menu_profile.php:64
+msgid "OMB profile"
+msgstr ""
+
+#: admin_menu_profile.php:67
+msgid "Nickname (1-64 characters, only lowercase letters and digits)"
+msgstr ""
+
+#: admin_menu_profile.php:70
+msgid ""
+"The nickname is the name under which remote users will know you. You should "
+"consider thoroughly if you really want to change this setting."
+msgstr ""
+
+#: admin_menu_profile.php:74
+msgid "Full name (up to 255 characters)"
+msgstr ""
+
+#: admin_menu_profile.php:78
+msgid "Bio (less than 140 characters)"
+msgstr ""
+
+#: admin_menu_profile.php:82
+msgid "Location (less than 255 characters)"
+msgstr ""
+
+#: admin_menu_profile.php:86
+msgid "Avatar URL"
+msgstr ""
+
+#: admin_menu_profile.php:90
+msgid "License URL"
+msgstr ""
+
+#: admin_menu_subscribers.php:57
+msgid "Could not delete subscriber."
+msgid_plural "Could not delete subscribers."
+msgstr[0] ""
+msgstr[1] ""
+
+#: admin_menu_subscribers.php:59
+msgid "Subscriber successfully deleted."
+msgid_plural "Subscribers successfully deleted."
+msgstr[0] ""
+msgstr[1] ""
+
+#: admin_menu_subscribers.php:75
+msgid ""
+"Subscribers are users of an OMB service who listen to your notices. Note "
+"that OMB does not yet support a block feature. Therefore the remote user is "
+"not informed about the deletion. Moreover, if another user from the same "
+"service is subscribed to you, the remote service will probably publish your "
+"messages to deleted subscribers as well."
+msgstr ""
+
+#: admin_menu_subscribers.php:77
+msgid "OMB subscribers"
+msgstr ""
+
+#: admin_menu_subscribers.php:82
+msgid "Bulk Actions"
+msgstr ""
+
+#: admin_menu_subscribers.php:83 admin_menu_subscribers.php:126
+msgid "Delete"
+msgstr ""
+
+#: admin_menu_subscribers.php:85
+msgid "Apply"
+msgstr ""
+
+#: admin_menu_subscribers.php:93 admin_menu_subscribers.php:101
+msgid "Subscriber"
+msgstr ""
+
+#: admin_menu_subscribers.php:94 admin_menu_subscribers.php:102
+msgid "Action"
+msgstr ""
+
+#: admin_menu_subscribers.php:112
+msgid "No subscribers"
+msgstr ""
+
+#: admin_menu_subscribers.php:125
+msgid "Delete this subscriber"
 msgstr ""
 
 #: mnw_install.php:59
@@ -135,40 +212,24 @@ msgstr ""
 msgid "Style"
 msgstr ""
 
-#: subscribe.php:72
-msgid "No session found."
-msgstr ""
-
-#: subscribe.php:77
-msgid "Not authorized."
-msgstr ""
-
-#: subscribe.php:92
-msgid "Error storing subscriber in local database."
-msgstr ""
-
-#: subscribe.php:100
+#: subscribe.php:50
 msgid "No remote profile submitted."
 msgstr ""
 
-#: subscribe.php:104
+#: subscribe.php:55
 msgid "Invalid profile URL."
 msgstr ""
 
-#: subscribe.php:109
-msgid "Invalid profile URL (no YADIS document)."
+#: subscribe.php:70
+msgid "No session found."
 msgstr ""
 
-#: subscribe.php:114
-msgid "Invalid profile URL (no XRDS defined)."
+#: subscribe.php:75
+msgid "Not authorized."
 msgstr ""
 
-#: subscribe.php:118
-msgid "Invalid profile URL (incorrect services)."
-msgstr ""
-
-#: subscribe.php:122
-msgid "Couldn‘t get a request token."
+#: subscribe.php:94
+msgid "Error storing subscriber in local database."
 msgstr ""
 
 # Wordpress Description field in mnw.php

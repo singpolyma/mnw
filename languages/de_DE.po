@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: mail@adrianlang.de\n"
-"POT-Creation-Date: 2009-03-03 02:22+0100\n"
-"PO-Revision-Date: 2009-03-03 02:24+0100\n"
+"POT-Creation-Date: 2009-03-03 11:35+0100\n"
+"PO-Revision-Date: 2009-03-03 11:43+0100\n"
 "Last-Translator: root <mail@adrianlang.de>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
@@ -16,51 +16,39 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: admin_menu.php:75
-msgid "OMB profile"
+#: admin_menu.php:28
+msgid "General mnw plugin settings"
+msgstr "Allgemeine Plugin-Einstellungen für mnw"
+
+#: admin_menu.php:28
+msgid "Plugin settings"
+msgstr "Allgemeine Einstellungen"
+
+#: admin_menu.php:29
+msgid "mnw OMB profile settings"
+msgstr "OMB-Profil für mnw"
+
+#: admin_menu.php:29
+msgid "OMB Profile"
 msgstr "OMB-Profil"
 
-#: admin_menu.php:78
-msgid "Nickname (1-64 characters, only lowercase letters and digits)"
-msgstr "Nickname (1-64 Zeichen, nur Kleinbuchstaben und Ziffern)"
+#: admin_menu.php:30
+msgid "mnw OMB subscribers"
+msgstr "Abonnenten über mnw"
 
-#: admin_menu.php:81
-msgid ""
-"The nickname is the name under which remote users will know you. You should "
-"consider thoroughly if you really want to change this setting."
-msgstr ""
-"Der Nickname ist der Name unter dem Nutzer anderer Dienste dich kennen "
-"werden. Änderungen sollten gründlich überlegt werden."
+#: admin_menu.php:30
+msgid "Subscribers"
+msgstr "Abonnenten"
 
-#: admin_menu.php:85
-msgid "Full name (up to 255 characters)"
-msgstr "Kompletter Name (bis zu 255 Zeichen)"
-
-#: admin_menu.php:89
-msgid "Bio (less than 140 characters)"
-msgstr "Beschreibung (weniger als 140 Zeichen)"
-
-#: admin_menu.php:93
-msgid "Location (less than 255 characters)"
-msgstr "Ort (weniger als 255 Zeichen)"
-
-#: admin_menu.php:97
-msgid "Avatar URL"
-msgstr "Avatar-URL"
-
-#: admin_menu.php:101
-msgid "License URL"
-msgstr "Lizenz-URL"
-
-#: admin_menu.php:105
+#: admin_menu.php:41
 msgid "General settings"
 msgstr "Allgemeine Einstellungen"
 
-#: admin_menu.php:108
+#: admin_menu.php:44
 msgid "Wordpress mnw page URL"
 msgstr "URL der Wordpress-mnw-Seite"
 
-#: admin_menu.php:111
+#: admin_menu.php:47
 msgid ""
 "URL of a wordpress page which uses mnw.php as template. All public URLs are "
 "based on this URL; you should never change it."
@@ -69,15 +57,15 @@ msgstr ""
 "öffentlichen URLs basieren auf dieser URL; sie sollte niemals geändert "
 "werden."
 
-#: admin_menu.php:115
+#: admin_menu.php:51
 msgid "Redirect target after successful subscription."
 msgstr "Weiterleitungsziel nach Abonnement."
 
-#: admin_menu.php:119
+#: admin_menu.php:55
 msgid "Post template"
 msgstr "Post-Vorlage"
 
-#: admin_menu.php:121
+#: admin_menu.php:57
 msgid ""
 "Template used to generate microblog posts on blog post or page publication."
 "<br />\n"
@@ -95,31 +83,126 @@ msgstr ""
 "%e: Post- oder Seiten-Auszug<br />\n"
 "%c: Post- oder Seiten-Inhalt"
 
-#: admin_menu.php:129
+#: admin_menu.php:65
 msgid "Send a microblog notice when a post is published"
 msgstr "Sende eine Notiz wenn ein Post veröffentlicht wird"
 
-#: admin_menu.php:133
+#: admin_menu.php:69
 msgid "Send a microblog notice when a page is published"
 msgstr "Sende eine Notiz wenn eine Seite veröffentlicht wird"
 
-#: admin_menu.php:137
+#: admin_menu.php:73
 msgid "Send a microblog notice when an attachment is published"
 msgstr "Sende eine Notiz wenn ein Anhang veröffentlicht wird"
 
-#: admin_menu.php:141
+#: admin_menu.php:77
 msgid "Mirror subscription"
 msgstr ""
 
-#: admin_menu.php:144
+#: admin_menu.php:80
 msgid ""
 "Automatically subscribe to a subscriber, automatically unsubscribe if the "
 "other user unsubscribes."
 msgstr ""
 
-#: admin_menu.php:151
+#: admin_menu.php:87 admin_menu_profile.php:97
 msgid "Save Changes"
 msgstr ""
+
+#: admin_menu_profile.php:64
+msgid "OMB profile"
+msgstr "OMB-Profil"
+
+#: admin_menu_profile.php:67
+msgid "Nickname (1-64 characters, only lowercase letters and digits)"
+msgstr "Nickname (1-64 Zeichen, nur Kleinbuchstaben und Ziffern)"
+
+#: admin_menu_profile.php:70
+msgid ""
+"The nickname is the name under which remote users will know you. You should "
+"consider thoroughly if you really want to change this setting."
+msgstr ""
+"Der Nickname ist der Name unter dem Nutzer anderer Dienste dich kennen "
+"werden. Änderungen sollten gründlich überlegt werden."
+
+#: admin_menu_profile.php:74
+msgid "Full name (up to 255 characters)"
+msgstr "Kompletter Name (bis zu 255 Zeichen)"
+
+#: admin_menu_profile.php:78
+msgid "Bio (less than 140 characters)"
+msgstr "Beschreibung (weniger als 140 Zeichen)"
+
+#: admin_menu_profile.php:82
+msgid "Location (less than 255 characters)"
+msgstr "Ort (weniger als 255 Zeichen)"
+
+#: admin_menu_profile.php:86
+msgid "Avatar URL"
+msgstr "Avatar-URL"
+
+#: admin_menu_profile.php:90
+msgid "License URL"
+msgstr "Lizenz-URL"
+
+#: admin_menu_subscribers.php:57
+msgid "Could not delete subscriber."
+msgid_plural "Could not delete subscribers."
+msgstr[0] "Abonnent konnte nicht gelöscht werden."
+msgstr[1] "Abonnenten konnten nicht gelöscht werden."
+
+#: admin_menu_subscribers.php:59
+msgid "Subscriber successfully deleted."
+msgid_plural "Subscribers successfully deleted."
+msgstr[0] "Abonnent gelöscht."
+msgstr[1] "Abonnenten gelöscht."
+
+#: admin_menu_subscribers.php:75
+msgid ""
+"Subscribers are users of an OMB service who listen to your notices. Note "
+"that OMB does not yet support a block feature. Therefore the remote user is "
+"not informed about the deletion. Moreover, if another user from the same "
+"service is subscribed to you, the remote service will probably publish your "
+"messages to deleted subscribers as well."
+msgstr ""
+"Abonnenten sind Nutzer eines OMB-Dienstes, die deine Nachrichten verfolgen. "
+"OMB bietet zur Zeit noch keine Möglichkeit zum Blockieren eines Nutzers. "
+"Daher kann der Dienst des Abonnenten nicht über die Löschung informiert "
+"werden. Wenn dich ein anderer Nutzer des selben Dienstes abonniert hat, "
+"wird der Dienst die Nachricht vermutlich trotz der Löschung an den gelöschten "
+"Abonnenten senden."
+
+#: admin_menu_subscribers.php:77
+msgid "OMB subscribers"
+msgstr "OMB-Abonnenten"
+
+#: admin_menu_subscribers.php:82
+msgid "Bulk Actions"
+msgstr ""
+
+#: admin_menu_subscribers.php:83 admin_menu_subscribers.php:126
+msgid "Delete"
+msgstr ""
+
+#: admin_menu_subscribers.php:85
+msgid "Apply"
+msgstr ""
+
+#: admin_menu_subscribers.php:93 admin_menu_subscribers.php:101
+msgid "Subscriber"
+msgstr "Abonnent"
+
+#: admin_menu_subscribers.php:94 admin_menu_subscribers.php:102
+msgid "Action"
+msgstr "Aktion"
+
+#: admin_menu_subscribers.php:112
+msgid "No subscribers"
+msgstr "Keine Abonnenten"
+
+#: admin_menu_subscribers.php:125
+msgid "Delete this subscriber"
+msgstr "Diesen Abonnenten löschen"
 
 #: mnw_install.php:59
 msgid "Teh web"
@@ -146,43 +229,39 @@ msgstr "Abonnieren!"
 
 #: mnw_sidebar.php:51
 msgid "Style"
-msgstr "Style"
+msgstr "CSS-Stil"
 
-#: subscribe.php:72
-msgid "No session found."
-msgstr "Keine Session gefunden."
-
-#: subscribe.php:77
-msgid "Not authorized."
-msgstr "Nicht authorisiert."
-
-#: subscribe.php:92
-msgid "Error storing subscriber in local database."
-msgstr "Fehler beim Speichern in der lokalen Datenbank."
-
-#: subscribe.php:100
+#: subscribe.php:50
 msgid "No remote profile submitted."
 msgstr "Kein Profil angegeben."
 
-#: subscribe.php:104
+#: subscribe.php:55
 msgid "Invalid profile URL."
 msgstr "Ungültige Profil-URL."
 
-#: subscribe.php:109
-msgid "Invalid profile URL (no YADIS document)."
-msgstr "Ungültige Profil-URL (Kein YADIS-Dokument)."
+#: subscribe.php:70
+msgid "No session found."
+msgstr "Keine Session gefunden."
 
-#: subscribe.php:114
-msgid "Invalid profile URL (no XRDS defined)."
-msgstr "Ungültige Profil-URL (Kein XRDS definiert)."
+#: subscribe.php:75
+msgid "Not authorized."
+msgstr "Nicht authorisiert."
 
-#: subscribe.php:118
-msgid "Invalid profile URL (incorrect services)."
-msgstr "Ungültige Profil-URL (Falsche Dienste)."
-
-#: subscribe.php:122
-msgid "Couldn‘t get a request token."
-msgstr "Konnte keinen Request-Token erhalten."
+#: subscribe.php:94
+msgid "Error storing subscriber in local database."
+msgstr "Fehler beim Speichern in der lokalen Datenbank."
 
 msgid "OpenMicroBlogging compatible Microblogging for Wordpress"
 msgstr "OpenMicroBlogging-kompatibles Mikroblogging für Wordpress"
+
+#~ msgid "Invalid profile URL (no YADIS document)."
+#~ msgstr "Ungültige Profil-URL (Kein YADIS-Dokument)."
+
+#~ msgid "Invalid profile URL (no XRDS defined)."
+#~ msgstr "Ungültige Profil-URL (Kein XRDS definiert)."
+
+#~ msgid "Invalid profile URL (incorrect services)."
+#~ msgstr "Ungültige Profil-URL (Falsche Dienste)."
+
+#~ msgid "Couldn‘t get a request token."
+#~ msgstr "Konnte keinen Request-Token erhalten."

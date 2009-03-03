@@ -19,83 +19,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require_once 'lib.php';
-require_once 'libomb/service_consumer.php';
-
-$mnw_options = array("omb_full_name", "omb_nickname", "omb_license", "omb_bio", "omb_location", "omb_avatar");
-
-foreach($mnw_options as $option_name) {
-    add_action("update_option_{$option_name}", 'mnw_upd_settings');
-}
-
-function mnw_upd_settings() {
-    // Get all subscribers.
-    global $wpdb;
-    $select = "SELECT url, token, secret FROM " . MNW_SUBSCRIBER_TABLE;
-    $result = $wpdb->get_results($select, ARRAY_A);
-
-    if ($result == 0) {
-        return;
-    }
-
-    foreach($result as $subscriber) {
-        try {
-            $service = new OMB_Service_Consumer($subscriber['url'], get_bloginfo('url'));
-            $service->setToken($subscriber['token'], $subscriber['secret']);
-            $result = $service->updateProfile(get_own_profile());
-            if ($result->status == 403) { # not authorized, don't send again
-                delete_subscription($subscriber['url']);
-            } else if ($result->status != 200) {
-                print_r($result);
-            }
-        } catch (Exception $e) {
-            continue;
-        }
-    }
-}
+require_once 'admin_menu_profile.php';
+require_once 'admin_menu_subscribers.php';
 
 add_action('admin_menu', 'mnw_admin_menu');
 function mnw_admin_menu() {
-    add_options_page('mnw Options', 'mnw', 8, __FILE__, 'mnw_admin_options');
+    add_menu_page('mnw', 'mnw', 8, __FILE__);
+    add_submenu_page(__FILE__, __('General mnw plugin settings', 'mnw'), __('Plugin settings', 'mnw'), 8, __FILE__, 'mnw_plugin_options');
+    add_submenu_page(__FILE__, __('mnw OMB profile settings', 'mnw'), __('OMB Profile', 'mnw'), 8, dirname(__FILE__) . '/admin_menu_profile.php', 'mnw_profile_options');
+    add_submenu_page(__FILE__, __('mnw OMB subscribers', 'mnw'), __('Subscribers', 'mnw'), 8, dirname(__FILE__) . '/admin_menu_subscribers.php', 'mnw_subscribers_options');
 }
 
-function mnw_admin_options() {
+function mnw_plugin_options() {
     global $mnw_options;
 ?>
 <div class="wrap">
     <h2>mnw</h2>
     <form method="post" action="options.php">
         <?php wp_nonce_field('update-options'); ?>
-        <h3><?php _e('OMB profile', 'mnw'); ?></h3>
-        <table class="form-table">
-            <tr valign="top">
-                <th scope="row"><?php _e('Nickname (1-64 characters, only lowercase letters and digits)', 'mnw'); ?></th>
-                <td>
-                    <input type="text" name="omb_nickname" value="<?php echo get_option('omb_nickname'); ?>" /><br />
-                    <?php _e('The nickname is the name under which remote users will know you. You should consider thoroughly if you really want to change this setting.', 'mnw'); ?>
-                </td>
-            </tr>
-            <tr valign="top">
-                <th scope="row"><?php _e('Full name (up to 255 characters)', 'mnw'); ?></th>
-                <td><input type="text" class="regular-text" name="omb_full_name" value="<?php echo get_option('omb_full_name'); ?>" /></td>
-            </tr>
-            <tr valign="top">
-                <th scope="row"><?php _e('Bio (less than 140 characters)', 'mnw'); ?></th>
-                <td><textarea cols="40" rows="3" name="omb_bio"><?php echo get_option('omb_bio'); ?></textarea></td>
-            </tr>
-            <tr valign="top">
-                <th scope="row"><?php _e('Location (less than 255 characters)', 'mnw'); ?></th>
-                <td><input type="text" class="regular-text" name="omb_location" value="<?php echo get_option('omb_location'); ?>" /></td>
-            </tr>
-            <tr valign="top">
-                <th scope="row"><?php _e('Avatar URL', 'mnw'); ?></th>
-                <td><input type="text" class="regular-text" name="omb_avatar" value="<?php echo get_option('omb_avatar'); ?>" /></td>
-            </tr>
-            <tr valign="top">
-                <th scope="row"><?php _e('License URL', 'mnw'); ?></th>
-                <td><input type="text" class="regular-text" name="omb_license" value="<?php echo get_option('omb_license'); ?>" /></td>
-            </tr>
-        </table>
+
         <h3><?php _e('General settings', 'mnw'); ?></h3>
         <table class="form-table">
             <tr valign="top">
@@ -140,7 +82,7 @@ function mnw_admin_options() {
             </tr>-->
         </table>
         <input type="hidden" name="action" value="update" />
-        <input type="hidden" name="page_options" value="<?php echo join(",", $mnw_options); ?>, mnw_after_subscribe, mnw_themepage_url, mnw_post_template, mnw_on_post, mnw_on_page, mnw_on_attachment" />
+        <input type="hidden" name="page_options" value="mnw_after_subscribe, mnw_themepage_url, mnw_post_template, mnw_on_post, mnw_on_page, mnw_on_attachment" />
         <p class="submit">
             <input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
         </p>

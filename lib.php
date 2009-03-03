@@ -26,6 +26,11 @@ function delete_subscription($url) {
     return $wpdb->query('DELETE FROM ' . MNW_SUBSCRIBER_TABLE . ' WHERE url = "' . $url . '"');
 }
 
+function delete_subscription_by_id($id) {
+    global $wpdb;
+    return $wpdb->query('DELETE FROM ' . MNW_SUBSCRIBER_TABLE . ' WHERE id = "' . $id . '"');
+}
+
 function get_own_profile() {
   static $profile;
   if (is_null($profile)) {
