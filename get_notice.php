@@ -26,6 +26,9 @@ function mnw_get_notice() {
         if ($notice_url) { 
             wp_redirect($notice_url , 307);
             return array(false, array());
+        } else {
+          $notice = $wpdb->get_row('SELECT * FROM ' . MNW_NOTICES_TABLE . ' WHERE id = ' . $wpdb->escape($_GET[MNW_NOTICE_ID]));
+          return array('get_notice', array('notice' => $notice));
         }
     }
     return array('', array());

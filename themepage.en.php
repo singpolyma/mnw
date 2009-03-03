@@ -50,6 +50,22 @@ if ($continue !== false) {
         </form>
 <?php
         break;
+    case 'get_notice':
+?>
+        <h3 style="text-transform:uppercase;"><?php printf('Status on %s:', date('d F Y H:i:s', strtotime($data['notice']->created)));?></h3>
+        <p style="font-size: 200%; margin-left: 0.5em;">
+<?php
+        if ($data['notice']->uri !== null) {
+          echo "<a href='" . $data['notice']->uri . "'>";
+        }
+        echo $data['notice']->content;
+        if ($data['notice']->uri !== null) {
+          echo "</a>";
+        }
+?>
+        </p>
+<?php
+        break;
     }
 ?>
 	</div>
