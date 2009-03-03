@@ -62,7 +62,7 @@ function mnw_upd_settings() {
 
 add_action('admin_menu', 'mnw_admin_menu');
 function mnw_admin_menu() {
-    add_options_page('mnw Options', 'mnw', 8, __FILE__, 'mnw_admin_options');
+    add_options_page(__('mnw Options', 'mnw'), 'mnw', 8, __FILE__, 'mnw_admin_options');
 }
 
 function mnw_admin_options() {
