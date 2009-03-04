@@ -70,6 +70,29 @@ function mnw_install() {
         dbDelta($sql);
     }
 
+    /* Create table MNW_TOKENS_TABLE. */
+    if ($wpdb->get_var("show tables like '" . MNW_TOKENS_TABLE . "'") !== MNW_TOKENS_TABLE) {
+        $sql = "CREATE TABLE " . MNW_TOKENS_TABLE . " (
+          consumer varchar(255) not null comment 'root URL of the consumer',
+          token char(32) not null,
+          secret char(32) not null,
+          type tinyint not null default 0 comment '0 = initial request token, 1 = authorized request token, 2 = used request token, 3 = access token',
+          constraint primary key (consumer, token)
+        )";
+        require_once (ABSPATH . 'wp-admin/includes/upgrade.php');
+        dbDelta($sql);
+    }
+
+    /* Create table MNW_NONCES_TABLE. */
+    if ($wpdb->get_var("show tables like '" . MNW_NONCES_TABLE . "'") !== MNW_NONCES_TABLE) {
+        $sql = "CREATE TABLE " . MNW_NONCES_TABLE . " (
+          nonce char(32) not null,
+          constraint primary key (nonce)
+        )";
+        require_once (ABSPATH . 'wp-admin/includes/upgrade.php');
+        dbDelta($sql);
+    }
+
     /* Set wordpress-managed settings to default values. */
     $options = array (
                 'omb_full_name'           => get_bloginfo('name'),

@@ -31,33 +31,61 @@ Text Domain: mnw
 
 set_include_path(get_include_path() . PATH_SEPARATOR .
                     dirname(__FILE__) . '/extlib');
-$plugin_dir = basename(dirname(__FILE__));
-load_plugin_textdomain('mnw', '', $plugin_dir . '/languages/');
+
+load_plugin_textdomain('mnw', '', basename(dirname(__FILE__)) . '/languages/');
 
 global $wpdb;
 define('MNW_SUBSCRIBER_TABLE', $wpdb->prefix . 'mnw_subscribers');
 define('MNW_NOTICES_TABLE', $wpdb->prefix . 'mnw_notices');
 define('MNW_FNOTICES_TABLE', $wpdb->prefix . 'mnw_fnotices');
+define('MNW_TOKENS_TABLE', $wpdb->prefix . 'mnw_tokens');
+define('MNW_NONCES_TABLE', $wpdb->prefix . 'mnw_nonces');
+
 define('MNW_ACTION', 'mnw_action');
 define('MNW_SUBSCRIBE_ACTION', 'mnw_subscribe_action');
+define('MNW_OAUTH_ACTION', 'mnw_oauth_action');
+define('MNW_OMB_ACTION', 'mnw_omb_action');
 define('MNW_NOTICE_ID', 'mnw_notice_id');
-
-require_once 'lib.php';
 
 /*
  * Initialize database on activation.
  */
+
 register_activation_hook(__FILE__, 'mnw_install');
 
 require_once 'mnw_install.php';
+
+/*
+ * Display admin menu.
+ */
+
 require_once 'admin_menu.php';
-require_once 'subscribe.php';
-require_once 'get_notice.php';
-require_once 'Notice.php';
+
+/*
+ * Display sidebar widget.
+ */
+
 require_once 'mnw_sidebar.php';
+
+/*
+ * Publish Yadis header.
+ */
+
+add_action('wp_head', 'mnw_publish_yadis');
+
+function mnw_publish_yadis() {
+  $themepage = get_option ('mnw_themepage_url');
+  if ($themepage != '') {
+    require_once 'lib.php';
+    echo '<meta http-equiv="X-XRDS-Location" content="' .  mnw_append_param($themepage, MNW_ACTION, 'xrds') . '"/>';
+  }
+}
+
 /*
  * Publish notice on post/page publication.
  */
+
+require_once 'Notice.php';
 
 add_action('future_to_publish', 'mnw_publish_post');
 add_action('new_to_publish', 'mnw_publish_post');
@@ -80,13 +108,27 @@ function mnw_parse_request() {
         global $wp_query;
         update_option('mnw_themepage_url', $wp_query->post->guid);
     }
-    if (isset($_GET[MNW_ACTION])) {
-        switch ($_GET[MNW_ACTION]) {
+    if (isset($_REQUEST[MNW_ACTION])) {
+        switch ($_REQUEST[MNW_ACTION]) {
         case 'subscribe':
+            require_once 'subscribe.php';
             return mnw_parse_subscribe();
             break;
         case 'get_notice':
+            require_once 'get_notice.php';
             return mnw_get_notice();
+            break;
+        case 'xrds':
+            require_once 'mnw_provider.php';
+            return mnw_get_xrds();
+            break;
+        case 'oauth':
+            require_once 'mnw_provider.php';
+            return mnw_handle_oauth();
+            break;
+        case 'omb':
+            require_once 'mnw_provider.php';
+            return mnw_handle_omb();
             break;
         }
     } else {

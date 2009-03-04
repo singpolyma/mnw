@@ -66,6 +66,42 @@ if ($continue !== false) {
         </p>
 <?php
         break;
+
+    case 'userauth':
+?>
+        <p>
+<?php
+        if (isset($data['error'])) {
+          echo $data['error'];
+        } else {
+          $uri = $data['remote_user']->getIdentifierURI();
+          $action = attribute_escape(mnw_append_param(get_option('mnw_themepage_url'), MNW_ACTION, 'oauth') . '&' . MNW_OAUTH_ACTION . '=userauth_continue');
+
+?>
+          <form id="mnw_userauthorization" name="mnw_userauthorization" method="post" action="<?php echo $action; ?>">
+            <p>Do you really want to subscribe <a href='<?php echo $data['remote_user']->getProfileURL(); ?>'><?php echo $uri; ?></a>?</p>
+            <input id="profile" type="hidden" value="<?php echo $uri; ?>" name="profile"/>
+            <input id="nonce" type="hidden" value="<?php echo wp_create_nonce('mnw_userauth_nonce'); ?>" name="nonce"/>
+            <input id="accept" class="submit" type="submit" title="" value="Yes" name="accept"/>
+            <input id="reject" class="submit" type="submit" title="" value="No" name="reject"/>
+          </form>
+<?php
+        }
+?>
+        </p>
+<?php
+        break;
+
+    case 'userauth_continue':
+        echo '<p>';
+        if ($data['token'] !== '') {
+          echo 'Confirm the subscribee‘s service that token  ' . $data['token'] . ' is authorized.';
+        } else {
+          echo 'You rejected the subscription.';
+        }
+        echo '</p>';
+        break;
+
     }
 ?>
 	</div>
