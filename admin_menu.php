@@ -20,14 +20,14 @@
  */
 
 require_once 'admin_menu_profile.php';
-require_once 'admin_menu_subscribers.php';
+require_once 'admin_menu_remote_users.php';
 
 add_action('admin_menu', 'mnw_admin_menu');
 function mnw_admin_menu() {
     add_menu_page('mnw', 'mnw', 8, __FILE__);
     add_submenu_page(__FILE__, __('General mnw plugin settings', 'mnw'), __('Plugin settings', 'mnw'), 8, __FILE__, 'mnw_plugin_options');
     add_submenu_page(__FILE__, __('mnw OMB profile settings', 'mnw'), __('OMB Profile', 'mnw'), 8, dirname(__FILE__) . '/admin_menu_profile.php', 'mnw_profile_options');
-    add_submenu_page(__FILE__, __('mnw OMB subscribers', 'mnw'), __('Subscribers', 'mnw'), 8, dirname(__FILE__) . '/admin_menu_subscribers.php', 'mnw_subscribers_options');
+    add_submenu_page(__FILE__, __('mnw remote users', 'mnw'), __('Remote users', 'mnw'), 8, dirname(__FILE__) . '/admin_menu_remote_users.php', 'mnw_remote_users_options');
 }
 
 function mnw_plugin_options() {

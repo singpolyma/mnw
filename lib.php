@@ -25,12 +25,12 @@ require_once 'libomb/profile.php';
 
 function delete_subscription($url) {
     global $wpdb;
-    return $wpdb->query('DELETE FROM ' . MNW_SUBSCRIBER_TABLE . ' WHERE url = "' . $url . '"');
+    return $wpdb->query('UPDATE ' . MNW_SUBSCRIBER_TABLE . 'SET token = null, secret = null WHERE url = "' . $url . '"');
 }
 
-function delete_subscription_by_id($id) {
+function delete_remote_user_by_id($id) {
     global $wpdb;
-    return $wpdb->query('DELETE FROM ' . MNW_SUBSCRIBER_TABLE . ' WHERE id = "' . $id . '"');
+    return $wpdb->query('UPDATE ' . MNW_SUBSCRIBER_TABLE . 'SET token = null, secret = null, resubtoken = null, resubsecret = null WHERE id = "' . $id . '"');
 }
 
 function get_own_profile() {

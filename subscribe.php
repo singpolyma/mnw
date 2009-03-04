@@ -82,12 +82,14 @@ function finish_subscription() {
     if ($wpdb->query($select) > 0) {
         $query = "UPDATE " . MNW_SUBSCRIBER_TABLE . " SET " . 
                     "token= '" . $wpdb->escape($token->key) . "', " .
-                    "secret= '" . $wpdb->escape($token->secret) .
+                    "secret= '" . $wpdb->escape($token->secret) . "', " .
+                    "nickname= '" . $wpdb->escape($_GET['omb_listener_nickname']) .
                     "' where url = '$profile'";
     } else {
-        $query = "INSERT INTO " . MNW_SUBSCRIBER_TABLE . " (url, token, secret) " .
+        $query = "INSERT INTO " . MNW_SUBSCRIBER_TABLE . " (url, token, secret, nickname) " .
                   "VALUES ('" . $wpdb->escape($_GET['omb_listener_profile']) . "','" .
-                  $wpdb->escape($token->key) . "','" . $wpdb->escape($token->secret) . "')";
+                  $wpdb->escape($token->key) . "','" . $wpdb->escape($token->secret) . "','" .
+                  $wpdb->escape($_GET['omb_listener_nickname']) . "')";
     }
     $results = $wpdb->query($query);
     if ($results == 0) {
