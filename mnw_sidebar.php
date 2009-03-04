@@ -30,7 +30,7 @@ add_action('init', 'mnw_subscribe_widget_register');
 function mnw_subscribe_widget($args) {
     extract($args);
     global $wpdb;
-    $count = $wpdb->get_var('SELECT COUNT(*) FROM ' . MNW_SUBSCRIBER_TABLE);
+    $count = $wpdb->get_var('SELECT COUNT(*) FROM ' . MNW_SUBSCRIBER_TABLE . ' WHERE token is not null');
     echo $before_widget;
 ?>
         <img style="float: left;" src="<?php echo get_template_directory_uri(); ?>/omb.png"/>
