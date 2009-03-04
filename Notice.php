@@ -24,8 +24,12 @@ require_once 'libomb/service_consumer.php';
 
 class mnw_Notice extends OMB_Notice {
 
-    function __construct($content, $uri) {
-      parent::__construct(get_own_profile(), $uri, $content);
+    protected $url;
+
+    function __construct($content, $url) {
+      /* URI needs database ID, hence setting it to an empty string until we know the ID. */
+      parent::__construct(get_own_profile(), '', $content);
+      $this->url = $url;
     }
 
     static function fromPost($post) {
@@ -49,14 +53,14 @@ class mnw_Notice extends OMB_Notice {
         }
         global $wpdb;
         $content = $wpdb->escape($str);
-        $uri = get_permalink($post->ID); /* temporary uri */
-        return new mnw_Notice($content, $uri);
+        $url = get_permalink($post->ID);
+        return new mnw_Notice($content, $url);
     }
 
     function send() {
     global $wpdb;
     /* Insert notice into MNW_NOTICES_TABLE. */
-    $insert = 'INSERT INTO ' . MNW_NOTICES_TABLE . " (uri, content, created) VALUES ('$this->uri', '$this->content', '" . common_sql_now() . "')";
+    $insert = 'INSERT INTO ' . MNW_NOTICES_TABLE . " (url, content, created) VALUES ('$this->url', '$this->content', '" . common_sql_now() . "')";
     $result = $wpdb->query($insert);
     if ($result == 0) {
         return;

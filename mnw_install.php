@@ -32,6 +32,10 @@ function mnw_install() {
           url VARCHAR(255) NOT NULL,
           token VARCHAR(255),
           secret VARCHAR(255),
+          resubtoken VARCHAR(255),
+          resubsecret VARCHAR(255),
+          license VARCHAR(255),
+          nickname VARCHAR(64),
           UNIQUE KEY id (id)
         )";
         require_once (ABSPATH . 'wp-admin/includes/upgrade.php');
@@ -42,7 +46,22 @@ function mnw_install() {
     if ($wpdb->get_var("show tables like '" . MNW_NOTICES_TABLE . "'") !== MNW_NOTICES_TABLE) {
         $sql = "CREATE TABLE " . MNW_NOTICES_TABLE . " (
           id mediumint(11) NOT NULL AUTO_INCREMENT,
+          url VARCHAR(255) comment 'URL of a wordpress object which corresponds to this notice, null if none exists',
+          content VARCHAR(140),
+          created datetime,
+          UNIQUE KEY id (id)
+        )";
+        require_once (ABSPATH . 'wp-admin/includes/upgrade.php');
+        dbDelta($sql);
+    }
+
+    /* Create table MNW_FNOTICES_TABLE. */
+    if ($wpdb->get_var("show tables like '" . MNW_FNOTICES_TABLE . "'") !== MNW_FNOTICES_TABLE) {
+        $sql = "CREATE TABLE " . MNW_FNOTICES_TABLE . " (
+          id mediumint(11) NOT NULL AUTO_INCREMENT,
           uri VARCHAR(255),
+          url VARCHAR(255),
+          user_id mediumint(9) NOT NULL references " . MNW_SUBSCRIBER_TABLE . " (id),
           content VARCHAR(140),
           created datetime,
           UNIQUE KEY id (id)

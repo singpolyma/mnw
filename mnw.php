@@ -37,6 +37,7 @@ load_plugin_textdomain('mnw', '', $plugin_dir . '/languages/');
 global $wpdb;
 define('MNW_SUBSCRIBER_TABLE', $wpdb->prefix . 'mnw_subscribers');
 define('MNW_NOTICES_TABLE', $wpdb->prefix . 'mnw_notices');
+define('MNW_FNOTICES_TABLE', $wpdb->prefix . 'mnw_fnotices');
 define('MNW_ACTION', 'mnw_action');
 define('MNW_SUBSCRIBE_ACTION', 'mnw_subscribe_action');
 define('MNW_NOTICE_ID', 'mnw_notice_id');

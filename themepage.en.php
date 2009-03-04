@@ -55,11 +55,11 @@ if ($continue !== false) {
         <h3 style="text-transform:uppercase;"><?php printf('Status on %s:', date('d F Y H:i:s', strtotime($data['notice']->created)));?></h3>
         <p style="font-size: 200%; margin-left: 0.5em;">
 <?php
-        if ($data['notice']->uri !== null) {
-          echo "<a href='" . $data['notice']->uri . "'>";
+        if ($data['notice']->url !== null) {
+          echo "<a href='" . $data['notice']->url . "'>";
         }
         echo $data['notice']->content;
-        if ($data['notice']->uri !== null) {
+        if ($data['notice']->url !== null) {
           echo "</a>";
         }
 ?>
