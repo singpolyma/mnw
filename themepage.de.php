@@ -56,15 +56,15 @@ if ($continue !== false) {
         <p style="font-size: 200%; margin-left: 0.5em;">
 <?php
         if ($data['notice']->url !== null) {
-          echo "<a href='" . $data['notice']->url . "'>"; 
+          echo "<a href='" . $data['notice']->url . "'>";
         }
         echo $data['notice']->content;
         if ($data['notice']->url !== null) {
-          echo "</a>"; 
+          echo "</a>";
         }
 ?>
         </p>
-<?php        
+<?php
         break;
 
     case 'userauth':
