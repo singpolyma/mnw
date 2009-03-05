@@ -119,7 +119,7 @@ function mnw_notices_widget_control() {
   </p>
   <p style="text-align:right;" class="mnw_field">
     <label for="mnw-template"><?php _e('Entry template', 'mnw'); ?></label>
-    <input id="mnw-template" name="mnw-template" type="text" value="<?php echo $options['template']; ?>" class="mnw_field" />
+    <input id="mnw-template" name="mnw-template" type="text" value='<?php /* The AJAX stuff is not able to handle ' and " in params */ echo preg_replace("/'/", '"', stripslashes($options['template'])); ?>' class="mnw_field" />
   </p>
   <input type="hidden" id="mnw-notices-submit" name="mnw-notices-submit" value="1" />
 <?php

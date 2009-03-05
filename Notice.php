@@ -27,8 +27,8 @@ class mnw_Notice extends OMB_Notice {
     protected $url;
 
     function __construct($content, $url) {
-      /* URI needs database ID, hence setting it to an empty string until we know the ID. */
-      parent::__construct(get_own_profile(), '', $content);
+      /* URI needs database ID, hence setting it to blogpost $url until we know the ID. */
+      parent::__construct(get_own_profile(), $url, $content);
       $this->url = $url;
     }
 

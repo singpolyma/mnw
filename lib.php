@@ -33,12 +33,12 @@ function mnw_receive_notice($notice) {
 
 function delete_subscription($url) {
     global $wpdb;
-    return $wpdb->query('UPDATE ' . MNW_SUBSCRIBER_TABLE . 'SET token = null, secret = null WHERE url = "' . $url . '"');
+    return $wpdb->query('UPDATE ' . MNW_SUBSCRIBER_TABLE . ' SET token = null, secret = null WHERE url = "' . $url . '"');
 }
 
 function delete_remote_user_by_id($id) {
     global $wpdb;
-    return $wpdb->query('UPDATE ' . MNW_SUBSCRIBER_TABLE . 'SET token = null, secret = null, resubtoken = null, resubsecret = null WHERE id = "' . $id . '"');
+    return $wpdb->query('UPDATE ' . MNW_SUBSCRIBER_TABLE . ' SET token = null, secret = null, resubtoken = null, resubsecret = null WHERE id = "' . $id . '"');
 }
 
 function mnw_is_to_us($content) {

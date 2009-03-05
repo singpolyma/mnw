@@ -87,7 +87,7 @@ function finish_subscription() {
                     "' where url = '$profile'";
     } else {
         $query = "INSERT INTO " . MNW_SUBSCRIBER_TABLE . " (uri, url, token, secret, nickname) " .
-                  "VALUES ('" . $wpdb->escape($_GET['omb_listener']) . "','" . $wpdb->escape($_GET['omb_listener_profile']) . "','" .
+                  "VALUES ('" . $wpdb->escape($service->getListenerURI()) . "','" . $wpdb->escape($_GET['omb_listener_profile']) . "','" .
                   $wpdb->escape($token->key) . "','" . $wpdb->escape($token->secret) . "','" .
                   $wpdb->escape($_GET['omb_listener_nickname']) . "')";
     }
