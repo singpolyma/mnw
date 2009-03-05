@@ -111,7 +111,10 @@ function mnw_install() {
                 'mnw_on_post'             => true,
                 'mnw_on_page'             => false,
                 'mnw_on_attachment'       => false,
-                'mnw_subscribe_style'     => 'text-align: right; font-size:170%;');
+                'mnw_subscribe_style'     => 'text-align: right; font-size:170%;',
+                'mnw_notices_widget'      => array('title' => __('mnw Notices', 'mnw'), 'entry_count' => 5,
+                                                'only_direct' => true, 'strip_at' => true,
+                                                'template' => __('„<a href="%s">%s</a>“ (<a href="%s">%s</a> @ %s)', 'mnw')));
 #                'mnw_mirror_subscription' => true
 
     foreach($options as $key => $value) {
