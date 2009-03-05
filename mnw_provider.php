@@ -21,6 +21,7 @@
 require_once 'libomb/service_provider.php';
 require_once 'lib.php';
 require_once 'datastore.php';
+require_once 'omb_datastore.php';
 
 function mnw_get_xrds() {
   $base_url = get_option('mnw_themepage_url');
@@ -98,8 +99,28 @@ function mnw_handle_oauth() {
   return $ret;
 }
 
-
 function mnw_handle_omb() {
   /* perform action mnw_omb_action. */
+  if (isset($_REQUEST[MNW_OMB_ACTION])) {
+        switch ($_REQUEST[MNW_OMB_ACTION]) {
+
+        case 'updateprofile':
+          $srv = new OMB_Service_Provider(get_own_profile(), new mnw_DataStore());
+          $profile = $srv->updateprofile(new mnw_OMB_DataStore());
+          return array(false, array());
+          break;
+
+        case 'postnotice':
+          $srv = new OMB_Service_Provider(get_own_profile(), new mnw_DataStore());
+          $notice = $srv->postnotice(new mnw_OMB_DataStore());
+          mnw_receive_notice($notice);
+          return array(false, array());
+          break;
+        }
+  } else {
+    $ret = array('', array());
+  }
+  return $ret;
+
 }
 ?>

@@ -29,7 +29,8 @@ function mnw_install() {
     if ($wpdb->get_var("show tables like '" . MNW_SUBSCRIBER_TABLE . "'") !== MNW_SUBSCRIBER_TABLE) {
         $sql = "CREATE TABLE " . MNW_SUBSCRIBER_TABLE . " (
           id mediumint(9) NOT NULL AUTO_INCREMENT,
-          url VARCHAR(255) NOT NULL,
+          uri VARCHAR(255) NOT NULL,
+          url VARCHAR(255),
           token VARCHAR(255),
           secret VARCHAR(255),
           resubtoken VARCHAR(255),
@@ -64,6 +65,7 @@ function mnw_install() {
           user_id mediumint(9) NOT NULL references " . MNW_SUBSCRIBER_TABLE . " (id),
           content VARCHAR(140),
           created datetime,
+          to_us tinyint(1),
           UNIQUE KEY id (id)
         )";
         require_once (ABSPATH . 'wp-admin/includes/upgrade.php');

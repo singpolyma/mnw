@@ -23,6 +23,14 @@
 
 require_once 'libomb/profile.php';
 
+function mnw_receive_notice($notice) {
+    global $wpdb;
+    $insert = 'INSERT INTO ' . MNW_FNOTICES_TABLE . " (uri, url, user_id, content, created, to_us) " .
+              "SELECT '%s', '%s', user.id, '%s', NOW(), '%s' FROM " . MNW_SUBSCRIBER_TABLE . " AS user WHERE user.uri = '%s'";
+    $insert2 = $wpdb->prepare($insert, $notice->getIdentifierURI(), $notice->getURL(), $notice->getContent(), mnw_is_to_us($notice->getContent()) ? '1' : '0', $notice->getAuthor()->getIdentifierURI());
+    return $wpdb->query($insert2);
+}
+
 function delete_subscription($url) {
     global $wpdb;
     return $wpdb->query('UPDATE ' . MNW_SUBSCRIBER_TABLE . 'SET token = null, secret = null WHERE url = "' . $url . '"');
@@ -31,6 +39,10 @@ function delete_subscription($url) {
 function delete_remote_user_by_id($id) {
     global $wpdb;
     return $wpdb->query('UPDATE ' . MNW_SUBSCRIBER_TABLE . 'SET token = null, secret = null, resubtoken = null, resubsecret = null WHERE id = "' . $id . '"');
+}
+
+function mnw_is_to_us($content) {
+  return preg_match('/(^T |@)' . get_option('omb_nickname') . '/', $content);
 }
 
 function get_own_profile() {
@@ -117,8 +129,8 @@ function mnw_add_subscriber($profile, $token) {
                     "nickname = '" . $wpdb->escape($profile->getNickname()) . "' " .
                     "where url = '" . $profile->getProfileURL() . "'";
     } else {
-        $query = "INSERT INTO " . MNW_SUBSCRIBER_TABLE . " (url, resubtoken, resubsecret, license, nickname) " .
-                  "VALUES ('" . $profile->getProfileURL() . "', " .
+        $query = "INSERT INTO " . MNW_SUBSCRIBER_TABLE . " (uri, url, resubtoken, resubsecret, license, nickname) " .
+                  "VALUES ('" . $profile->getIdentifierURI() . "', '" . $profile->getProfileURL() . "', " .
                     "'" . $wpdb->escape($token->key) . "', " .
                     "'" . $wpdb->escape($token->secret) . "', " .
                     "'" . $wpdb->escape($profile->getLicenseURL()) . "', " .
