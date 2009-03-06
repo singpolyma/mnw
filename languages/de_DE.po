@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: mail@adrianlang.de\n"
-"POT-Creation-Date: 2009-03-03 11:35+0100\n"
-"PO-Revision-Date: 2009-03-03 11:43+0100\n"
+"POT-Creation-Date: 2009-03-06 22:35+0100\n"
+"PO-Revision-Date: 2009-03-06 22:51+0100\n"
 "Last-Translator: root <mail@adrianlang.de>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
@@ -33,12 +33,12 @@ msgid "OMB Profile"
 msgstr "OMB-Profil"
 
 #: admin_menu.php:30
-msgid "mnw OMB subscribers"
-msgstr "Abonnenten über mnw"
+msgid "mnw remote users"
+msgstr "OMB-Nutzer"
 
 #: admin_menu.php:30
-msgid "Subscribers"
-msgstr "Abonnenten"
+msgid "Remote users"
+msgstr "OMB-Nutzer"
 
 #: admin_menu.php:41
 msgid "General settings"
@@ -145,91 +145,186 @@ msgstr "Avatar-URL"
 msgid "License URL"
 msgstr "Lizenz-URL"
 
-#: admin_menu_subscribers.php:57
-msgid "Could not delete subscriber."
-msgid_plural "Could not delete subscribers."
-msgstr[0] "Abonnent konnte nicht gelöscht werden."
-msgstr[1] "Abonnenten konnten nicht gelöscht werden."
+#: admin_menu_remote_users.php:57
+msgid "Could not delete remote user."
+msgid_plural "Could not delete remote users."
+msgstr[0] "OMB-Nutzer konnte nicht gelöscht werden."
+msgstr[1] "OMB-Nutzer konnten nicht gelöscht werden."
 
-#: admin_menu_subscribers.php:59
-msgid "Subscriber successfully deleted."
-msgid_plural "Subscribers successfully deleted."
-msgstr[0] "Abonnent gelöscht."
-msgstr[1] "Abonnenten gelöscht."
+#: admin_menu_remote_users.php:59
+msgid "Remote user successfully deleted."
+msgid_plural "Remote users successfully deleted."
+msgstr[0] "OMB-Nutzer gelöscht."
+msgstr[1] "OMB-Nutzer gelöscht."
 
-#: admin_menu_subscribers.php:75
+#: admin_menu_remote_users.php:75
 msgid ""
-"Subscribers are users of an OMB service who listen to your notices. Note "
-"that OMB does not yet support a block feature. Therefore the remote user is "
-"not informed about the deletion. Moreover, if another user from the same "
-"service is subscribed to you, the remote service will probably publish your "
-"messages to deleted subscribers as well."
+"<em>Subscribers</em> are users of an OMB service who listen to your notices. "
+"The messages of <em>subscribed users</em> get published to mnw and may be "
+"displayed."
 msgstr ""
-"Abonnenten sind Nutzer eines OMB-Dienstes, die deine Nachrichten verfolgen. "
+"<em>Abonnenten</em> sind Nutzer eines OMB-Dienstes, die deine Nachrichten"
+" verfolgen. Die Nachrichten <em>abonnierter Nutzer</em> werden an mnw gesendet"
+" und können im Blog anzeigt werden."
+
+
+#: admin_menu_remote_users.php:76
+msgid "If you delete a user, both subscriptions – if available – are removed."
+msgstr "Wenn du einen Benutzer löscht werden beide Abonnements – sofern vorhanden – gelöscht."
+
+#: admin_menu_remote_users.php:77
+msgid ""
+"Note that the OpenMicroBlogging standard does not yet support a block "
+"feature; Therefore the remote user is not informed about a deletion. "
+"Moreover, if another user from the same service is subscribed to you, the "
+"remote service will probably publish your messages to deleted users as well."
+msgstr ""
 "OMB bietet zur Zeit noch keine Möglichkeit zum Blockieren eines Nutzers. "
 "Daher kann der Dienst des Abonnenten nicht über die Löschung informiert "
-"werden. Wenn dich ein anderer Nutzer des selben Dienstes abonniert hat, "
-"wird der Dienst die Nachricht vermutlich trotz der Löschung an den gelöschten "
+"werden. Wenn dich ein anderer Nutzer des selben Dienstes abonniert hat, wird "
+"der Dienst die Nachricht vermutlich trotz der Löschung an den gelöschten "
 "Abonnenten senden."
 
-#: admin_menu_subscribers.php:77
-msgid "OMB subscribers"
-msgstr "OMB-Abonnenten"
+#: admin_menu_remote_users.php:78
+msgid ""
+"Likewise a user which is listed as subscriber may have canceled his "
+"subscription recently."
+msgstr ""
+"Entsprechend kann ein Benutzer der als Abonnent angezeigt wird sein"
+" Abonnement widerrufen haben."
 
-#: admin_menu_subscribers.php:82
+#: admin_menu_remote_users.php:80
+msgid "Remote OMB users"
+msgstr "OMB-Nutzer"
+
+#: admin_menu_remote_users.php:85
 msgid "Bulk Actions"
 msgstr ""
 
-#: admin_menu_subscribers.php:83 admin_menu_subscribers.php:126
+#: admin_menu_remote_users.php:86 admin_menu_remote_users.php:135
 msgid "Delete"
 msgstr ""
 
-#: admin_menu_subscribers.php:85
+#: admin_menu_remote_users.php:88
 msgid "Apply"
 msgstr ""
 
-#: admin_menu_subscribers.php:93 admin_menu_subscribers.php:101
-msgid "Subscriber"
-msgstr "Abonnent"
+#: admin_menu_remote_users.php:96 admin_menu_remote_users.php:106
+msgid "User"
+msgstr "Benutzer"
 
-#: admin_menu_subscribers.php:94 admin_menu_subscribers.php:102
+#: admin_menu_remote_users.php:97 admin_menu_remote_users.php:107
+msgid "Direction"
+msgstr "Richtung"
+
+#: admin_menu_remote_users.php:98 admin_menu_remote_users.php:108
+#, fuzzy
+msgid "License"
+msgstr "Lizenz"
+
+#: admin_menu_remote_users.php:99 admin_menu_remote_users.php:109
 msgid "Action"
 msgstr "Aktion"
 
-#: admin_menu_subscribers.php:112
-msgid "No subscribers"
-msgstr "Keine Abonnenten"
+#: admin_menu_remote_users.php:119
+msgid "No remote users"
+msgstr "Keine anderen Benutzer"
 
-#: admin_menu_subscribers.php:125
-msgid "Delete this subscriber"
-msgstr "Diesen Abonnenten löschen"
+#: admin_menu_remote_users.php:128
+msgid "Both"
+msgstr "Beide Richtungen"
 
-#: mnw_install.php:59
+#: admin_menu_remote_users.php:128
+msgid "Subscriber"
+msgstr "Abonnent"
+
+#: admin_menu_remote_users.php:128
+msgid "Subscribed user"
+msgstr "Abonnierter"
+
+#: admin_menu_remote_users.php:134
+msgid "Delete this user"
+msgstr "Diesen Benutzer löschen"
+
+#: mnw_install.php:104
 msgid "Teh web"
 msgstr "Zwischennetz"
 
-#: mnw_install.php:66
+#: mnw_install.php:111
 msgid "“%n” (see %u)"
 msgstr "„%n“ (siehe %u)"
+
+#: mnw_install.php:116 mnw_sidebar.php:27 mnw_sidebar.php:28
+msgid "mnw Notices"
+msgstr "mnw-Nachrichten"
+
+#: mnw_install.php:118
+#, php-format
+msgid "„<a href=\"%s\">%s</a>“ (<a href=\"%s\">%s</a> @ %s)"
+msgstr "„<a href=\"%s\">%s</a>“ (<a href=\"%s\">%s</a> @ %s)"
+
+#: mnw_provider.php:47
+msgid "Not logged in or not admin."
+msgstr "Nicht angemeldet oder kein Administrator."
+
+#: mnw_provider.php:53
+msgid "Error while verifying the authorize request."
+msgstr "Fehler beim Verifizieren der Authorisierungsanfrage."
+
+#: mnw_provider.php:67
+msgid "Error with your session."
+msgstr "Fehler mit deiner Session."
+
+#: mnw_provider.php:70
+msgid "Error with your nonce."
+msgstr "Fehler mit deinem Nonce."
+
+#: mnw_provider.php:73
+msgid "Error with the profile parameter."
+msgstr "Fehler mit dem Profil-Parameter."
 
 #: mnw_sidebar.php:25 mnw_sidebar.php:26
 msgid "mnw Subscribe"
 msgstr "mnw-Abonnieren"
 
-#: mnw_sidebar.php:38
+#: mnw_sidebar.php:40
 #, php-format
 msgid "%d OMB subscriber"
 msgid_plural "%d OMB subscribers"
-msgstr[0] "%d OMB-Abonnent"
-msgstr[1] "%d OMB-Abonnenten"
+msgstr[0] "%d OMB-Leser"
+msgstr[1] "%d OMB-Leser"
 
-#: mnw_sidebar.php:39
+#: mnw_sidebar.php:41
 msgid "Subscribe!"
 msgstr "Abonnieren!"
 
-#: mnw_sidebar.php:51
+#: mnw_sidebar.php:53
 msgid "Style"
 msgstr "CSS-Stil"
+
+#: mnw_sidebar.php:87
+msgid "No notices."
+msgstr "Keine Nachrichten."
+
+#: mnw_sidebar.php:105
+msgid "Title"
+msgstr "Titel"
+
+#: mnw_sidebar.php:109
+msgid "Entry count"
+msgstr "Anzahl an Einträgen"
+
+#: mnw_sidebar.php:113
+msgid "Show only direct messages?"
+msgstr "Nur direkte Nachrichten anzeigen?"
+
+#: mnw_sidebar.php:117
+msgid "Strip @ parts at the beginning of the notice?"
+msgstr "@-Abschnitte am Anfang der Nachricht entfernen?"
+
+#: mnw_sidebar.php:121
+msgid "Entry template"
+msgstr "Vorlage für Nachrichten"
 
 #: subscribe.php:50
 msgid "No remote profile submitted."
@@ -247,12 +342,21 @@ msgstr "Keine Session gefunden."
 msgid "Not authorized."
 msgstr "Nicht authorisiert."
 
-#: subscribe.php:94
+#: subscribe.php:98
 msgid "Error storing subscriber in local database."
 msgstr "Fehler beim Speichern in der lokalen Datenbank."
 
 msgid "OpenMicroBlogging compatible Microblogging for Wordpress"
 msgstr "OpenMicroBlogging-kompatibles Mikroblogging für Wordpress"
+
+#~ msgid "Subscribers"
+#~ msgstr "Abonnenten"
+
+#~ msgid "OMB subscribers"
+#~ msgstr "OMB-Abonnenten"
+
+#~ msgid "No subscribers"
+#~ msgstr "Keine Abonnenten"
 
 #~ msgid "Invalid profile URL (no YADIS document)."
 #~ msgstr "Ungültige Profil-URL (Kein YADIS-Dokument)."
