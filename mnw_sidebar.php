@@ -68,7 +68,7 @@ function mnw_notices_widget($args) {
     $template = stripslashes($options['template']);
 
     global $wpdb;
-    $notices = $wpdb->get_results('SELECT notice.content AS content, notice.url AS url, notice.created AS created, author.nickname AS nickname, author.url AS author_url FROM ' . MNW_FNOTICES_TABLE . ' as notice, ' . MNW_SUBSCRIBER_TABLE . ' AS author WHERE ' . ($only_direct ? 'notice.to_us = 1 AND' : '') . ' notice.user_id = author.id LIMIT ' . $entry_count);
+    $notices = $wpdb->get_results('SELECT notice.content AS content, notice.url AS url, notice.created AS created, author.nickname AS nickname, author.avatar as avatar, author.url AS author_url FROM ' . MNW_FNOTICES_TABLE . ' as notice, ' . MNW_SUBSCRIBER_TABLE . ' AS author WHERE ' . ($only_direct ? 'notice.to_us = 1 AND' : '') . ' notice.user_id = author.id LIMIT ' . $entry_count);
     echo $before_widget;
     echo $before_title . $title . $after_title;
 ?>
@@ -79,7 +79,7 @@ echo "<ul>";
       foreach($notices as $notice) {
         $content = $strip_at ? preg_replace('/^(?:T |@)' . get_option('omb_nickname') . '(?::\s*|\s*([A-Z]))/', '\1', $notice->content) : $notice->content;
         echo '<li>';
-        printf($template, $notice->url, $content, $notice->author_url, $notice->nickname, date('d. F Y H:i:s', strtotime($notice->created)));
+        printf($template, $notice->url, $content, $notice->author_url, $notice->nickname, date('d. F Y H:i:s', strtotime($notice->created)), $notice->avatar);
         echo '</li>';
       }
 echo "</ul>";

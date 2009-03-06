@@ -115,22 +115,20 @@ function mnw_append_param($url, $name, $val) {
 
 function mnw_add_subscriber($profile, $token) {
     global $wpdb;
-    $select = "SELECT * FROM " . MNW_SUBSCRIBER_TABLE . " WHERE url = '" . $profile->getProfileURL() . "'";
+    $select = "SELECT * FROM " . MNW_SUBSCRIBER_TABLE . " WHERE uri = '" .
+                $profile->getIdentifierURI() . "'";
     if ($wpdb->query($select) > 0) {
-        $query = "UPDATE " . MNW_SUBSCRIBER_TABLE . " SET " .
-                    "resubtoken= '" . $wpdb->escape($token->key) . "', " .
-                    "resubsecret= '" . $wpdb->escape($token->secret) . "', " .
-                    "license = '" . $wpdb->escape($profile->getLicenseURL()) . "', " .
-                    "nickname = '" . $wpdb->escape($profile->getNickname()) . "' " .
-                    "where url = '" . $profile->getProfileURL() . "'";
+      $query = "UPDATE " . MNW_SUBSCRIBER_TABLE . " SET " .
+                  "url = '%s', resubtoken = '%s', resubsecret = '%s', " .
+                  "license = '%s', nickname = '%s', avatar = '%s' where uri = '%s'";
     } else {
-        $query = "INSERT INTO " . MNW_SUBSCRIBER_TABLE . " (uri, url, resubtoken, resubsecret, license, nickname) " .
-                  "VALUES ('" . $profile->getIdentifierURI() . "', '" . $profile->getProfileURL() . "', " .
-                    "'" . $wpdb->escape($token->key) . "', " .
-                    "'" . $wpdb->escape($token->secret) . "', " .
-                    "'" . $wpdb->escape($profile->getLicenseURL()) . "', " .
-                    "'" . $wpdb->escape($profile->getNickname()) . "')";
+      $query = "INSERT INTO " . MNW_SUBSCRIBER_TABLE . " (url, resubtoken, " .
+                "resubsecret, license, nickname, avatar, uri) " .
+                "VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s')";
     }
-    $results = $wpdb->query($query);
+    $results = $wpdb->query($wpdb->prepare($query, $profile->getProfileURL(),
+                   $token->key, $token->secret, $profile->getLicenseURL(),
+                   $profile->getNickname(), $profile->getAvatarURL(),
+                   $profile->getIdentifierURI()));
 }
 ?>

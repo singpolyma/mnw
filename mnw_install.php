@@ -37,6 +37,7 @@ function mnw_install() {
           resubsecret VARCHAR(255),
           license VARCHAR(255),
           nickname VARCHAR(64),
+          avatar VARCHAR(255),
           UNIQUE KEY id (id)
         )";
         require_once (ABSPATH . 'wp-admin/includes/upgrade.php');

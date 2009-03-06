@@ -44,16 +44,13 @@ class mnw_OMB_DataStore implements OMB_DataStore {
         throw new Exception();
       }
       $query = "UPDATE " . MNW_SUBSCRIBER_TABLE . " SET " .
-                    "license = '" . $wpdb->escape($profile->getLicenseURL()) . "', " .
-                    "nickname = '" . $wpdb->escape($profile->getNickname()) . "', " .
-                    "url = '" . $wpdb->escape($profile->getProfileURL()) . "' " .
-                    "where uri = '" . $profile->getIdentifierURI() . "'";
+                    "url = '%s', license = '%s', nickname = '%s', avatar = '%s' where uri = '%s'";
     } else {
-      $query = $wpdb->prepare("INSERT INTO " . MNW_SUBSCRIBER_TABLE . " (uri, url, license, nickname) " .
-                "VALUES ('%s', '%s', '%s', '%s')", $profile->getIdentifierURI(),
-                $profile->getProfileURL(), $profile->getLicenseURL(), $profile->getNickname());
+      $query = "INSERT INTO " . MNW_SUBSCRIBER_TABLE . " (url, license, nickname, avatar, uri) " .
+                "VALUES ('%s', '%s', '%s', '%s', '%s')";
     }
-    $wpdb->query($query);
+    $wpdb->query($wpdb->prepare($query, $profile->getProfileURL(),
+       $profile->getLicenseURL(), $profile->getNickname(), $profile->getAvatarURL(), $profile->getIdentifierURI()));
   }
 
   /* get OMB_Profile, return array of identifier_uris */

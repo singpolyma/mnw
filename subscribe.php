@@ -77,21 +77,23 @@ function finish_subscription() {
 
     // Subscription is finished and valid. Now store the subscriber in our database.
     global $wpdb;
-    $profile = $wpdb->escape($_GET['omb_listener_profile']);
-    $select = "SELECT * FROM " . MNW_SUBSCRIBER_TABLE . " WHERE url = '$profile'";
-    if ($wpdb->query($select) > 0) {
-        $query = "UPDATE " . MNW_SUBSCRIBER_TABLE . " SET " . 
-                    "token= '" . $wpdb->escape($token->key) . "', " .
-                    "secret= '" . $wpdb->escape($token->secret) . "', " .
-                    "nickname= '" . $wpdb->escape($_GET['omb_listener_nickname']) .
-                    "' where url = '$profile'";
+    $_GET['omb_listener'] = $service->getListenerURI();
+    $profile = OMB_Profile::fromParameters($_GET, 'omb_listener');
+    $select = "SELECT * FROM " . MNW_SUBSCRIBER_TABLE . " WHERE uri = '" . $profile->getIdentifierURI() . "'";
+
+   if ($wpdb->query($select) > 0) {
+      $query = "UPDATE " . MNW_SUBSCRIBER_TABLE . " SET " .
+                  "url = '%s', token = '%s', secret = '%s', " .
+                  "nickname = '%s', avatar = '%s' where uri = '%s'";
     } else {
-        $query = "INSERT INTO " . MNW_SUBSCRIBER_TABLE . " (uri, url, token, secret, nickname) " .
-                  "VALUES ('" . $wpdb->escape($service->getListenerURI()) . "','" . $wpdb->escape($_GET['omb_listener_profile']) . "','" .
-                  $wpdb->escape($token->key) . "','" . $wpdb->escape($token->secret) . "','" .
-                  $wpdb->escape($_GET['omb_listener_nickname']) . "')";
+      $query = "INSERT INTO " . MNW_SUBSCRIBER_TABLE . " (url, token, " .
+                "secret, nickname, avatar, uri) " .
+                "VALUES ('%s', '%s', '%s', '%s', '%s', '%s')";
     }
-    $results = $wpdb->query($query);
+    $results = $wpdb->query($wpdb->prepare($query, $profile->getProfileURL(),
+                   $token->key, $token->secret, $profile->getNickname(),
+                   $profile->getAvatarURL(), $profile->getIdentifierURI()));
+
     if ($results == 0) {
         return array('subscribe', array('error' => __('Error storing subscriber in local database.', 'mnw')));
     }
