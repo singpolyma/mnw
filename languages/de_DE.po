@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: mail@adrianlang.de\n"
-"POT-Creation-Date: 2009-03-06 22:35+0100\n"
-"PO-Revision-Date: 2009-03-06 22:51+0100\n"
+"POT-Creation-Date: 2009-03-07 00:32+0100\n"
+"PO-Revision-Date: 2009-03-07 00:34+0100\n"
 "Last-Translator: root <mail@adrianlang.de>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
@@ -163,14 +163,15 @@ msgid ""
 "The messages of <em>subscribed users</em> get published to mnw and may be "
 "displayed."
 msgstr ""
-"<em>Abonnenten</em> sind Nutzer eines OMB-Dienstes, die deine Nachrichten"
-" verfolgen. Die Nachrichten <em>abonnierter Nutzer</em> werden an mnw gesendet"
-" und können im Blog anzeigt werden."
-
+"<em>Abonnenten</em> sind Nutzer eines OMB-Dienstes, die deine Nachrichten "
+"verfolgen. Die Nachrichten <em>abonnierter Nutzer</em> werden an mnw "
+"gesendet und können im Blog anzeigt werden."
 
 #: admin_menu_remote_users.php:76
 msgid "If you delete a user, both subscriptions – if available – are removed."
-msgstr "Wenn du einen Benutzer löscht werden beide Abonnements – sofern vorhanden – gelöscht."
+msgstr ""
+"Wenn du einen Benutzer löscht werden beide Abonnements – sofern vorhanden – "
+"gelöscht."
 
 #: admin_menu_remote_users.php:77
 msgid ""
@@ -190,8 +191,8 @@ msgid ""
 "Likewise a user which is listed as subscriber may have canceled his "
 "subscription recently."
 msgstr ""
-"Entsprechend kann ein Benutzer der als Abonnent angezeigt wird sein"
-" Abonnement widerrufen haben."
+"Entsprechend kann ein Benutzer der als Abonnent angezeigt wird sein "
+"Abonnement widerrufen haben."
 
 #: admin_menu_remote_users.php:80
 msgid "Remote OMB users"
@@ -203,7 +204,7 @@ msgstr ""
 
 #: admin_menu_remote_users.php:86 admin_menu_remote_users.php:135
 msgid "Delete"
-msgstr ""
+msgstr "Löschen"
 
 #: admin_menu_remote_users.php:88
 msgid "Apply"
@@ -218,7 +219,6 @@ msgid "Direction"
 msgstr "Richtung"
 
 #: admin_menu_remote_users.php:98 admin_menu_remote_users.php:108
-#, fuzzy
 msgid "License"
 msgstr "Lizenz"
 
@@ -268,8 +268,11 @@ msgid "Not logged in or not admin."
 msgstr "Nicht angemeldet oder kein Administrator."
 
 #: mnw_provider.php:53
-msgid "Error while verifying the authorize request."
-msgstr "Fehler beim Verifizieren der Authorisierungsanfrage."
+#, php-format
+msgid "Error while verifying the authorize request. Original error: %s"
+msgstr ""
+"Fehler beim Verifizieren der Authorisierungsanfrage. Ursprünglicher Fehler: "
+"„%s“"
 
 #: mnw_provider.php:67
 msgid "Error with your session."

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: mail@adrianlang.de\n"
-"POT-Creation-Date: 2009-03-06 22:35+0100\n"
-"PO-Revision-Date: 2009-03-06 22:47+0100\n"
+"POT-Creation-Date: 2009-03-07 00:32+0100\n"
+"PO-Revision-Date: 2009-03-07 00:36+0100\n"
 "Last-Translator: Adrian Lang <mail@adrianlang.de>\n"
 "Language-Team: English\n"
 "MIME-Version: 1.0\n"
@@ -264,8 +264,9 @@ msgid "Not logged in or not admin."
 msgstr "Not logged in or not admin."
 
 #: mnw_provider.php:53
-msgid "Error while verifying the authorize request."
-msgstr "Error while verifying the authorize request."
+#, php-format
+msgid "Error while verifying the authorize request. Original error: %s"
+msgstr "Error while verifying the authorize request. Original error: “%s“"
 
 #: mnw_provider.php:67
 msgid "Error with your session."
