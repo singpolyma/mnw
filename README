@@ -44,8 +44,10 @@ Additional features could be
 - add user setting to exclude microblog page from all_pages
 - allow tags display in post template
 - Optionally send post/page/attachment url as seealso
+- Store images local
 
 == Bugs ==
-Validate user settings
 Use better default for omb_bio
 Push only once to every service url (postNotice, updateProfile)
+Get that GET/POST stuff clean (No GET params in POST requests)
+Validate.php does not use mb_strlen.
