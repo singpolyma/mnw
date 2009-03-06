@@ -30,7 +30,7 @@ if ($continue !== false) {
     case 'subscribe':
         /* Gather data for subscribe form. */
         global $wp_query;
-        $action = attribute_escape(mnw_append_param(get_option('mnw_themepage_url'), MNW_ACTION, 'subscribe') . '&' . MNW_SUBSCRIBE_ACTION . '=continue');
+        $action = attribute_escape(mnw_set_action('subscribe') . '&' . MNW_SUBSCRIBE_ACTION . '=continue');
 
         /* Start displaying the form. */
 ?>
@@ -75,7 +75,7 @@ if ($continue !== false) {
           echo $data['error'];
         } else {
           $uri = $data['remote_user']->getIdentifierURI();
-          $action = attribute_escape(mnw_append_param(get_option('mnw_themepage_url'), MNW_ACTION, 'oauth') . '&' . MNW_OAUTH_ACTION . '=userauth_continue');
+          $action = attribute_escape(mnw_set_action('oauth') . '&' . MNW_OAUTH_ACTION . '=userauth_continue');
 
 ?>
           <form id="mnw_userauthorization" name="mnw_userauthorization" method="post" action="<?php echo $action; ?>">

@@ -56,7 +56,7 @@ function continue_subscription() {
     }
     $service->requestToken();
 
-    $redir = $service->requestAuthorization(get_own_profile(), mnw_append_param(get_option('mnw_themepage_url'), MNW_ACTION, 'subscribe') . '&' . MNW_SUBSCRIBE_ACTION . '=finish');
+    $redir = $service->requestAuthorization(get_own_profile(), mnw_set_action('subscribe') . '&' . MNW_SUBSCRIBE_ACTION . '=finish');
     common_ensure_session();
     $_SESSION['omb_service'] = $service;
     wp_redirect($redir);

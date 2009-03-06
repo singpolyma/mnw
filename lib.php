@@ -103,14 +103,14 @@ function common_mtrand($bytes)
     return $enc;
 }
 
-function mnw_append_param($url, $name, $val) {
-    $newurl = $url;
-    if (strrpos($newurl, '?') === false) {
-        $newurl .= '?';
+function mnw_set_action($action) {
+    $themepage = get_option('mnw_themepage_url');
+    if (strrpos($themepage, '?') === false) {
+        $themepage .= '?';
     } else {
-        $newurl .= '&';
+        $themepage .= '&';
     }
-    return $newurl . $name . '=' . $val;
+    return $themepage . MNW_ACTION . '=' . $action;
 }
 
 function mnw_add_subscriber($profile, $token) {

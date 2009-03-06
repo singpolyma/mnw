@@ -24,10 +24,9 @@ require_once 'datastore.php';
 require_once 'omb_datastore.php';
 
 function mnw_get_xrds() {
-  $base_url = get_option('mnw_themepage_url');
   $srv = new OMB_Service_Provider(get_own_profile());
-  $srv->getXRDS(mnw_append_param($base_url, MNW_ACTION, 'oauth') . '&' . MNW_OAUTH_ACTION . '=',
-                mnw_append_param($base_url, MNW_ACTION, 'omb') . '&' . MNW_OMB_ACTION . '=');
+  $srv->getXRDS(mnw_set_action('oauth') . '&' . MNW_OAUTH_ACTION . '=',
+                mnw_set_action('omb') . '&' . MNW_OMB_ACTION . '=');
   return array(false, array());
 }
 

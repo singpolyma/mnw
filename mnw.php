@@ -74,10 +74,9 @@ require_once 'mnw_sidebar.php';
 add_action('wp_head', 'mnw_publish_yadis');
 
 function mnw_publish_yadis() {
-  $themepage = get_option ('mnw_themepage_url');
-  if ($themepage != '') {
+  if (get_option('mnw_themepage_url') != '') {
     require_once 'lib.php';
-    echo '<meta http-equiv="X-XRDS-Location" content="' .  mnw_append_param($themepage, MNW_ACTION, 'xrds') . '"/>';
+    echo '<meta http-equiv="X-XRDS-Location" content="' .  mnw_set_action('xrds') . '"/>';
   }
 }
 
