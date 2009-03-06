@@ -60,7 +60,7 @@ class mnw_Notice extends OMB_Notice {
     function send() {
     global $wpdb;
     /* Insert notice into MNW_NOTICES_TABLE. */
-    $insert = 'INSERT INTO ' . MNW_NOTICES_TABLE . " (url, content, created) VALUES ('$this->url', '$this->content', '" . common_sql_now() . "')";
+    $insert = 'INSERT INTO ' . MNW_NOTICES_TABLE . " (url, content, created) VALUES ('$this->url', '$this->content', 'NOW()')";
     $result = $wpdb->query($insert);
     if ($result == 0) {
         return;

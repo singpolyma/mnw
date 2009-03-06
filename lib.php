@@ -61,11 +61,6 @@ function get_own_profile() {
   return $profile;
 }
 
-function common_sql_now()
-{
-    return strftime('%Y-%m-%d %H:%M:%S', time());
-}
-
 function common_have_session() {
     return (0 != strcmp(session_id(), ''));
 }
