@@ -32,8 +32,8 @@ class mnw_DataStore extends omb_OAuthDataStore {
     function lookup_token($consumer, $token_type, $token_key)
     {
         $ret = $this->_lookup_token($consumer->key, $token_key);
-        if ($ret && (($ret->type !== '3') ^ ($token_type === 'access'))) {
-            return new OAuthToken($token_key, $ret->secret);
+        if ($ret && (($ret['type'] !== '3') ^ ($token_type === 'access'))) {
+            return new OAuthToken($token_key, $ret['secret']);
         } else {
             return null;
         }
@@ -44,7 +44,7 @@ class mnw_DataStore extends omb_OAuthDataStore {
         $sql = "SELECT secret, type FROM " . MNW_TOKENS_TABLE .
               " WHERE consumer = '$consumer'" .
               " AND token = '$key'";
-        return $wpdb->get_row($sql);
+        return $wpdb->get_row($sql, ARRAY_A);
     }
 
     function lookup_nonce($consumer, $token, $nonce, $timestamp)
