@@ -80,7 +80,7 @@ class mnw_DataStore extends omb_OAuthDataStore {
     function new_access_token($token, $consumer)
     {
         $request = $this->_lookup_token($consumer->key, $token->key);
-        if (!$request || $request->type !== '1') {
+        if (!$request || $request['type'] !== '1') {
           return null;
         }
 
