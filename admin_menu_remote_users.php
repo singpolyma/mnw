@@ -42,7 +42,7 @@ function mnw_remote_users_parse_action() {
     $users = ($_POST['checked']);
       global $wpdb;
       return array(
-        $wpdb->query('UPDATE ' . MNW_SUBSCRIBER_TABLE . ' SET secret = NULL, token = NULL, resubsecret = NULL; resubtoken = NULL WHERE id = "' . implode('" OR id = "', $users) . '"'),
+        $wpdb->query('UPDATE ' . MNW_SUBSCRIBER_TABLE . ' SET secret = NULL, token = NULL, resubsecret = NULL, resubtoken = NULL WHERE id = "' . implode('" OR id = "', $users) . '"'),
         $users);
     break;
   }
