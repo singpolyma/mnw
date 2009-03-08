@@ -67,7 +67,7 @@ class mnw_Notice extends OMB_Notice {
     }
 
     // Get all subscribers.
-    $select = "SELECT url, token, secret FROM " . MNW_SUBSCRIBER_TABLE;
+    $select = 'SELECT url, token, secret FROM ' . MNW_SUBSCRIBER_TABLE . ' WHERE token IS NOT NULL';
     $result = $wpdb->get_results($select, ARRAY_A);
 
     if ($result == 0) {
