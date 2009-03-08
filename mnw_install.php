@@ -39,7 +39,7 @@ function mnw_install() {
           nickname VARCHAR(64),
           avatar VARCHAR(255),
           UNIQUE KEY id (id)
-        )";
+        ) CHARACTER SET utf8 COLLATE utf8_bin;";
         require_once (ABSPATH . 'wp-admin/includes/upgrade.php');
         dbDelta($sql);
     }
@@ -52,7 +52,7 @@ function mnw_install() {
           content VARCHAR(140),
           created datetime,
           UNIQUE KEY id (id)
-        )";
+        ) CHARACTER SET utf8 COLLATE utf8_bin;";
         require_once (ABSPATH . 'wp-admin/includes/upgrade.php');
         dbDelta($sql);
     }
@@ -68,7 +68,7 @@ function mnw_install() {
           created datetime,
           to_us tinyint(1),
           UNIQUE KEY id (id)
-        )";
+        ) CHARACTER SET utf8 COLLATE utf8_bin;";
         require_once (ABSPATH . 'wp-admin/includes/upgrade.php');
         dbDelta($sql);
     }
@@ -81,7 +81,7 @@ function mnw_install() {
           secret char(32) not null,
           type tinyint not null default 0 comment '0 = initial request token, 1 = authorized request token, 2 = used request token, 3 = access token',
           constraint primary key (consumer, token)
-        )";
+        ) CHARACTER SET utf8 COLLATE utf8_bin;";
         require_once (ABSPATH . 'wp-admin/includes/upgrade.php');
         dbDelta($sql);
     }
@@ -91,7 +91,7 @@ function mnw_install() {
         $sql = "CREATE TABLE " . MNW_NONCES_TABLE . " (
           nonce char(32) not null,
           constraint primary key (nonce)
-        )";
+        ) CHARACTER SET utf8 COLLATE utf8_bin;";
         require_once (ABSPATH . 'wp-admin/includes/upgrade.php');
         dbDelta($sql);
     }
