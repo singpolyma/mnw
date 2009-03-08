@@ -60,8 +60,8 @@ class mnw_Notice extends OMB_Notice {
     function send() {
     global $wpdb;
     /* Insert notice into MNW_NOTICES_TABLE. */
-    $insert = 'INSERT INTO ' . MNW_NOTICES_TABLE . " (url, content, created) VALUES ('$this->url', '$this->content', 'NOW()')";
-    $result = $wpdb->query($insert);
+    $insert = 'INSERT INTO ' . MNW_NOTICES_TABLE . " (url, content, created) VALUES ('%s', '%s', NOW())";
+    $result = $wpdb->query($wpdb->prepare($insert, $this->url, $this->content));
     if ($result == 0) {
         return;
     }
@@ -85,7 +85,6 @@ class mnw_Notice extends OMB_Notice {
             if ($result->status == 403) { # not authorized, don't send again
                 delete_subscription($subscriber['url']);
             } else if ($result->status != 200) {
-                print_r($req);
                 print_r($result);
             }
         } catch (Exception $e) {
