@@ -65,10 +65,11 @@ function mnw_notices_widget($args) {
     $entry_count = (int) $options['entry_count'];
     $only_direct = $options['only_direct'];
     $strip_at = $options['strip_at'];
+    $new_on_top = $options['new_on_top'];
     $template = stripslashes($options['template']);
 
     global $wpdb;
-    $notices = $wpdb->get_results('SELECT notice.content AS content, notice.url AS url, notice.created AS created, author.nickname AS nickname, author.avatar as avatar, author.url AS author_url FROM ' . MNW_FNOTICES_TABLE . ' as notice, ' . MNW_SUBSCRIBER_TABLE . ' AS author WHERE ' . ($only_direct ? 'notice.to_us = 1 AND' : '') . ' notice.user_id = author.id LIMIT ' . $entry_count);
+    $notices = $wpdb->get_results('SELECT notice.content AS content, notice.url AS url, notice.created AS created, author.nickname AS nickname, author.avatar as avatar, author.url AS author_url FROM ' . MNW_FNOTICES_TABLE . ' as notice, ' . MNW_SUBSCRIBER_TABLE . ' AS author WHERE ' . ($only_direct ? 'notice.to_us = 1 AND' : '') . ' notice.user_id = author.id ORDER BY notice.created ' . ($new_on_top ? 'DESC' : 'ASC') . ' LIMIT ' . $entry_count);
     echo $before_widget;
     echo $before_title . $title . $after_title;
 ?>
@@ -96,7 +97,7 @@ function mnw_notices_widget_control() {
   if (isset($_POST['mnw-notices-submit']) && $_POST['mnw-notices-submit'] === '1') {
     $options = array('title' => $_POST['mnw-title'], 'entry_count' => $_POST['mnw-entry_count'],
                      'only_direct' => $_POST['mnw-only_direct'], 'strip_at' => $_POST['mnw-strip_at'],
-                     'template' => $_POST['mnw-template']);
+                     'template' => $_POST['mnw-template'], 'new_on_top' => $_POST['mnw-new_on_top']);
     update_option('mnw_notices_widget', $options);
   }
   $options = get_option('mnw_notices_widget');
@@ -116,6 +117,10 @@ function mnw_notices_widget_control() {
   <p style="text-align:right;" class="mnw_field">
     <label for="mnw-strip_at"><?php _e('Strip @ parts at the beginning of the notice?', 'mnw'); ?></label>
     <input id="mnw-strip_at" name="mnw-strip_at" type="checkbox" <?php if ($options['strip_at']) echo 'checked="checked"'; ?> class="mnw_field" />
+  </p>
+  <p style="text-align:right;" class="mnw_field">
+    <label for="mnw-new_on_top"><?php _e('Show new notices on top?', 'mnw'); ?></label>
+    <input id="mnw-new_on_top" name="mnw-new_on_top" type="checkbox" <?php if ($options['new_on_top']) echo 'checked="checked"'; ?> class="mnw_field" />
   </p>
   <p style="text-align:right;" class="mnw_field">
     <label for="mnw-template"><?php _e('Entry template', 'mnw'); ?></label>
