@@ -31,7 +31,7 @@ class mnw_DataStore extends omb_OAuthDataStore {
 
     function lookup_token($consumer, $token_type, $token_key)
     {
-        $ret = $this->_lookup_token($consumer->key, $token_key);
+        $ret = $this->_lookup_token($token_key);
         if ($ret && (($ret['type'] !== '3') ^ ($token_type === 'access'))) {
             return new OAuthToken($token_key, $ret['secret']);
         } else {
@@ -39,11 +39,10 @@ class mnw_DataStore extends omb_OAuthDataStore {
         }
     }
 
-    private function _lookup_token($consumer, $key) {
+    private function _lookup_token($key) {
         global $wpdb;
         $sql = "SELECT secret, type FROM " . MNW_TOKENS_TABLE .
-              " WHERE consumer = '$consumer'" .
-              " AND token = '$key'";
+              " WHERE token = '$key'";
         return $wpdb->get_row($sql, ARRAY_A);
     }
 
@@ -79,7 +78,7 @@ class mnw_DataStore extends omb_OAuthDataStore {
 
     function new_access_token($token, $consumer)
     {
-        $request = $this->_lookup_token($consumer->key, $token->key);
+        $request = $this->_lookup_token($token->key);
         if (!$request || $request['type'] !== '1') {
           return null;
         }
@@ -107,17 +106,20 @@ class mnw_DataStore extends omb_OAuthDataStore {
         throw new Exception();
     }
 
-    public function revoke_token($consumer, $token_key) {
+    public function revoke_token($token_key) {
         global $wpdb;
-        $wpdb->query('DELETE FROM ' . MNW_TOKENS_TABLE .
-                    " WHERE consumer = '$consumer->key' AND token = '$token_key'");
+        if ($wpdb->query('DELETE FROM ' . MNW_TOKENS_TABLE .
+                    " WHERE token = '$token_key' AND type = '0'") !== 1) {
+          throw new Exception();
+        }
     }
 
-    public function authorize_token($consumer, $token_key) {
+    public function authorize_token($token_key) {
         global $wpdb;
-        $wpdb->query("UPDATE " . MNW_TOKENS_TABLE . " SET type = '1' " .
-                     "WHERE consumer = '$consumer->key' " .
-                     "AND token = '$token_key' AND type = '0'");
+        if ($wpdb->query("UPDATE " . MNW_TOKENS_TABLE . " SET type = '1' " .
+                     "WHERE token = '$token_key' AND type = '0'") !== 1) {
+          throw new Exception();
+        }
     }
 
 }
