@@ -143,6 +143,10 @@ function mnw_remote_users_options() {
     </tbody>
 </table>
     </form>
+        <p style="color: grey; text-align: right;">
+            <?php printf(__('mnw version %s', 'mnw'), MNW_VERSION); ?>
+        </p>
+
 </div>
 <?php
 }

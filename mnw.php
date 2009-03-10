@@ -47,6 +47,8 @@ define('MNW_OAUTH_ACTION', 'mnw_oauth_action');
 define('MNW_OMB_ACTION', 'mnw_omb_action');
 define('MNW_NOTICE_ID', 'mnw_notice_id');
 
+define('MNW_VERSION', '0.2pre');
+
 /*
  * Initialize database on activation.
  */

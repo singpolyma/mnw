@@ -87,6 +87,9 @@ function mnw_plugin_options() {
             <input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
         </p>
     </form>
+        <p style="color: grey; text-align: right;">
+            <?php printf(__('mnw version %s', 'mnw'), MNW_VERSION); ?>
+        </p>
 </div>
 <?php
 }
