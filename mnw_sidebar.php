@@ -68,8 +68,24 @@ function mnw_notices_widget($args) {
     $new_on_top = $options['new_on_top'];
     $template = stripslashes($options['template']);
 
+    $values = array('%t' => 'notice.content',
+                    '%u' => 'notice.url',
+                    '%c' => 'notice.created',
+                    '%n' => 'author.nickname',
+#                    '%f' => 'author.fullname',
+                    '%v' => 'author.avatar',
+                    '%a' => 'author.url');
+
+    $selects = '';
+    foreach ($values as $k => $v) {
+      $selects .= "$v as '$k', ";
+    }
+    $selects = substr($selects, 0, strlen($selects) - 2);
+
     global $wpdb;
-    $notices = $wpdb->get_results('SELECT notice.content AS content, notice.url AS url, notice.created AS created, author.nickname AS nickname, author.avatar as avatar, author.url AS author_url FROM ' . MNW_FNOTICES_TABLE . ' as notice, ' . MNW_SUBSCRIBER_TABLE . ' AS author WHERE ' . ($only_direct ? 'notice.to_us = 1 AND' : '') . ' notice.user_id = author.id ORDER BY notice.created ' . ($new_on_top ? 'DESC' : 'ASC') . ' LIMIT ' . $entry_count);
+    $notices = $wpdb->get_results("SELECT $selects FROM " . MNW_FNOTICES_TABLE . ' as notice, ' . MNW_SUBSCRIBER_TABLE . ' AS author ' .
+                                  'WHERE ' . ($only_direct ? 'notice.to_us = 1 AND' : '') . ' notice.user_id = author.id ' .
+                                  'ORDER BY notice.created ' . ($new_on_top ? 'DESC' : 'ASC') . ' LIMIT ' . $entry_count, ARRAY_A);
     echo $before_widget;
     echo $before_title . $title . $after_title;
 ?>
@@ -78,10 +94,11 @@ function mnw_notices_widget($args) {
 if ($notices) {
 echo "<ul>";
       foreach($notices as $notice) {
-        $content = $strip_at ? preg_replace('/^(?:T |@)' . get_option('omb_nickname') . '(?::\s*|\s*([A-Z]))/', '\1', $notice->content) : $notice->content;
-        echo '<li>';
-        printf($template, $notice->url, $content, $notice->author_url, $notice->nickname, date('d. F Y H:i:s', strtotime($notice->created)), $notice->avatar);
-        echo '</li>';
+        $notice['%c'] = date('d. F Y H:i:s', strtotime($notice['%c']));
+        if ($strip_at) {
+          $notice['%t'] = preg_replace('/^(?:T |@)' . get_option('omb_nickname') . '(?::\s*|\s*([A-Z]))/', '\1', $notice['%t']);
+        }
+        echo '<li>' . str_replace(array_keys($notice), array_values($notice), $template) . '</li>';
       }
 echo "</ul>";
 } else {
