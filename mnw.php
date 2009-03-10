@@ -76,7 +76,7 @@ add_action('wp_head', 'mnw_publish_yadis');
 function mnw_publish_yadis() {
   if (get_option('mnw_themepage_url') != '') {
     require_once 'lib.php';
-    echo '<meta http-equiv="X-XRDS-Location" content="' .  mnw_set_action('xrds') . '"/>';
+    echo '<meta http-equiv="X-XRDS-Location" content="' .  htmlspecialchars(mnw_set_action('xrds')) . '"/>';
   }
 }
 

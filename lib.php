@@ -108,7 +108,7 @@ function mnw_set_action($action) {
     if (strrpos($themepage, '?') === false) {
         $themepage .= '?';
     } else {
-        $themepage .= '&amp;';
+        $themepage .= '&';
     }
     return $themepage . MNW_ACTION . '=' . $action;
 }
