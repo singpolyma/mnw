@@ -23,9 +23,10 @@ require_once 'libomb/datastore.php';
 require_once 'libomb/profile.php';
 
 class mnw_OMB_DataStore implements OMB_DataStore {
-  public function getProfile($identifier_uri) {
+  public function getProfile($identifierURI) {
     global $wpdb;
-    $result = $wpdb->get_row('SELECT * FROM ' . MNW_SUBSCRIBER_TABLE . " WHERE uri = '$identifier_uri'");
+    $result = $wpdb->get_row($wpdb->prepare('SELECT * FROM ' . MNW_SUBSCRIBER_TABLE .
+                                               " WHERE uri = '%s'", $identifierURI));
     if (!$result) {
       return null;
     }
@@ -33,14 +34,18 @@ class mnw_OMB_DataStore implements OMB_DataStore {
     $profile->setProfileURL($result->url);
     $profile->setLicenseURL($result->license);
     $profile->setNickname($result->nickname);
+    $profile->setFullname($result->fullname);
+    $profile->setLocation($result->location);
+    $profile->setBio($result->bio);
+    $profile->setHomepage($result->homepage);
+    $profile->setAvatarURL($result->avatar);
     return $profile;
   }
 
   public function saveProfile($profile, $overwrite = false) {
     global $wpdb;
-    $select = "SELECT uri FROM " . MNW_SUBSCRIBER_TABLE . " WHERE uri = '" .
-                $profile->getIdentifierURI() . "'";
-    if ($wpdb->query($select) > 0) {
+    if ($wpdb->query($wpdb->prepare('SELECT * FROM ' . MNW_SUBSCRIBER_TABLE . ' ' .
+                             "WHERE uri = '%s'", $profile->getIdentifierURI)) > 0) {
       if (!$overwrite) {
         throw new Exception();
       }
@@ -64,7 +69,7 @@ class mnw_OMB_DataStore implements OMB_DataStore {
   public function getSubscribers($profile) {
     global $wpdb;
     $myself = get_own_profile();
-    if ($profile !== $myself) {
+    if ($profile->getIdentifierURI() !== $myself->getIdentifierURI()) {
       if($wpdb->get_var('SELECT resubtoken FROM ' . MNW_SUBSCRIBER_TABLE . " WHERE uri = '" . $profile->getIdentifierURI() . "'")) {
         return array($myself->getIdentifierURI());
       } else {
@@ -73,6 +78,19 @@ class mnw_OMB_DataStore implements OMB_DataStore {
     } else {
       return $wpdb->get_col('SELECT uri FROM ' . MNW_SUBSCRIBER_TABLE . ' WHERE token IS NOT NULL');
     }
+  }
+
+  public function deleteSubscription($subscriberURI, $subscribedUserURI) {
+    global $wpdb;
+    $me = get_own_profile()->getIdentifierURI();
+    if ($me == $subscribedUserURI) {
+      $query = 'UPDATE ' . MNW_SUBSCRIBER_TABLE . " SET token = null, secret = null WHERE uri = '%s'";
+      $user = $subscriberURI;
+    } else {
+      $query = 'UPDATE ' . MNW_SUBSCRIBER_TABLE . " SET resubtoken = null, resubsecret = null WHERE uri = '%s'";
+      $user = $subscribedUserURI;
+    }
+    return $wpdb->query($wpdb->prepare($query, $user));
   }
 
 }
