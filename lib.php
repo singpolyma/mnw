@@ -112,30 +112,4 @@ function mnw_set_action($action) {
     }
     return $themepage . MNW_ACTION . '=' . $action;
 }
-
-function mnw_add_remote($profile, $token, $resub) {
-    global $wpdb;
-    $select = "SELECT * FROM " . MNW_SUBSCRIBER_TABLE . " WHERE uri = '" .
-                $profile->getIdentifierURI() . "'";
-    if ($wpdb->query($select) > 0) {
-      $query = "UPDATE " . MNW_SUBSCRIBER_TABLE . " SET " .
-                  "url = '%s', " . ($resub ? 'resub' : '') . "token = '%s', " .
-                  ($resub ? 'resub' : '') . "secret = '%s', " .
-                  "fullname = '%s', location = '%s', bio = '%s', homepage = '%s', " .
-                  "license = '%s', nickname = '%s', avatar = '%s' where uri = '%s'";
-    } else {
-      $query = "INSERT INTO " . MNW_SUBSCRIBER_TABLE . " (url, " .
-                ($resub ? 'resub' : '') . "token, " . ($resub ? 'resub' : '') .
-                "secret, fullname, location, bio, homepage, license, nickname, " .
-                "avatar, uri) " .
-                "VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', " .
-                "'%s', '%s')";
-    }
-    return $wpdb->query($wpdb->prepare($query, $profile->getProfileURL(),
-                   $token->key, $token->secret, $profile->getFullname(),
-                   $profile->getLocation(), $profile->getBio(),
-                   $profile->getHomepage(), $profile->getLicenseURL(),
-                   $profile->getNickname(), $profile->getAvatarURL(),
-                   $profile->getIdentifierURI()));
-}
 ?>

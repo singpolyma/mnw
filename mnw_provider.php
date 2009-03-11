@@ -75,7 +75,9 @@ function mnw_handle_oauth() {
             $accepted = isset($_POST['accept']) && !isset($_POST['reject']);
             list($redir, $val, $token) = $srv->continueUserauth($accepted);
             if ($accepted) {
-              mnw_add_remote($usr, $token, true);
+              $store = new mnw_OMB_DataStore();
+              $store->saveProfile($usr);
+              $store->saveSubscription($usr->getIdentifierURI(), get_bloginfo('url'), $token);
             }
             if ($redir) {
               wp_redirect($val, 303);

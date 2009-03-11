@@ -53,9 +53,8 @@ class mnw_OMB_DataStore implements OMB_DataStore {
                   "fullname = '%s', location = '%s', bio = '%s', homepage = '%s', " .
                   "license = '%s', nickname = '%s', avatar = '%s' where uri = '%s'";
     } else {
-      $query = "INSERT INTO " . MNW_SUBSCRIBER_TABLE . " (url, " .
-                "secret, fullname, location, bio, homepage, license, nickname, " .
-                "avatar, uri) " .
+      $query = "INSERT INTO " . MNW_SUBSCRIBER_TABLE . " (url, fullname, " .
+                "location, bio, homepage, license, nickname, avatar, uri) " .
                 "VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')";
     }
     $wpdb->query($wpdb->prepare($query, $profile->getProfileURL(),

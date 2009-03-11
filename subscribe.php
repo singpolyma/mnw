@@ -23,6 +23,7 @@ require_once 'lib.php';
 
 require_once 'libomb/service_consumer.php';
 require_once 'libomb/profile.php';
+require_once 'omb_datastore.php';
 
 function mnw_parse_subscribe() {
     if (isset($_GET[MNW_SUBSCRIBE_ACTION])) {
@@ -50,7 +51,7 @@ function continue_subscription() {
         return array('subscribe', array('error' => __('No remote profile submitted.', 'mnw')));
     }
     try {
-      $service = new OMB_Service_Consumer($_POST['profile_url'], get_bloginfo('url')); 
+      $service = new OMB_Service_Consumer($_POST['profile_url'], get_bloginfo('url'), new mnw_OMB_DataStore());
     } catch (Exception $e) {
       return array('subscribe', array('error' => __('Invalid profile URL.', 'mnw')));
     }
@@ -76,11 +77,11 @@ function finish_subscription() {
     }
 
     // Subscription is finished and valid. Now store the subscriber in our database.
-    global $wpdb;
     $_GET['omb_listener'] = $service->getListenerURI();
     $profile = OMB_Profile::fromParameters($_GET, 'omb_listener');
-    $results = mnw_add_remote($profile, $token, false);
-
+    $store = new mnw_OMB_DataStore();
+    $store->saveProfile($profile, true);
+    $results = $store->saveSubscription($profile->getIdentifierURI(), get_bloginfo('url'), $token);
     if ($results == 0) {
         return array('subscribe', array('error' => __('Error storing subscriber in local database.', 'mnw')));
     }
