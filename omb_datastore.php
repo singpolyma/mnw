@@ -81,7 +81,6 @@ class mnw_OMB_DataStore implements OMB_DataStore {
   }
 
   public function deleteSubscription($subscriberURI, $subscribedUserURI) {
-    global $wpdb;
     $me = get_own_profile()->getIdentifierURI();
     if ($me == $subscribedUserURI) {
       $query = 'UPDATE ' . MNW_SUBSCRIBER_TABLE . " SET token = null, secret = null WHERE uri = '%s'";
@@ -90,8 +89,21 @@ class mnw_OMB_DataStore implements OMB_DataStore {
       $query = 'UPDATE ' . MNW_SUBSCRIBER_TABLE . " SET resubtoken = null, resubsecret = null WHERE uri = '%s'";
       $user = $subscribedUserURI;
     }
+    global $wpdb;
     return $wpdb->query($wpdb->prepare($query, $user));
   }
 
+  public function saveSubscription($subscriberURI, $subscribedUserURI, $token) {
+    $me = get_own_profile()->getIdentifierURI();
+    if ($me == $subscribedUserURI) {
+      $query = 'UPDATE ' . MNW_SUBSCRIBER_TABLE . " SET token = '%s', secret = '%s' WHERE uri = '%s'";
+      $user = $subscriberURI;
+    } else {
+      $query = 'UPDATE ' . MNW_SUBSCRIBER_TABLE . " SET resubtoken = '%s', resubsecret = '%s' WHERE uri = '%s'";
+      $user = $subscribedUserURI;
+    }
+    global $wpdb;
+    return $wpdb->query($wpdb->prepare($query, $token->key, $token->secret, $user));
+  }
 }
 ?>

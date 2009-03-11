@@ -21,6 +21,7 @@
 
 require_once 'libomb/notice.php';
 require_once 'libomb/service_consumer.php';
+require_once 'omb_datastore.php';
 
 class mnw_Notice extends OMB_Notice {
 
@@ -79,14 +80,9 @@ class mnw_Notice extends OMB_Notice {
 
     foreach($result as $subscriber) {
         try {
-            $service = new OMB_Service_Consumer($subscriber['url'], get_bloginfo('url'));
+            $service = new OMB_Service_Consumer($subscriber['url'], get_bloginfo('url'), new mnw_OMB_DataStore());
             $service->setToken($subscriber['token'], $subscriber['secret']);
-            $result = $service->postNotice($this);
-            if ($result->status == 403) { # not authorized, don't send again
-                delete_subscription($subscriber['url']);
-            } else if ($result->status != 200) {
-                print_r($result);
-            }
+            $service->postNotice($this);
         } catch (Exception $e) {
             continue;
         }
