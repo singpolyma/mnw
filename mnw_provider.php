@@ -25,7 +25,7 @@ require_once 'omb_datastore.php';
 
 function mnw_get_xrds() {
   $srv = new OMB_Service_Provider(get_own_profile());
-  $srv->getXRDS(mnw_set_action('oauth') . '&' . MNW_OAUTH_ACTION . '=',
+  $srv->writeXRDS(mnw_set_action('oauth') . '&' . MNW_OAUTH_ACTION . '=',
                 mnw_set_action('omb') . '&' . MNW_OMB_ACTION . '=');
   return array(false, array());
 }
@@ -36,7 +36,7 @@ function mnw_handle_oauth() {
 
         case 'requesttoken':
             $srv = new OMB_Service_Provider(get_own_profile(), new mnw_DataStore());
-            $srv->oauth_requesttoken();
+            $srv->writeRequestToken();
             return array(false, array());
             break;
 
@@ -48,7 +48,7 @@ function mnw_handle_oauth() {
             }
             $srv = new OMB_Service_Provider(get_own_profile(), new mnw_DataStore());
             try {
-              $remote_user = $srv->oauth_userauthorization();
+              $remote_user = $srv->handleUserAuth();
             } catch (Exception $e) {
               return array('userauth', array('error' => sprintf(__('Error while verifying the authorize request. Original error: %s', 'mnw'), $e->getMessage())));
             }
@@ -73,7 +73,7 @@ function mnw_handle_oauth() {
               return array('userauth', array('error' => __('Error with the profile parameter.', 'mnw')));
             }
             $accepted = isset($_POST['accept']) && !isset($_POST['reject']);
-            list($redir, $val, $token) = $srv->continueUserauth($accepted);
+            list($redir, $val, $token) = $srv->continueUserAuth($accepted);
             if ($accepted) {
               $store = new mnw_OMB_DataStore();
               $store->saveProfile($usr);
@@ -89,7 +89,7 @@ function mnw_handle_oauth() {
 
         case 'accesstoken':
             $srv = new OMB_Service_Provider(get_own_profile(), new mnw_DataStore());
-            $srv->accesstoken();
+            $srv->writeAccessToken();
             return array(false, array());
             break;
 
@@ -107,13 +107,13 @@ function mnw_handle_omb() {
 
         case 'updateprofile':
           $srv = new OMB_Service_Provider(get_own_profile(), new mnw_DataStore());
-          $profile = $srv->updateprofile(new mnw_OMB_DataStore());
+          $profile = $srv->handleUpdateProfile(new mnw_OMB_DataStore());
           return array(false, array());
           break;
 
         case 'postnotice':
           $srv = new OMB_Service_Provider(get_own_profile(), new mnw_DataStore());
-          $notice = $srv->postnotice(new mnw_OMB_DataStore());
+          $notice = $srv->handlePostNotice(new mnw_OMB_DataStore());
           mnw_receive_notice($notice);
           return array(false, array());
           break;
