@@ -76,8 +76,8 @@ function mnw_handle_oauth() {
             list($redir, $val, $token) = $srv->continueUserAuth($accepted);
             if ($accepted) {
               $store = new mnw_OMB_DataStore();
-              $store->saveProfile($usr);
-              $store->saveSubscription($usr->getIdentifierURI(), get_bloginfo('url'), $token);
+              $store->saveProfile($usr, true);
+              $store->saveSubscription(get_bloginfo('url'), $usr->getIdentifierURI(), $token);
             }
             if ($redir) {
               wp_redirect($val, 303);

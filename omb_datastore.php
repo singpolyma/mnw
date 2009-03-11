@@ -44,8 +44,8 @@ class mnw_OMB_DataStore implements OMB_DataStore {
 
   public function saveProfile($profile, $overwrite = false) {
     global $wpdb;
-    if ($wpdb->query($wpdb->prepare('SELECT * FROM ' . MNW_SUBSCRIBER_TABLE . ' ' .
-                             "WHERE uri = '%s'", $profile->getIdentifierURI)) > 0) {
+    if ($wpdb->query($wpdb->prepare('SELECT id FROM ' . MNW_SUBSCRIBER_TABLE . ' ' .
+                             "WHERE uri = '%s'", $profile->getIdentifierURI())) > 0) {
       if (!$overwrite) {
         throw new Exception();
       }
