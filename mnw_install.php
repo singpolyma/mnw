@@ -31,13 +31,17 @@ function mnw_install() {
           id mediumint(9) NOT NULL AUTO_INCREMENT,
           uri VARCHAR(255) NOT NULL,
           url VARCHAR(255),
+          nickname VARCHAR(64),
           token VARCHAR(255),
           secret VARCHAR(255),
           resubtoken VARCHAR(255),
           resubsecret VARCHAR(255),
           license VARCHAR(255),
-          nickname VARCHAR(64),
           avatar VARCHAR(255),
+          fullname VARCHAR(255),
+          homepage VARCHAR(255),
+          bio VARCHAR(140),
+          location VARCHAR(255),
           UNIQUE KEY id (id)
         ) CHARACTER SET utf8 COLLATE utf8_bin;";
         require_once (ABSPATH . 'wp-admin/includes/upgrade.php');

@@ -38,19 +38,26 @@ class mnw_OMB_DataStore implements OMB_DataStore {
 
   public function saveProfile($profile, $overwrite = false) {
     global $wpdb;
-    $result = $wpdb->query('SELECT uri FROM ' . MNW_SUBSCRIBER_TABLE . " WHERE uri = '" . $profile->getIdentifierURI() . "'");
-    if (!is_null($result)) {
+    $select = "SELECT uri FROM " . MNW_SUBSCRIBER_TABLE . " WHERE uri = '" .
+                $profile->getIdentifierURI() . "'";
+    if ($wpdb->query($select) > 0) {
       if (!$overwrite) {
         throw new Exception();
       }
-      $query = "UPDATE " . MNW_SUBSCRIBER_TABLE . " SET " .
-                    "url = '%s', license = '%s', nickname = '%s', avatar = '%s' where uri = '%s'";
+      $query = "UPDATE " . MNW_SUBSCRIBER_TABLE . " SET url = '%s', " .
+                  "fullname = '%s', location = '%s', bio = '%s', homepage = '%s', " .
+                  "license = '%s', nickname = '%s', avatar = '%s' where uri = '%s'";
     } else {
-      $query = "INSERT INTO " . MNW_SUBSCRIBER_TABLE . " (url, license, nickname, avatar, uri) " .
-                "VALUES ('%s', '%s', '%s', '%s', '%s')";
+      $query = "INSERT INTO " . MNW_SUBSCRIBER_TABLE . " (url, " .
+                "secret, fullname, location, bio, homepage, license, nickname, " .
+                "avatar, uri) " .
+                "VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')";
     }
     $wpdb->query($wpdb->prepare($query, $profile->getProfileURL(),
-       $profile->getLicenseURL(), $profile->getNickname(), $profile->getAvatarURL(), $profile->getIdentifierURI()));
+                   $profile->getFullname(), $profile->getLocation(),
+                   $profile->getBio(), $profile->getHomepage(),
+                   $profile->getLicenseURL(), $profile->getNickname(),
+                   $profile->getAvatarURL(), $profile->getIdentifierURI()));
   }
 
   /* get OMB_Profile, return array of identifier_uris */

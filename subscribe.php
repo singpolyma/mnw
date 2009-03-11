@@ -79,20 +79,7 @@ function finish_subscription() {
     global $wpdb;
     $_GET['omb_listener'] = $service->getListenerURI();
     $profile = OMB_Profile::fromParameters($_GET, 'omb_listener');
-    $select = "SELECT * FROM " . MNW_SUBSCRIBER_TABLE . " WHERE uri = '" . $profile->getIdentifierURI() . "'";
-
-   if ($wpdb->query($select) > 0) {
-      $query = "UPDATE " . MNW_SUBSCRIBER_TABLE . " SET " .
-                  "url = '%s', token = '%s', secret = '%s', " .
-                  "nickname = '%s', avatar = '%s' where uri = '%s'";
-    } else {
-      $query = "INSERT INTO " . MNW_SUBSCRIBER_TABLE . " (url, token, " .
-                "secret, nickname, avatar, uri) " .
-                "VALUES ('%s', '%s', '%s', '%s', '%s', '%s')";
-    }
-    $results = $wpdb->query($wpdb->prepare($query, $profile->getProfileURL(),
-                   $token->key, $token->secret, $profile->getNickname(),
-                   $profile->getAvatarURL(), $profile->getIdentifierURI()));
+    $results = mnw_add_remote($profile, $token, false);
 
     if ($results == 0) {
         return array('subscribe', array('error' => __('Error storing subscriber in local database.', 'mnw')));
