@@ -83,9 +83,10 @@ function mnw_notices_widget($args) {
     $selects = substr($selects, 0, strlen($selects) - 2);
 
     global $wpdb;
+    $start = $new_on_top ? 0 : max(0, $wpdb->get_var('SELECT count(*) FROM ' . MNW_FNOTICES_TABLE . ($only_direct ? ' WHERE to_us = 1' : '')) - $entry_count) ;
     $notices = $wpdb->get_results("SELECT $selects FROM " . MNW_FNOTICES_TABLE . ' as notice, ' . MNW_SUBSCRIBER_TABLE . ' AS author ' .
                                   'WHERE ' . ($only_direct ? 'notice.to_us = 1 AND' : '') . ' notice.user_id = author.id ' .
-                                  'ORDER BY notice.created ' . ($new_on_top ? 'DESC' : 'ASC') . ' LIMIT ' . $entry_count, ARRAY_A);
+                                  'ORDER BY notice.created ' . ($new_on_top ? 'DESC' : 'ASC') . ' LIMIT ' . $start . ', ' . $entry_count, ARRAY_A);
     echo $before_widget;
     echo $before_title . $title . $after_title;
 ?>
