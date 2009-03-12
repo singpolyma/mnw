@@ -72,7 +72,7 @@ function mnw_notices_widget($args) {
                     '%u' => 'notice.url',
                     '%c' => 'notice.created',
                     '%n' => 'author.nickname',
-#                    '%f' => 'author.fullname',
+                    '%f' => 'author.fullname',
                     '%v' => 'author.avatar',
                     '%a' => 'author.url');
 
@@ -143,7 +143,16 @@ function mnw_notices_widget_control() {
   <p style="text-align:right;" class="mnw_field">
     <label for="mnw-template"><?php _e('Entry template', 'mnw'); ?></label>
     <textarea id="mnw-template" name="mnw-template" rows="3" class="mnw_field"><?php /* The AJAX stuff is not able to handle ' and " in params */ echo preg_replace("/'/", '"', stripslashes($options['template'])); ?></textarea>
-  </p>
+    <p>
+    <?php _e('You may use the following placeholders:
+    <ul><li>%t: The content of the notice</li>
+        <li>%u: The URL where the notice can be retrieved</li>
+        <li>%c: The time the notice was created</li>
+        <li>%n: The author‘s nickname</li>
+        <li>%f: The author‘s full name</li>
+        <li>%v: The URL of the author‘s avatar</li>
+        <li>%a: The URL of the author‘s profile</li></ul>', 'mnw'); ?>
+    </p>
   <input type="hidden" id="mnw-notices-submit" name="mnw-notices-submit" value="1" />
 <?php
 }
