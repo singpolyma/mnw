@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.1\n"
+"Project-Id-Version: 0.2\n"
 "Report-Msgid-Bugs-To: mail@adrianlang.de\n"
-"POT-Creation-Date: 2009-03-07 00:32+0100\n"
-"PO-Revision-Date: 2009-03-07 00:36+0100\n"
+"POT-Creation-Date: 2009-03-12 13:39+0100\n"
+"PO-Revision-Date: 2009-03-12 13:52+0100\n"
 "Last-Translator: Adrian Lang <mail@adrianlang.de>\n"
 "Language-Team: English\n"
 "MIME-Version: 1.0\n"
@@ -104,19 +104,24 @@ msgid ""
 "other user unsubscribes."
 msgstr ""
 
-#: admin_menu.php:87 admin_menu_profile.php:97
+#: admin_menu.php:87 admin_menu_profile.php:93
 msgid "Save Changes"
 msgstr "Save Changes"
 
-#: admin_menu_profile.php:64
+#: admin_menu.php:91 admin_menu_profile.php:97 admin_menu_remote_users.php:147
+#, php-format
+msgid "mnw version %s"
+msgstr ""
+
+#: admin_menu_profile.php:60
 msgid "OMB profile"
 msgstr "OMB profile"
 
-#: admin_menu_profile.php:67
+#: admin_menu_profile.php:63
 msgid "Nickname (1-64 characters, only lowercase letters and digits)"
 msgstr "Nickname (1-64 characters, only lowercase letters and digits)"
 
-#: admin_menu_profile.php:70
+#: admin_menu_profile.php:66
 msgid ""
 "The nickname is the name under which remote users will know you. You should "
 "consider thoroughly if you really want to change this setting."
@@ -124,23 +129,23 @@ msgstr ""
 "The nickname is the name under which remote users will know you. You should "
 "consider thoroughly if you really want to change this setting."
 
-#: admin_menu_profile.php:74
+#: admin_menu_profile.php:70
 msgid "Full name (up to 255 characters)"
 msgstr "Full name (up to 255 characters)"
 
-#: admin_menu_profile.php:78
+#: admin_menu_profile.php:74
 msgid "Bio (less than 140 characters)"
 msgstr "Bio (less than 140 characters)"
 
-#: admin_menu_profile.php:82
+#: admin_menu_profile.php:78
 msgid "Location (less than 255 characters)"
 msgstr "Location (less than 255 characters)"
 
-#: admin_menu_profile.php:86
+#: admin_menu_profile.php:82
 msgid "Avatar URL"
 msgstr "Avatar URL"
 
-#: admin_menu_profile.php:90
+#: admin_menu_profile.php:86
 msgid "License URL"
 msgstr "License URL"
 
@@ -242,22 +247,21 @@ msgstr "Subscribed user"
 msgid "Delete this user"
 msgstr "Delete this user"
 
-#: mnw_install.php:104
+#: mnw_install.php:108
 msgid "Teh web"
 msgstr "Teh web"
 
-#: mnw_install.php:111
+#: mnw_install.php:115
 msgid "“%n” (see %u)"
 msgstr "“%n” (see %u)"
 
-#: mnw_install.php:116 mnw_sidebar.php:27 mnw_sidebar.php:28
+#: mnw_install.php:120 mnw_sidebar.php:27 mnw_sidebar.php:28
 msgid "mnw Notices"
 msgstr "mnw Notices"
 
-#: mnw_install.php:118
-#, php-format
-msgid "„<a href=\"%s\">%s</a>“ (<a href=\"%s\">%s</a> @ %s)"
-msgstr "“<a href=\"%s\">%s</a>“ (<a href=\"%s\">%s</a> @ %s)"
+#: mnw_install.php:122
+msgid "„<a href=\"%u\">%t</a>“ (<a href=\"%a\">%n</a> @ %c)"
+msgstr "“<a href=\"%u\">%t</a>” (<a href=\"%a\">%n</a> @ %c)"
 
 #: mnw_provider.php:47
 msgid "Not logged in or not admin."
@@ -299,47 +303,63 @@ msgstr "Subscribe!"
 msgid "Style"
 msgstr "Style"
 
-#: mnw_sidebar.php:87
+#: mnw_sidebar.php:106
 msgid "No notices."
 msgstr ""
 
-#: mnw_sidebar.php:105
+#: mnw_sidebar.php:124
 msgid "Title"
 msgstr ""
 
-#: mnw_sidebar.php:109
+#: mnw_sidebar.php:128
 msgid "Entry count"
 msgstr ""
 
-#: mnw_sidebar.php:113
+#: mnw_sidebar.php:132
 msgid "Show only direct messages?"
 msgstr ""
 
-#: mnw_sidebar.php:117
+#: mnw_sidebar.php:136
 msgid "Strip @ parts at the beginning of the notice?"
 msgstr ""
 
-#: mnw_sidebar.php:121
+#: mnw_sidebar.php:140
+msgid "Show new notices on top?"
+msgstr ""
+
+#: mnw_sidebar.php:144
 msgid "Entry template"
 msgstr ""
 
-#: subscribe.php:50
+#: mnw_sidebar.php:147
+msgid ""
+"You may use the following placeholders:\n"
+"    <ul><li>%t: The content of the notice</li>\n"
+"        <li>%u: The URL where the notice can be retrieved</li>\n"
+"        <li>%c: The time the notice was created</li>\n"
+"        <li>%n: The author‘s nickname</li>\n"
+"        <li>%f: The author‘s full name</li>\n"
+"        <li>%v: The URL of the author‘s avatar</li>\n"
+"        <li>%a: The URL of the author‘s profile</li></ul>"
+msgstr ""
+
+#: subscribe.php:51
 msgid "No remote profile submitted."
 msgstr "No remote profile submitted."
 
-#: subscribe.php:55
+#: subscribe.php:56
 msgid "Invalid profile URL."
 msgstr "Invalid profile URL."
 
-#: subscribe.php:70
+#: subscribe.php:71
 msgid "No session found."
 msgstr "No session found."
 
-#: subscribe.php:75
+#: subscribe.php:76
 msgid "Not authorized."
 msgstr "Not authorized."
 
-#: subscribe.php:98
+#: subscribe.php:86
 msgid "Error storing subscriber in local database."
 msgstr "Error storing subscriber in local database."
 
