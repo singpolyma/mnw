@@ -30,24 +30,34 @@ post, page or attachment (configurable).
                          the microblog notice template.
 03. March 2009:    0.1c  Adds an optional sidebar widget which displays the count of
                          OMB subscribers and a link to the subscribe page.
+13. March 2009:    0.2   Adds receiving & displaying of notices. mnw now uses libomb
+                         for the OMB handling.
 
 == Milestones, future features ==
 1.0 should be able to send (arbitrary and on blog post) & receive (probably direct
     responses) messages. Display of them in widgets. Clean code.
 
-Check all the (micro) formats which could be necessary
-Additional features could be
-- multiuser support
-- configure post/page/comment broadcasting on a per-post/page base
-- notice for new comments
-- url shortening!
-- add user setting to exclude microblog page from all_pages
-- allow tags display in post template
+Additional features
+- Publish micro formats
+- Provide complete list of received & sent notices
+- Support multiple users
+- Configure post/page/comment broadcasting on a per-post/page base
+- Send notice for new comments
+- Shorten URLs
+- Optinally exclude microblog page from all_pages
+- Allow tags display in post template
 - Optionally send post/page/attachment url as seealso
-- Store images local
+- Store images locally
+- Validate own user profile via libomb
+- Allow arbitrary message sending
+- Handle licenses
+- Allow multiple notice widgets
+- Allow notice widgets for certain users.
+- Optionally show OMB notice instead of wordpress object
 
 == Bugs ==
 Use better default for omb_bio
 Push only once to every service url (postNotice, updateProfile)
 Get that GET/POST stuff clean (No GET params in POST requests)
 Validate.php does not use mb_strlen.
+Don‘t overwrite existing values with empty ones if they are not passed at all.
