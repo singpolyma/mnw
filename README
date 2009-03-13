@@ -13,6 +13,7 @@ mnw is a wordpress plugin which adds openmicroblogging support to wordpress.
 - Configure the plugin in the corresponding admin menu.
 - (Optional) Copy omb.png to the directory of your current theme. Enable the sidebar
   widget displaying a count of your omb subscribers.
+- (Optional) Add a sidebar widget showing received messages.
 
 Note that mnw is published under the GNU Affero General Public License. You have to
 publish the source code for mnw. If you change nothing, just link to the mnw website.
@@ -21,6 +22,10 @@ publish the source code for mnw. If you change nothing, just link to the mnw web
 mnw gives users of an OMB service the possibility to subscribe to your blog directly.
 Your blog will automatically send OMB notices to subscribers when you publish a new
 post, page or attachment (configurable).
+
+Moreover, mnw allows your blog to subscribe to a remote user and later on receive
+his messages. To subscribe to a user, enter the your blog‘s URL as your profile URL
+on the remote user‘s remote subscribe form.
 
 == Versions ==
 22. February 2009: 0.1   First public release. Complete profile settings, profile
