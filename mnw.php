@@ -49,6 +49,7 @@ define('MNW_NOTICE_ID', 'mnw_notice_id');
 
 define('MNW_VERSION', '0.2');
 
+define('MNW_ACCESS_LEVEL', 10);
 /*
  * Initialize database on activation.
  */

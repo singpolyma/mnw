@@ -43,7 +43,7 @@ function mnw_handle_oauth() {
         case 'userauthorization':
             global $user_level;
             get_currentuserinfo();
-            if ($user_level < 10) {
+            if ($user_level < MNW_ACCESS_LEVEL) {
               return array('userauth', array('error' => __('Not logged in or not admin.', 'mnw')));
             }
             $srv = new OMB_Service_Provider(get_own_profile(), new mnw_DataStore());
