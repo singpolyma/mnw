@@ -49,12 +49,11 @@ Additional features
 - Configure post/page/comment broadcasting on a per-post/page base
 - Send notice for new comments
 - Shorten URLs
-- Optinally exclude microblog page from all_pages
+- Optionally exclude microblog page from all_pages
 - Allow tags display in post template
 - Optionally send post/page/attachment url as seealso
 - Store images locally
 - Validate own user profile via libomb
-- Allow arbitrary message sending
 - Handle licenses
 - Allow multiple notice widgets
 - Allow notice widgets for certain users.

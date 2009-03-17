@@ -20,6 +20,7 @@
  */
 
 require_once 'admin_menu_profile.php';
+require_once 'admin_menu_new_notice.php';
 require_once 'admin_menu_remote_users.php';
 
 add_action('admin_menu', 'mnw_admin_menu');
@@ -28,6 +29,7 @@ function mnw_admin_menu() {
     add_submenu_page(__FILE__, __('General mnw plugin settings', 'mnw'), __('Plugin settings', 'mnw'), MNW_ACCESS_LEVEL, __FILE__, 'mnw_plugin_options');
     add_submenu_page(__FILE__, __('mnw OMB profile settings', 'mnw'), __('OMB Profile', 'mnw'), MNW_ACCESS_LEVEL, dirname(__FILE__) . '/admin_menu_profile.php', 'mnw_profile_options');
     add_submenu_page(__FILE__, __('mnw remote users', 'mnw'), __('Remote users', 'mnw'), MNW_ACCESS_LEVEL, dirname(__FILE__) . '/admin_menu_remote_users.php', 'mnw_remote_users_options');
+    add_submenu_page(__FILE__, __('mnw new notice', 'mnw'), __('New notice', 'mnw'), MNW_ACCESS_LEVEL, dirname(__FILE__) . '/admin_menu_new_notice.php', 'mnw_new_notice');
 }
 
 function mnw_plugin_options() {
