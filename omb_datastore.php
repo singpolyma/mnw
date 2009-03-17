@@ -79,7 +79,7 @@ class mnw_OMB_DataStore implements OMB_DataStore {
     $myself = get_own_profile();
     if ($subscribedUserURI !== $myself->getIdentifierURI()) {
       $query = $wpdb->prepare('SELECT url, resubtoken, resubsecret FROM ' .
-          MNW_SUBSCRIBER_TABLE . " WHERE uri = '%s'", $profile->getIdentifierURI());
+          MNW_SUBSCRIBER_TABLE . " WHERE uri = '%s'", $subscribedUserURI);
     } else {
       $query = 'SELECT url, token, secret FROM ' . MNW_SUBSCRIBER_TABLE . ' WHERE token IS NOT NULL';
     }
