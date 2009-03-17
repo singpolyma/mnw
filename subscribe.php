@@ -51,7 +51,7 @@ function continue_subscription() {
         return array('subscribe', array('error' => __('No remote profile submitted.', 'mnw')));
     }
     try {
-      $service = new OMB_Service_Consumer($_POST['profile_url'], get_bloginfo('url'), new mnw_OMB_DataStore());
+      $service = new OMB_Service_Consumer($_POST['profile_url'], get_bloginfo('url'), mnw_OMB_DataStore::getInstance());
     } catch (Exception $e) {
       return array('subscribe', array('error' => __('Invalid profile URL.', 'mnw')));
     }
@@ -79,7 +79,7 @@ function finish_subscription() {
     // Subscription is finished and valid. Now store the subscriber in our database.
     $_GET['omb_listener'] = $service->getListenerURI();
     $profile = OMB_Profile::fromParameters($_GET, 'omb_listener');
-    $store = new mnw_OMB_DataStore();
+    $store = mnw_OMB_DataStore::getInstance();
     $store->saveProfile($profile, true);
     $results = $store->saveSubscription($profile->getIdentifierURI(), get_bloginfo('url'), $token);
     if ($results == 0) {

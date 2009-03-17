@@ -36,7 +36,7 @@ function mnw_post_new_notice() {
 
     $notice = new OMB_Notice(get_own_profile(), mnw_set_action('get_notice') . '&mnw_notice_id=' . $wpdb->insert_id, $_POST['mnw_notice'], '');
 
-    $datastore = new mnw_OMB_DataStore();
+    $datastore = mnw_OMB_DataStore::getInstance();
     $result = $datastore->getSubscriptions(get_bloginfo('url'));
 
     if ($result === false) {
@@ -45,7 +45,7 @@ function mnw_post_new_notice() {
 
     foreach($result as $subscriber) {
         try {
-            $service = new OMB_Service_Consumer($subscriber['url'], get_bloginfo('url'), new mnw_OMB_DataStore());
+            $service = new OMB_Service_Consumer($subscriber['url'], get_bloginfo('url'), $datastore);
             $service->setToken($subscriber['token'], $subscriber['secret']);
             $service->postNotice($notice);
         } catch (Exception $e) {

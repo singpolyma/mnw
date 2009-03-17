@@ -41,7 +41,7 @@ function mnw_upd_settings() {
 
     foreach($result as $subscriber) {
         try {
-            $service = new OMB_Service_Consumer($subscriber['url'], get_bloginfo('url'), new mnw_OMB_DataStore());
+            $service = new OMB_Service_Consumer($subscriber['url'], get_bloginfo('url'), mnw_OMB_DataStore::getInstance());
             $service->setToken($subscriber['token'], $subscriber['secret']);
             $service->updateProfile(get_own_profile());
         } catch (Exception $e) {

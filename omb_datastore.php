@@ -23,6 +23,20 @@ require_once 'libomb/datastore.php';
 require_once 'libomb/profile.php';
 
 class mnw_OMB_DataStore implements OMB_DataStore {
+
+  /* This class is a singleton. */
+  protected function __construct() {
+    parent::__construct();
+  }
+
+  public static function getInstance() {
+    static $instance;
+    if (is_null($instance)) {
+      $instance = new self();
+    }
+    return $instance;
+  }
+
   public function getProfile($identifierURI) {
     global $wpdb;
     $result = $wpdb->get_row($wpdb->prepare('SELECT * FROM ' . MNW_SUBSCRIBER_TABLE .

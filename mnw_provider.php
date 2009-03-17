@@ -75,7 +75,7 @@ function mnw_handle_oauth() {
             $accepted = isset($_POST['accept']) && !isset($_POST['reject']);
             list($redir, $val, $token) = $srv->continueUserAuth($accepted);
             if ($accepted) {
-              $store = new mnw_OMB_DataStore();
+              $store = mnw_OMB_DataStore::getInstance();
               $store->saveProfile($usr, true);
               $store->saveSubscription(get_bloginfo('url'), $usr->getIdentifierURI(), $token);
             }
@@ -107,13 +107,13 @@ function mnw_handle_omb() {
 
         case 'updateprofile':
           $srv = new OMB_Service_Provider(get_own_profile(), new mnw_DataStore());
-          $profile = $srv->handleUpdateProfile(new mnw_OMB_DataStore());
+          $profile = $srv->handleUpdateProfile(mnw_OMB_DataStore::getInstance());
           return array(false, array());
           break;
 
         case 'postnotice':
           $srv = new OMB_Service_Provider(get_own_profile(), new mnw_DataStore());
-          $notice = $srv->handlePostNotice(new mnw_OMB_DataStore());
+          $notice = $srv->handlePostNotice(mnw_OMB_DataStore::getInstance());
           mnw_receive_notice($notice);
           return array(false, array());
           break;
