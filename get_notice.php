@@ -23,7 +23,7 @@ function mnw_get_notice() {
     if (isset($_GET[MNW_NOTICE_ID])) {
         global $wpdb;
         $notice_url = $wpdb->get_var('SELECT url FROM ' . MNW_NOTICES_TABLE . ' WHERE id = ' . $wpdb->escape($_GET[MNW_NOTICE_ID]));
-        if ($notice_url) { 
+        if ($notice_url && get_option('mnw_forward_to_object')) {
             wp_redirect($notice_url , 307);
             return array(false, array());
         } else {

@@ -58,7 +58,6 @@ Additional features
 - Handle licenses
 - Allow multiple notice widgets
 - Allow notice widgets for certain users.
-- Optionally show OMB notice instead of wordpress object
 
 == Bugs ==
 Use better default for omb_bio
