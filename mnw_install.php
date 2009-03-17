@@ -121,7 +121,8 @@ function mnw_install() {
                                                 'only_direct' => true, 'strip_at' => true,
                                                 'template' => __('„<a href="%u">%t</a>“ (<a href="%a">%n</a> @ %c)', 'mnw'),
                                                 'new_on_top' => true),
-                'mnw_forward_to_object'   => true);
+                'mnw_forward_to_object'   => true,
+                'mnw_as_seealso'          => true);
 #                'mnw_mirror_subscription' => true
 
     foreach($options as $key => $value) {

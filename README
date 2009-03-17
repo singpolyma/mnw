@@ -52,7 +52,6 @@ Additional features
 - Shorten URLs
 - Optionally exclude microblog page from all_pages
 - Allow tags display in post template
-- Optionally send post/page/attachment url as seealso
 - Store images locally
 - Validate own user profile via libomb
 - Handle licenses

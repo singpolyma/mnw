@@ -31,6 +31,11 @@ class mnw_Notice extends OMB_Notice {
       /* URI needs database ID, hence setting it to blogpost $url until we know the ID. */
       parent::__construct(get_own_profile(), $url, $content);
       $this->url = $url;
+      if (get_option('mnw_as_seealso') === true) {
+        $this->setSeealsoURL($url);
+        $this->setSeealsoDisposition('link');
+        $this->setSeealsoMediatype('text/html');
+      }
     }
 
     static function fromPost($post) {

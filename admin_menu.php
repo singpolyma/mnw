@@ -79,6 +79,10 @@ function mnw_plugin_options() {
                 <th scope="row"><?php _e('Forward user to blog post/page/attachment', 'mnw'); ?></th>
                 <td><input type="checkbox" name="mnw_forward_to_object" <?php if (get_option('mnw_forward_to_object')) echo 'checked="checked"'; ?> /></td>
             </tr>
+            <tr valign="top">
+                <th scope="row"><?php _e('Send post/page/attachment URL as seealso', 'mnw'); ?></th>
+                <td><input type="checkbox" name="mnw_as_seealso" <?php if (get_option('mnw_as_seealso')) echo 'checked="checked"'; ?> /></td>
+            </tr>
 
 
 <!--            <tr valign="top">
@@ -90,7 +94,7 @@ function mnw_plugin_options() {
             </tr>-->
         </table>
         <input type="hidden" name="action" value="update" />
-        <input type="hidden" name="page_options" value="mnw_after_subscribe, mnw_themepage_url, mnw_post_template, mnw_on_post, mnw_on_page, mnw_on_attachment, mnw_forward_to_object" />
+        <input type="hidden" name="page_options" value="mnw_after_subscribe, mnw_themepage_url, mnw_post_template, mnw_on_post, mnw_on_page, mnw_on_attachment, mnw_forward_to_object, mnw_as_seealso" />
         <p class="submit">
             <input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
         </p>
