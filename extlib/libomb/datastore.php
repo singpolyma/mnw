@@ -31,8 +31,7 @@ interface OMB_Datastore {
 
   public function saveProfile($profile, $overwrite = false);
 
-  /* get OMB_Profile, return array of identifier_uris */
-  public function getSubscribers($profile);
+  public function getSubscriptions($subscribedUserURI);
 
   public function deleteSubscription($subscriberURI, $subscribedUserURI);
 }

@@ -203,7 +203,7 @@ class OMB_Service_Provider {
       throw new Exception(); // 404
     }
 
-    $subscribers = $omb_datastore->getSubscribers($profile);
+    $subscribers = $omb_datastore->getSubscriptions($listenee);
     if (count($subscribers) === 0) {
       throw new Exception(); // 403
     }
@@ -274,7 +274,7 @@ class OMB_Service_Provider {
       throw new Exception(); // 404
     }
 
-    $subscribers = $omb_datastore->getSubscribers($profile);
+    $subscribers = $omb_datastore->getSubscriptions($listenee);
     if (count($subscribers) === 0) {
       throw new Exception(); // 403
     }

@@ -64,19 +64,16 @@ class mnw_OMB_DataStore implements OMB_DataStore {
                    $profile->getAvatarURL(), $profile->getIdentifierURI()));
   }
 
-  /* get OMB_Profile, return array of identifier_uris */
-  public function getSubscribers($profile) {
+  public function getSubscriptions($subscribedUserURI) {
     global $wpdb;
     $myself = get_own_profile();
-    if ($profile->getIdentifierURI() !== $myself->getIdentifierURI()) {
-      if($wpdb->get_var('SELECT resubtoken FROM ' . MNW_SUBSCRIBER_TABLE . " WHERE uri = '" . $profile->getIdentifierURI() . "'")) {
-        return array($myself->getIdentifierURI());
-      } else {
-        return array();
-      }
+    if ($subscribedUserURI !== $myself->getIdentifierURI()) {
+      $query = $wpdb->prepare('SELECT url, resubtoken, resubsecret FROM ' .
+          MNW_SUBSCRIBER_TABLE . " WHERE uri = '%s'", $profile->getIdentifierURI());
     } else {
-      return $wpdb->get_col('SELECT uri FROM ' . MNW_SUBSCRIBER_TABLE . ' WHERE token IS NOT NULL');
+      $query = 'SELECT url, token, secret FROM ' . MNW_SUBSCRIBER_TABLE . ' WHERE token IS NOT NULL';
     }
+    return $wpdb->get_results($query, ARRAY_A);
   }
 
   public function deleteSubscription($subscriberURI, $subscribedUserURI) {
