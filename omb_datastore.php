@@ -25,10 +25,6 @@ require_once 'libomb/profile.php';
 class mnw_OMB_DataStore implements OMB_DataStore {
 
   /* This class is a singleton. */
-  protected function __construct() {
-    parent::__construct();
-  }
-
   public static function getInstance() {
     static $instance;
     if (is_null($instance)) {
