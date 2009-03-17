@@ -51,6 +51,7 @@ if ($continue !== false) {
 <?php
         break;
     case 'get_notice':
+        if (isset($data['notice']) && $data['notice'] !== false) {
 ?>
         <h3 style="text-transform:uppercase;"><?php printf('Status on %s:', date('d F Y H:i:s', strtotime($data['notice']->created)));?></h3>
         <p style="font-size: 200%; margin-left: 0.5em;">
@@ -65,6 +66,9 @@ if ($continue !== false) {
 ?>
         </p>
 <?php
+        } else {
+          echo '<p>Notice not found.</p>';
+        }
         break;
 
     case 'userauth':
