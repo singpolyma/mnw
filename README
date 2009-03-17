@@ -21,7 +21,8 @@ publish the source code for mnw. If you change nothing, just link to the mnw web
 == Current features ==
 mnw gives users of an OMB service the possibility to subscribe to your blog directly.
 Your blog will automatically send OMB notices to subscribers when you publish a new
-post, page or attachment (configurable).
+post, page or attachment (configurable). You may as well post arbitrary OMB notices
+from the wordpress admin interface.
 
 Moreover, mnw allows your blog to subscribe to a remote user and later on receive
 his messages. To subscribe to a user, enter the your blog‘s URL as your profile URL

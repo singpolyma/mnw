@@ -53,7 +53,7 @@ if ($continue !== false) {
     case 'get_notice':
 ?>
         <h3 style="text-transform:uppercase;"><?php printf('Status um %s:', date('d. F Y H:i:s', strtotime($data['notice']->created)));?></h3>
-        <p style="font-size: 200%; margin-left: 0.5em;">
+        <p style="border-top: 1px solid black; border-bottom: 2px solid black; padding: 0.2em; font-size: 200%; margin-left: 0.5em;">
 <?php
         if ($data['notice']->url !== null) {
           echo "<a href='" . $data['notice']->url . "'>";
