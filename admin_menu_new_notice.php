@@ -80,9 +80,8 @@ function mnw_new_notice() {
   /* Get URL to this page via wordpress admin interface. */
   $this_url = 'admin.php?page=' .  basename(dirname(__FILE__)) . '/admin_menu_new_notice.php';
 
+  mnw_start_admin_page();
 ?>
-<div class="wrap">
-    <h2>mnw</h2>
     <form method="post" action="<?php echo $this_url; ?>">
       <h3><?php _e('New notice', 'mnw'); ?></h3>
       <?php wp_nonce_field('mnw-new_notice'); ?>
@@ -90,11 +89,7 @@ function mnw_new_notice() {
       <br />
       <input type="submit" name="doaction_active" class="button-primary action" value="<?php _e('Send notice', 'mnw'); ?>" />
     </form>
-        <p style="color: grey; text-align: right;">
-            <?php printf(__('mnw version %s', 'mnw'), MNW_VERSION); ?>
-        </p>
-
-</div>
 <?php
+    mnw_finish_admin_page();
 }
 ?>

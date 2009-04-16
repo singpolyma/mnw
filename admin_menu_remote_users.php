@@ -69,15 +69,14 @@ function mnw_remote_users_options() {
   $users = $wpdb->get_results('SELECT id, nickname, url, token, resubtoken, license FROM ' . MNW_SUBSCRIBER_TABLE . ' WHERE token is not null or resubtoken is not null',
                                     ARRAY_A);
 
+  mnw_start_admin_page();
 ?>
-<div class="wrap">
-    <h2>mnw</h2>
-<p><?php _e('<em>Subscribers</em> are users of an OMB service who listen to your notices. The messages of <em>subscribed users</em> get published to mnw and may be displayed.', 'mnw');?></p>
+<p><?php printf(__('<em>Subscribers</em> are users of an OMB service who listen to your notices. The messages of <em>subscribed users</em> get published to %s and may be displayed.', 'mnw'), get_bloginfo('title'));?></p>
 <p><?php _e('If you delete a user, both subscriptions – if available – are removed.', 'mnw'); ?></p>
 <p><?php _e('Note that the OpenMicroBlogging standard does not yet support a block feature; Therefore the remote user is not informed about a deletion. Moreover, if another user from the same service is subscribed to you, the remote service will probably publish your messages to deleted users as well.', 'mnw');?></p>
 <p><?php _e('Likewise a user which is listed as subscriber may have canceled his subscription recently.', 'mnw');?></p>
     <form method="post" action="<?php echo $this_url; ?>">
-      <h3><?php _e('Remote OMB users', 'mnw'); ?></h3>
+      <h3><?php _e('Remote microblog users', 'mnw'); ?></h3>
       <?php wp_nonce_field('mnw-bulk-users') ?>
       <div class="tablenav">
         <div class="alignleft actions">
@@ -143,11 +142,7 @@ function mnw_remote_users_options() {
     </tbody>
 </table>
     </form>
-        <p style="color: grey; text-align: right;">
-            <?php printf(__('mnw version %s', 'mnw'), MNW_VERSION); ?>
-        </p>
-
-</div>
 <?php
+    mnw_finish_admin_page();
 }
 ?>

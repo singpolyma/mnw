@@ -52,9 +52,8 @@ function mnw_upd_settings() {
 
 function mnw_profile_options() {
     global $mnw_options;
+    mnw_start_admin_page();
 ?>
-<div class="wrap">
-    <h2>mnw</h2>
     <form method="post" action="options.php">
         <?php wp_nonce_field('update-options'); ?>
         <h3><?php _e('OMB profile', 'mnw'); ?></h3>
@@ -93,11 +92,7 @@ function mnw_profile_options() {
             <input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
         </p>
     </form>
-        <p style="color: grey; text-align: right;">
-            <?php printf(__('mnw version %s', 'mnw'), MNW_VERSION); ?>
-        </p>
-
-</div>
 <?php
+    mnw_finish_admin_page();
 }
 ?>

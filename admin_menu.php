@@ -25,11 +25,11 @@ require_once 'admin_menu_remote_users.php';
 
 add_action('admin_menu', 'mnw_admin_menu');
 function mnw_admin_menu() {
-    add_menu_page('mnw', 'mnw', MNW_ACCESS_LEVEL, __FILE__);
-    add_submenu_page(__FILE__, __('General mnw plugin settings', 'mnw'), __('Plugin settings', 'mnw'), MNW_ACCESS_LEVEL, __FILE__, 'mnw_plugin_options');
-    add_submenu_page(__FILE__, __('mnw OMB profile settings', 'mnw'), __('OMB Profile', 'mnw'), MNW_ACCESS_LEVEL, dirname(__FILE__) . '/admin_menu_profile.php', 'mnw_profile_options');
-    add_submenu_page(__FILE__, __('mnw remote users', 'mnw'), __('Remote users', 'mnw'), MNW_ACCESS_LEVEL, dirname(__FILE__) . '/admin_menu_remote_users.php', 'mnw_remote_users_options');
-    add_submenu_page(__FILE__, __('mnw new notice', 'mnw'), __('New notice', 'mnw'), MNW_ACCESS_LEVEL, dirname(__FILE__) . '/admin_menu_new_notice.php', 'mnw_new_notice');
+    add_menu_page(__('Microblog', 'mnw'), __('Microblog', 'mnw'), MNW_ACCESS_LEVEL, __FILE__);
+    add_submenu_page(__FILE__, __('General microblog settings', 'mnw'), __('Settings', 'mnw'), MNW_ACCESS_LEVEL, __FILE__, 'mnw_plugin_options');
+    add_submenu_page(__FILE__, __('Microblog profile settings', 'mnw'), __('Profile', 'mnw'), MNW_ACCESS_LEVEL, dirname(__FILE__) . '/admin_menu_profile.php', 'mnw_profile_options');
+    add_submenu_page(__FILE__, __('Remote microblog users', 'mnw'), __('Remote users', 'mnw'), MNW_ACCESS_LEVEL, dirname(__FILE__) . '/admin_menu_remote_users.php', 'mnw_remote_users_options');
+    add_submenu_page(__FILE__, __('New microblog notice', 'mnw'), __('New notice', 'mnw'), MNW_ACCESS_LEVEL, dirname(__FILE__) . '/admin_menu_new_notice.php', 'mnw_new_notice');
 }
 
 add_action('wp_dashboard_setup', 'mnw_dashboard_setup');
@@ -71,18 +71,33 @@ function mnw_dashboard() {
     echo '</p>';
 }
 
-function mnw_plugin_options() {
-    global $mnw_options;
+function mnw_start_admin_page() {
 ?>
 <div class="wrap">
-    <h2>mnw</h2>
+    <h2><?php _e('Microblog', 'mnw'); ?></h2>
+<?php
+}
+
+function mnw_finish_admin_page() {
+?>
+    <p style="color: grey; text-align: right;">
+        <?php printf(__('mnw version %s', 'mnw'), MNW_VERSION); ?>
+    </p>
+</div>
+<?php
+}
+
+function mnw_plugin_options() {
+    global $mnw_options;
+    mnw_start_admin_page();
+?>
     <form method="post" action="options.php">
         <?php wp_nonce_field('update-options'); ?>
 
         <h3><?php _e('General settings', 'mnw'); ?></h3>
         <table class="form-table">
             <tr valign="top">
-                <th scope="row"><?php _e('Wordpress mnw page URL', 'mnw'); ?></th>
+                <th scope="row"><?php _e('Wordpress microblog page URL', 'mnw'); ?></th>
                 <td>
                     <input type="text" class="regular-text" name="mnw_themepage_url" value="<?php echo get_option('mnw_themepage_url'); ?>" /><br />
                     <?php _e('URL of a wordpress page which uses mnw.php as template. All public URLs are based on this URL; you should never change it.', 'mnw'); ?>
@@ -138,10 +153,7 @@ function mnw_plugin_options() {
             <input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
         </p>
     </form>
-        <p style="color: grey; text-align: right;">
-            <?php printf(__('mnw version %s', 'mnw'), MNW_VERSION); ?>
-        </p>
-</div>
 <?php
+    mnw_finish_admin_page();
 }
 ?>
