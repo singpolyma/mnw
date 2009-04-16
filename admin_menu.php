@@ -32,6 +32,45 @@ function mnw_admin_menu() {
     add_submenu_page(__FILE__, __('mnw new notice', 'mnw'), __('New notice', 'mnw'), MNW_ACCESS_LEVEL, dirname(__FILE__) . '/admin_menu_new_notice.php', 'mnw_new_notice');
 }
 
+add_action('wp_dashboard_setup', 'mnw_dashboard_setup');
+function mnw_dashboard_setup() {
+    wp_add_dashboard_widget('mnw_dashboard', __('Microblog', 'mnw'), 'mnw_dashboard');
+}
+
+function mnw_dashboard() {
+    global $wpdb;
+    $title = get_bloginfo('title');
+
+    echo '<p>';
+    $subscribers = $wpdb->get_var('SELECT COUNT(*) FROM ' . MNW_SUBSCRIBER_TABLE
+                                               . ' WHERE token is not null');
+    printf(__ngettext('%s has <strong>%d subscriber</strong>.',
+                              '%s has <strong>%d subscribers</strong>.',
+                              $subscribers, 'mnw') . ' ', $title, $subscribers);
+
+    $subscribed = $wpdb->get_var('SELECT COUNT(*) FROM ' . MNW_SUBSCRIBER_TABLE
+                                              . ' WHERE resubtoken is not null');
+    printf(__ngettext('It is <strong>subscribed to %d user</strong>.',
+                      'It is <strong>subscribed to %d users</strong>.',
+                      $subscribed, 'mnw') . ' ', $subscribed);
+    echo '(<a href="admin.php?page=mnw/admin_menu_remote_users.php">' . __('User overview', 'mnw') . '</a>)';
+    echo '</p>';
+
+    echo '<p>';
+    $resps = $wpdb->get_var('SELECT COUNT(*) FROM ' . MNW_FNOTICES_TABLE .
+                                           ' WHERE to_us = 1');
+    printf(__ngettext('<strong>%d</strong> notice is listed as ' .
+                                '<strong>response</strong> to %s.',
+                              '<strong>%d</strong> notices are listed as ' .
+                                '<strong>responses</strong> to %s.',
+                              $resps, 'mnw') . ' ', $resps, $title);
+    $total = $wpdb->get_var('SELECT COUNT(*) FROM ' . MNW_FNOTICES_TABLE);
+    printf(__ngettext('It has received a total of <strong>%d message</strong>.',
+                      'It has received a total of <strong>%d messages</strong>.',
+                      $total, 'mnw'), $total);
+    echo '</p>';
+}
+
 function mnw_plugin_options() {
     global $mnw_options;
 ?>
