@@ -20,7 +20,7 @@
  */
 
 require_once 'admin_menu_profile.php';
-require_once 'admin_menu_new_notice.php';
+require_once 'admin_menu_notices.php';
 require_once 'admin_menu_remote_users.php';
 
 add_action('admin_menu', 'mnw_admin_menu');
@@ -29,7 +29,7 @@ function mnw_admin_menu() {
     add_submenu_page(__FILE__, __('General microblog settings', 'mnw'), __('Settings', 'mnw'), MNW_ACCESS_LEVEL, __FILE__, 'mnw_plugin_options');
     add_submenu_page(__FILE__, __('Microblog profile settings', 'mnw'), __('Profile', 'mnw'), MNW_ACCESS_LEVEL, dirname(__FILE__) . '/admin_menu_profile.php', 'mnw_profile_options');
     add_submenu_page(__FILE__, __('Remote microblog users', 'mnw'), __('Remote users', 'mnw'), MNW_ACCESS_LEVEL, dirname(__FILE__) . '/admin_menu_remote_users.php', 'mnw_remote_users_options');
-    add_submenu_page(__FILE__, __('New microblog notice', 'mnw'), __('New notice', 'mnw'), MNW_ACCESS_LEVEL, dirname(__FILE__) . '/admin_menu_new_notice.php', 'mnw_new_notice');
+    add_submenu_page(__FILE__, __('Microblog notices', 'mnw'), __('Notices', 'mnw'), MNW_ACCESS_LEVEL, dirname(__FILE__) . '/admin_menu_notices.php', 'mnw_notices');
 }
 
 add_action('wp_dashboard_setup', 'mnw_dashboard_setup');
@@ -67,7 +67,8 @@ function mnw_dashboard() {
     $total = $wpdb->get_var('SELECT COUNT(*) FROM ' . MNW_FNOTICES_TABLE);
     printf(__ngettext('It has received a total of <strong>%d message</strong>.',
                       'It has received a total of <strong>%d messages</strong>.',
-                      $total, 'mnw'), $total);
+                      $total, 'mnw') . ' ', $total);
+    echo '(<a href="admin.php?page=mnw/admin_menu_notices.php">' . __('Notices overview', 'mnw') . '</a>)';
     echo '</p>';
 }
 
