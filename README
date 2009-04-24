@@ -61,6 +61,7 @@ Additional features
 - Allow multiple notice widgets
 - Allow notice widgets for certain users.
 - Add public list of own notices.
+- Paging for many lists.
 
 == Bugs ==
 Use better default for omb_bio
@@ -69,3 +70,4 @@ Get that GET/POST stuff clean (No GET params in POST requests)
 Validate.php does not use mb_strlen.
 Don‘t overwrite existing values with empty ones if they are not passed at all.
 Not compatible with WordpressMU
+Locale for dates is somehow broken

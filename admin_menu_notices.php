@@ -144,7 +144,7 @@ function mnw_notices() {
   if ($show_sent) {
     $notices = $wpdb->get_results('SELECT id, content FROM ' . MNW_NOTICES_TABLE, ARRAY_A);
   } else {
-    $notices = $wpdb->get_results('SELECT id, content, author FROM ' . MNW_FNOTICES_TABLE, ARRAY_A);
+    $notices = $wpdb->get_results('SELECT ' . MNW_FNOTICES_TABLE . '.id, content, nickname as author FROM ' . MNW_FNOTICES_TABLE . ' JOIN ' . MNW_SUBSCRIBER_TABLE . ' ON user_id = ' . MNW_SUBSCRIBER_TABLE . '.id', ARRAY_A);
   }
 
   mnw_start_admin_page();
