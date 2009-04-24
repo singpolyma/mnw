@@ -3,7 +3,7 @@
 Plugin Name: mnw
 Plugin URI: adrianlang.de/mnw
 Description: OpenMicroBlogging compatible Microblogging for Wordpress
-Version: 0.2
+Version: 0.3
 Author: Adrian Lang
 Author URI: http://adrianlang.de
 Text Domain: mnw
@@ -47,7 +47,7 @@ define('MNW_OAUTH_ACTION', 'mnw_oauth_action');
 define('MNW_OMB_ACTION', 'mnw_omb_action');
 define('MNW_NOTICE_ID', 'mnw_notice_id');
 
-define('MNW_VERSION', '0.2');
+define('MNW_VERSION', '0.3');
 
 define('MNW_ACCESS_LEVEL', 10);
 /*

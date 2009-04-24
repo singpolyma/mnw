@@ -50,7 +50,7 @@ function mnw_handle_oauth() {
             try {
               $remote_user = $srv->handleUserAuth();
             } catch (Exception $e) {
-              return array('userauth', array('error' => sprintf(__('Error while verifying the authorize request. Original error: %s', 'mnw'), $e->getMessage())));
+              return array('userauth', array('error' => sprintf(__('Error while verifying the authorize request. Original error: “%s”', 'mnw'), $e->getMessage())));
             }
             common_ensure_session();
             $_SESSION['omb_provider'] = $srv;

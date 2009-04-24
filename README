@@ -38,6 +38,9 @@ on the remote user‘s remote subscribe form.
                          OMB subscribers and a link to the subscribe page.
 13. March 2009:    0.2   Adds receiving & displaying of notices. mnw now uses libomb
                          for the OMB handling.
+24. April 2009:    0.3   Adds the possibility to send arbitrary notices, an admin
+                         page listing all notices and a dashboard widget showing 
+                         stats.
 
 == Milestones, future features ==
 1.0 should be able to send (arbitrary and on blog post) & receive (probably direct
@@ -51,12 +54,13 @@ Additional features
 - Send notice for new comments
 - Shorten URLs
 - Optionally exclude microblog page from all_pages
-- Allow tags display in post template
+- Allow tags/categories display in post template
 - Store images locally
 - Validate own user profile via libomb
 - Handle licenses
 - Allow multiple notice widgets
 - Allow notice widgets for certain users.
+- Add public list of own notices.
 
 == Bugs ==
 Use better default for omb_bio
@@ -64,3 +68,4 @@ Push only once to every service url (postNotice, updateProfile)
 Get that GET/POST stuff clean (No GET params in POST requests)
 Validate.php does not use mb_strlen.
 Don‘t overwrite existing values with empty ones if they are not passed at all.
+Not compatible with WordpressMU

@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.2\n"
+"Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: mail@adrianlang.de\n"
-"POT-Creation-Date: 2009-03-17 19:05+0100\n"
-"PO-Revision-Date: 2009-03-17 19:08+0100\n"
+"POT-Creation-Date: 2009-04-24 14:31+0200\n"
+"PO-Revision-Date: 2009-04-24 14:37+0100\n"
 "Last-Translator: Adrian Lang <mail@adrianlang.de>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
@@ -16,73 +16,99 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: admin_menu_new_notice.php:61 admin_menu_new_notice.php:91
-msgid "Send notice"
-msgstr "Nachricht senden"
+#: admin_menu.php:28 admin_menu.php:37 admin_menu.php:78
+msgid "Microblog"
+msgstr "Mikroblog"
 
-#: admin_menu_new_notice.php:65
-msgid "Notice sent."
-msgstr "Nachricht gesendet."
+#: admin_menu.php:29
+msgid "General microblog settings"
+msgstr "Allgemeine Mikroblog-Einstellungen"
 
-#: admin_menu_new_notice.php:68
-msgid "Error storing the notice."
-msgstr "Fehler beim Speichern der Nachricht."
+#: admin_menu.php:29
+msgid "Settings"
+msgstr "Einstellungen"
 
-#: admin_menu_new_notice.php:71
-msgid "Error retrieving subscribers."
-msgstr "Fehler beim Abrufen der Abonnenten."
+#: admin_menu.php:30
+msgid "Microblog profile settings"
+msgstr "Mikroblog-Profil"
 
-#: admin_menu_new_notice.php:74
-msgid "Error sending notice."
-msgstr "Fehler beim Senden der Nachricht."
+#: admin_menu.php:30
+msgid "Profile"
+msgstr "Profil"
 
-#: admin_menu_new_notice.php:87 admin_menu.php:32
-msgid "New notice"
-msgstr "Neue Nachricht"
+#: admin_menu.php:31 admin_menu_remote_users.php:79
+msgid "Remote microblog users"
+msgstr "Andere Mikroblog-Nutzer"
 
-#: admin_menu_new_notice.php:94 admin_menu.php:93 admin_menu_profile.php:97
-#: admin_menu_remote_users.php:147
+#: admin_menu.php:31
+msgid "Remote users"
+msgstr "Andere Nutzer"
+
+#: admin_menu.php:32
+msgid "Microblog notices"
+msgstr "Mikroblog-Notizen"
+
+#: admin_menu.php:32
+msgid "Notices"
+msgstr "Notizen"
+
+#: admin_menu.php:47
+#, php-format
+msgid "%s has <strong>%d subscriber</strong>."
+msgid_plural "%s has <strong>%d subscribers</strong>."
+msgstr[0] "%s hat <strong>%d Abonnenten</strong>."
+msgstr[1] "%s hat <strong>%d Abonnenten</strong>."
+
+#: admin_menu.php:53
+#, php-format
+msgid "It is <strong>subscribed to %d user</strong>."
+msgid_plural "It is <strong>subscribed to %d users</strong>."
+msgstr[0] "Es hat <strong>%d Nutzer abonniert</strong>."
+msgstr[1] "Es hat <strong>%d Nutzer abonniert</strong>."
+
+#: admin_menu.php:56
+msgid "User overview"
+msgstr "Nutzer-Übersicht"
+
+#: admin_menu.php:62
+#, php-format
+msgid ""
+"<strong>%d</strong> notice is listed as <strong>response</strong> to %s."
+msgid_plural ""
+"<strong>%d</strong> notices are listed as <strong>responses</strong> to %s."
+msgstr[0] ""
+"<strong>%d</strong> Notiz ist als <strong>Antwort</strong> an %s markiert."
+msgstr[1] ""
+"<strong>%d</strong> Notizen sind als <strong>Antworten</strong> an %s "
+"markiert."
+
+#: admin_menu.php:68
+#, php-format
+msgid "It has received a total of <strong>%d message</strong>."
+msgid_plural "It has received a total of <strong>%d messages</strong>."
+msgstr[0] ""
+"Es hat eine Gesamtanzahl von <strong>%d Nachricht</strong> empfangen."
+msgstr[1] ""
+"Es hat eine Gesamtanzahl von <strong>%d Nachrichten</strong> empfangen."
+
+#: admin_menu.php:71
+msgid "Notices overview"
+msgstr "Notiz-Übersicht"
+
+#: admin_menu.php:85
 #, php-format
 msgid "mnw version %s"
 msgstr "mnw-Version %s"
 
-#: admin_menu.php:29
-msgid "General mnw plugin settings"
-msgstr "Allgemeine Plugin-Einstellungen für mnw"
-
-#: admin_menu.php:29
-msgid "Plugin settings"
-msgstr "Allgemeine Einstellungen"
-
-#: admin_menu.php:30
-msgid "mnw OMB profile settings"
-msgstr "OMB-Profil für mnw"
-
-#: admin_menu.php:30
-msgid "OMB Profile"
-msgstr "OMB-Profil"
-
-#: admin_menu.php:31
-msgid "mnw remote users"
-msgstr "OMB-Nutzer"
-
-#: admin_menu.php:31
-msgid "Remote users"
-msgstr "OMB-Nutzer"
-
-#: admin_menu.php:32
-msgid "mnw new notice"
-msgstr "Neue Nachricht mit mnw"
-
-#: admin_menu.php:43
+#: admin_menu.php:98
 msgid "General settings"
 msgstr "Allgemeine Einstellungen"
 
-#: admin_menu.php:46
-msgid "Wordpress mnw page URL"
-msgstr "URL der Wordpress-mnw-Seite"
+#: admin_menu.php:101
+msgid "Wordpress microblog page URL"
+msgstr "URL der Wordpress-Mikroblog-Seite"
 
-#: admin_menu.php:49
+#: admin_menu.php:104
 msgid ""
 "URL of a wordpress page which uses mnw.php as template. All public URLs are "
 "based on this URL; you should never change it."
@@ -91,15 +117,15 @@ msgstr ""
 "öffentlichen URLs basieren auf dieser URL; sie sollte niemals geändert "
 "werden."
 
-#: admin_menu.php:53
+#: admin_menu.php:108
 msgid "Redirect target after successful subscription."
 msgstr "Weiterleitungsziel nach Abonnement."
 
-#: admin_menu.php:57
+#: admin_menu.php:112
 msgid "Post template"
 msgstr "Post-Vorlage"
 
-#: admin_menu.php:59
+#: admin_menu.php:114
 msgid ""
 "Template used to generate microblog posts on blog post or page publication."
 "<br />\n"
@@ -117,41 +143,131 @@ msgstr ""
 "%e: Post- oder Seiten-Auszug<br />\n"
 "%c: Post- oder Seiten-Inhalt"
 
-#: admin_menu.php:67
+#: admin_menu.php:122
 msgid "Send a microblog notice when a post is published"
 msgstr "Sende eine Notiz wenn ein Post veröffentlicht wird"
 
-#: admin_menu.php:71
+#: admin_menu.php:126
 msgid "Send a microblog notice when a page is published"
 msgstr "Sende eine Notiz wenn eine Seite veröffentlicht wird"
 
-#: admin_menu.php:75
+#: admin_menu.php:130
 msgid "Send a microblog notice when an attachment is published"
 msgstr "Sende eine Notiz wenn ein Anhang veröffentlicht wird"
 
-#: admin_menu.php:79
+#: admin_menu.php:134
+msgid "Forward user to blog post/page/attachment"
+msgstr "Nutzer zum Blog-Beitrag oder -Anhang bzw. zur Blog-Seite weiterleiten"
+
+#: admin_menu.php:138
+msgid "Send post/page/attachment URL as seealso"
+msgstr "URL des Beitrags/der Seite/des Anhangs im seealso-Feld senden"
+
+#: admin_menu.php:144
 msgid "Mirror subscription"
 msgstr ""
 
-#: admin_menu.php:82
+#: admin_menu.php:147
 msgid ""
 "Automatically subscribe to a subscriber, automatically unsubscribe if the "
 "other user unsubscribes."
 msgstr ""
 
-#: admin_menu.php:89 admin_menu_profile.php:93
+#: admin_menu.php:154 admin_menu_profile.php:92
 msgid "Save Changes"
 msgstr ""
 
-#: admin_menu_profile.php:60
+#: admin_menu_notices.php:91 admin_menu_notices.php:157
+msgid "Send notice"
+msgstr "Notiz senden"
+
+#: admin_menu_notices.php:95
+msgid "Notice sent."
+msgstr "Notiz gesendet."
+
+#: admin_menu_notices.php:98
+msgid "Error storing the notice."
+msgstr "Fehler beim Speichern der Notiz."
+
+#: admin_menu_notices.php:101
+msgid "Error retrieving subscribers."
+msgstr "Fehler beim Abrufen der Abonnenten."
+
+#: admin_menu_notices.php:104
+msgid "Error sending notice."
+msgstr "Fehler beim Senden der Notiz."
+
+#: admin_menu_notices.php:107
+msgid "You did not specify a notice text."
+msgstr "Du hast keinen Notiz-Text angegeben."
+
+#: admin_menu_notices.php:116
+msgid "Could not delete notice."
+msgid_plural "Could not delete notices."
+msgstr[0] "Notiz konnte nicht gelöscht werden."
+msgstr[1] "Notizen konnten nicht gelöscht werden."
+
+#: admin_menu_notices.php:118
+msgid "Notice successfully deleted."
+msgid_plural "Notices successfully deleted."
+msgstr[0] "Notiz gelöscht."
+msgstr[1] "Notizen gelöscht."
+
+#: admin_menu_notices.php:131
+msgid "Sent notices"
+msgstr "Gesendete Notizen"
+
+#: admin_menu_notices.php:132
+msgid "Received notices"
+msgstr "Empfangene Notizen"
+
+#: admin_menu_notices.php:153
+msgid "New notice"
+msgstr "Neue Notiz"
+
+#: admin_menu_notices.php:167 admin_menu_remote_users.php:84
+msgid "Bulk Actions"
+msgstr ""
+
+#: admin_menu_notices.php:168 admin_menu_notices.php:219
+#: admin_menu_remote_users.php:85 admin_menu_remote_users.php:134
+msgid "Delete"
+msgstr "Löschen"
+
+#: admin_menu_notices.php:170 admin_menu_remote_users.php:87
+msgid "Apply"
+msgstr ""
+
+#: admin_menu_notices.php:180 admin_menu_notices.php:190
+msgid "Author"
+msgstr "Autor"
+
+#: admin_menu_notices.php:182 admin_menu_notices.php:192
+msgid "Content"
+msgstr "Inhalt"
+
+#: admin_menu_notices.php:183 admin_menu_notices.php:193
+#: admin_menu_remote_users.php:98 admin_menu_remote_users.php:108
+msgid "Action"
+msgstr "Aktion"
+
+#: admin_menu_notices.php:202
+msgid "No notices"
+msgstr "Keine Notizen"
+
+#: admin_menu_notices.php:218
+msgid "Delete this notice"
+msgstr "Diese Notiz löschen"
+
+#: admin_menu_profile.php:59
 msgid "OMB profile"
 msgstr "OMB-Profil"
 
-#: admin_menu_profile.php:63
+#: admin_menu_profile.php:62
 msgid "Nickname (1-64 characters, only lowercase letters and digits)"
 msgstr "Nickname (1-64 Zeichen, nur Kleinbuchstaben und Ziffern)"
 
-#: admin_menu_profile.php:66
+#: admin_menu_profile.php:65
 msgid ""
 "The nickname is the name under which remote users will know you. You should "
 "consider thoroughly if you really want to change this setting."
@@ -159,23 +275,23 @@ msgstr ""
 "Der Nickname ist der Name unter dem Nutzer anderer Dienste dich kennen "
 "werden. Änderungen sollten gründlich überlegt werden."
 
-#: admin_menu_profile.php:70
+#: admin_menu_profile.php:69
 msgid "Full name (up to 255 characters)"
 msgstr "Kompletter Name (bis zu 255 Zeichen)"
 
-#: admin_menu_profile.php:74
+#: admin_menu_profile.php:73
 msgid "Bio (less than 140 characters)"
 msgstr "Beschreibung (weniger als 140 Zeichen)"
 
-#: admin_menu_profile.php:78
+#: admin_menu_profile.php:77
 msgid "Location (less than 255 characters)"
 msgstr "Ort (weniger als 255 Zeichen)"
 
-#: admin_menu_profile.php:82
+#: admin_menu_profile.php:81
 msgid "Avatar URL"
 msgstr "Avatar-URL"
 
-#: admin_menu_profile.php:86
+#: admin_menu_profile.php:85
 msgid "License URL"
 msgstr "Lizenz-URL"
 
@@ -191,23 +307,24 @@ msgid_plural "Remote users successfully deleted."
 msgstr[0] "OMB-Nutzer gelöscht."
 msgstr[1] "OMB-Nutzer gelöscht."
 
-#: admin_menu_remote_users.php:75
+#: admin_menu_remote_users.php:74
+#, php-format
 msgid ""
 "<em>Subscribers</em> are users of an OMB service who listen to your notices. "
-"The messages of <em>subscribed users</em> get published to mnw and may be "
+"The messages of <em>subscribed users</em> get published to %s and may be "
 "displayed."
 msgstr ""
-"<em>Abonnenten</em> sind Nutzer eines OMB-Dienstes, die deine Nachrichten "
-"verfolgen. Die Nachrichten <em>abonnierter Nutzer</em> werden an mnw "
-"gesendet und können im Blog anzeigt werden."
+"<em>Abonnenten</em> sind Nutzer eines OMB-Dienstes, die deine Notizen "
+"verfolgen. Die Notizen <em>abonnierter Nutzer</em> werden an %s gesendet und "
+"können im Blog anzeigt werden."
 
-#: admin_menu_remote_users.php:76
+#: admin_menu_remote_users.php:75
 msgid "If you delete a user, both subscriptions – if available – are removed."
 msgstr ""
 "Wenn du einen Benutzer löscht werden beide Abonnements – sofern vorhanden – "
 "gelöscht."
 
-#: admin_menu_remote_users.php:77
+#: admin_menu_remote_users.php:76
 msgid ""
 "Note that the OpenMicroBlogging standard does not yet support a block "
 "feature; Therefore the remote user is not informed about a deletion. "
@@ -217,10 +334,10 @@ msgstr ""
 "OMB bietet zur Zeit noch keine Möglichkeit zum Blockieren eines Nutzers. "
 "Daher kann der Dienst des Abonnenten nicht über die Löschung informiert "
 "werden. Wenn dich ein anderer Nutzer des selben Dienstes abonniert hat, wird "
-"der Dienst die Nachricht vermutlich trotz der Löschung an den gelöschten "
+"der Dienst die Notiz vermutlich trotz der Löschung an den gelöschten "
 "Abonnenten senden."
 
-#: admin_menu_remote_users.php:78
+#: admin_menu_remote_users.php:77
 msgid ""
 "Likewise a user which is listed as subscriber may have canceled his "
 "subscription recently."
@@ -228,55 +345,35 @@ msgstr ""
 "Entsprechend kann ein Benutzer der als Abonnent angezeigt wird sein "
 "Abonnement widerrufen haben."
 
-#: admin_menu_remote_users.php:80
-msgid "Remote OMB users"
-msgstr "OMB-Nutzer"
-
-#: admin_menu_remote_users.php:85
-msgid "Bulk Actions"
-msgstr ""
-
-#: admin_menu_remote_users.php:86 admin_menu_remote_users.php:135
-msgid "Delete"
-msgstr "Löschen"
-
-#: admin_menu_remote_users.php:88
-msgid "Apply"
-msgstr ""
-
-#: admin_menu_remote_users.php:96 admin_menu_remote_users.php:106
+#: admin_menu_remote_users.php:95 admin_menu_remote_users.php:105
 msgid "User"
 msgstr "Benutzer"
 
-#: admin_menu_remote_users.php:97 admin_menu_remote_users.php:107
+#: admin_menu_remote_users.php:96 admin_menu_remote_users.php:106
 msgid "Direction"
 msgstr "Richtung"
 
-#: admin_menu_remote_users.php:98 admin_menu_remote_users.php:108
+#: admin_menu_remote_users.php:97 admin_menu_remote_users.php:107
 msgid "License"
 msgstr "Lizenz"
 
-#: admin_menu_remote_users.php:99 admin_menu_remote_users.php:109
-msgid "Action"
-msgstr "Aktion"
-
-#: admin_menu_remote_users.php:119
+#: admin_menu_remote_users.php:118
 msgid "No remote users"
 msgstr "Keine anderen Benutzer"
 
-#: admin_menu_remote_users.php:128
+#: admin_menu_remote_users.php:127
 msgid "Both"
 msgstr "Beide Richtungen"
 
-#: admin_menu_remote_users.php:128
+#: admin_menu_remote_users.php:127
 msgid "Subscriber"
 msgstr "Abonnent"
 
-#: admin_menu_remote_users.php:128
+#: admin_menu_remote_users.php:127
 msgid "Subscribed user"
 msgstr "Abonnierter"
 
-#: admin_menu_remote_users.php:134
+#: admin_menu_remote_users.php:133
 msgid "Delete this user"
 msgstr "Diesen Benutzer löschen"
 
@@ -290,10 +387,10 @@ msgstr "„%n“ (siehe %u)"
 
 #: mnw_install.php:120 mnw_sidebar.php:27 mnw_sidebar.php:28
 msgid "mnw Notices"
-msgstr "mnw-Nachrichten"
+msgstr "mnw-Notizen"
 
 #: mnw_install.php:122
-msgid "„<a href=\"%u\">%t</a>“ (<a href=\"%a\">%n</a> @ %c)"
+msgid "“<a href=\\\"%u\\\">%t</a>” (<a href=\"%a\">%n</a> @ %c)"
 msgstr "„<a href=\"%u\">%t</a>“ (<a href=\"%a\">%n</a> @ %c)"
 
 #: mnw_provider.php:47
@@ -302,7 +399,7 @@ msgstr "Nicht angemeldet oder kein Administrator."
 
 #: mnw_provider.php:53
 #, php-format
-msgid "Error while verifying the authorize request. Original error: %s"
+msgid "Error while verifying the authorize request. Original error: “%s”"
 msgstr ""
 "Fehler beim Verifizieren der Authorisierungsanfrage. Ursprünglicher Fehler: "
 "„%s“"
@@ -340,7 +437,7 @@ msgstr "CSS-Stil"
 
 #: mnw_sidebar.php:106
 msgid "No notices."
-msgstr "Keine Nachrichten."
+msgstr "Keine Notizen."
 
 #: mnw_sidebar.php:124
 msgid "Title"
@@ -352,19 +449,19 @@ msgstr "Anzahl an Einträgen"
 
 #: mnw_sidebar.php:132
 msgid "Show only direct messages?"
-msgstr "Nur direkte Nachrichten anzeigen?"
+msgstr "Nur direkte Notizen anzeigen?"
 
 #: mnw_sidebar.php:136
 msgid "Strip @ parts at the beginning of the notice?"
-msgstr "@-Abschnitte am Anfang der Nachricht entfernen?"
+msgstr "@-Abschnitte am Anfang der Notiz entfernen?"
 
 #: mnw_sidebar.php:140
 msgid "Show new notices on top?"
-msgstr "Neue Nachrichten oben anzeigen?"
+msgstr "Neue Notizen oben anzeigen?"
 
 #: mnw_sidebar.php:144
 msgid "Entry template"
-msgstr "Vorlage für Nachrichten"
+msgstr "Vorlage für Notizen"
 
 #: mnw_sidebar.php:147
 msgid ""
@@ -378,10 +475,10 @@ msgid ""
 "        <li>%a: The URL of the author‘s profile</li></ul>"
 msgstr ""
 "Du kannst die folgenden Platzhalter verwenden:<ul><li>%t: Der Inhalt der "
-"Nachricht</li><li>%u: Die URL der Nachricht</li><li>%c: Der Zeitpunkt zu dem "
-"die Nachricht erstellt wurde</li><li>%n: Der Nickname des Autors</li><li>%f: "
-"Der volle Name des Autors</li><li>%v: Die URL des Avatars des Autors</li><li>"
-"%a: Der URL des Profils des Autors</li></ul>"
+"Notiz</li><li>%u: Die URL der Notiz</li><li>%c: Der Zeitpunkt zu dem die "
+"Notiz erstellt wurde</li><li>%n: Der Nickname des Autors</li><li>%f: Der "
+"volle Name des Autors</li><li>%v: Die URL des Avatars des Autors</li><li>%a: "
+"Der URL des Profils des Autors</li></ul>"
 
 #: subscribe.php:51
 msgid "No remote profile submitted."
@@ -405,6 +502,18 @@ msgstr "Fehler beim Speichern in der lokalen Datenbank."
 
 msgid "OpenMicroBlogging compatible Microblogging for Wordpress"
 msgstr "OpenMicroBlogging-kompatibles Mikroblogging für Wordpress"
+
+#~ msgid "General mnw plugin settings"
+#~ msgstr "Allgemeine Plugin-Einstellungen für mnw"
+
+#~ msgid "mnw remote users"
+#~ msgstr "OMB-Nutzer"
+
+#~ msgid "mnw new notice"
+#~ msgstr "Neue Notiz mit mnw"
+
+#~ msgid "Remote OMB users"
+#~ msgstr "OMB-Nutzer"
 
 #~ msgid "Subscribers"
 #~ msgstr "Abonnenten"
