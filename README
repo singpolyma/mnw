@@ -38,7 +38,7 @@ on the remote user‘s remote subscribe form.
                          OMB subscribers and a link to the subscribe page.
 13. March 2009:    0.2   Adds receiving & displaying of notices. mnw now uses libomb
                          for the OMB handling.
-24. April 2009:    0.3   Adds the possibility to send arbitrary notices, an admin
+25. April 2009:    0.3   Adds the possibility to send arbitrary notices, an admin
                          page listing all notices and a dashboard widget showing 
                          stats.
 
