@@ -49,14 +49,23 @@ define('MNW_NOTICE_ID', 'mnw_notice_id');
 
 define('MNW_VERSION', '0.3');
 
-define('MNW_ACCESS_LEVEL', 10);
 /*
- * Initialize database on activation.
+ * Config option: The User level needed to have access to the microblog
+ * admin pages.
  */
 
-register_activation_hook(__FILE__, 'mnw_install');
+define('MNW_ACCESS_LEVEL', 10);
 
-require_once 'mnw_install.php';
+/*
+ * Initialize plugin on activation.
+ */
+
+register_activation_hook(__FILE__, 'mnw_install_wrap');
+
+function mnw_install_wrap() {
+    require_once 'mnw_install.php';
+    mnw_install();
+}
 
 /*
  * Display admin menu.
@@ -77,65 +86,65 @@ require_once 'mnw_sidebar.php';
 add_action('wp_head', 'mnw_publish_yadis');
 
 function mnw_publish_yadis() {
-  if (get_option('mnw_themepage_url') != '') {
-    require_once 'lib.php';
-    echo '<meta http-equiv="X-XRDS-Location" content="' .  htmlspecialchars(mnw_set_action('xrds')) . '"/>';
-  }
+    if (get_option('mnw_themepage_url') != '') {
+        require_once 'lib.php';
+        echo '<meta http-equiv="X-XRDS-Location" content="' .
+             htmlspecialchars(mnw_set_action('xrds')) . '"/>';
+    }
 }
 
 /*
  * Publish notice on post/page publication.
  */
 
-require_once 'Notice.php';
-
 add_action('future_to_publish', 'mnw_publish_post');
 add_action('new_to_publish', 'mnw_publish_post');
 add_action('draft_to_publish', 'mnw_publish_post');
 
-if(!function_exists('mnw_publish_post')) {
 function mnw_publish_post($post) {
     if (($post->post_type == 'post' && get_option('mnw_on_post')) ||
         ($post->post_type == 'page' && get_option('mnw_on_page')) ||
         ($post->post_type == 'attachment' && get_option('mnw_on_attachment'))) {
+        require_once 'Notice.php';
         $notice = mnw_Notice::fromPost($post);
         $notice->send();
     }
 }
 
+/*
+ * Parsing requests to the main microblog page.
+ */
+
 function mnw_parse_request() {
-    /* Assure that we have a valid themepage. Since mnw_parse_request is called from the themepage,
-       we can just copy the current url if something‘s broken. */
+    /* Assure that we have a valid themepage setting. */
     if (get_option('mnw_themepage_url') == '') {
+        /* Since this method is only called from the themepage, we can
+           just copy the current url if something‘s broken. */
         global $wp_query;
         update_option('mnw_themepage_url', $wp_query->post->guid);
     }
-    if (isset($_REQUEST[MNW_ACTION])) {
-        switch ($_REQUEST[MNW_ACTION]) {
-        case 'subscribe':
-            require_once 'subscribe.php';
-            return mnw_parse_subscribe();
-            break;
-        case 'get_notice':
-            require_once 'get_notice.php';
-            return mnw_get_notice();
-            break;
-        case 'xrds':
-            require_once 'mnw_provider.php';
-            return mnw_get_xrds();
-            break;
-        case 'oauth':
-            require_once 'mnw_provider.php';
-            return mnw_handle_oauth();
-            break;
-        case 'omb':
-            require_once 'mnw_provider.php';
-            return mnw_handle_omb();
-            break;
-        }
-    } else {
+
+    if (!isset($_REQUEST[MNW_ACTION])) {
+        /* No action at all – display the standard page. */
         return array('', array());
     }
-}
+
+    /* Hash containing file and procedure name to handle the request. */
+    $actions = array('subscribe' => array('subscribe.php', 'mnw_parse_subscribe'),
+                     'get_notice' => array('get_notice.php', 'mnw_get_notice'),
+                     'xrds' => array('mnw_provider.php', 'mnw_get_xrds'),
+                     'oauth' => array('mnw_provider.php', 'mnw_handle_oauth'),
+                     'omb' => array('mnw_provider.php', 'mnw_handle_omb'));
+
+    if (!isset($actions[$_REQUEST[MNW_ACTION]])) {
+        /* Save a poor user who entered a wrong action. */
+        wp_redirect(get_option('mnw_themepage_url'));
+        return array(false, array());
+    }
+
+    /* Load file and call method for this action request. */
+    $action = $actions[$_REQUEST[MNW_ACTION]];
+    require_once $action[0];
+    return $action[1]();
 }
 ?>
