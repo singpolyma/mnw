@@ -125,7 +125,9 @@ function mnw_notices() {
   $this_url = 'admin.php?page=' .  basename(dirname(__FILE__)) . '/admin_menu_notices.php';
 
   /* Whether we should show the sent messages. */
-  $show_sent = !($_REQUEST['mnw_show']==='received');
+  $show_sent = !((isset($_REQUEST['mnw_show'])
+          && $_REQUEST['mnw_show'] === 'received') ||
+          (isset($_REQUEST['show_sent']) && $_REQUEST['show_sent'] !== '1'));
 
   $captions = array(
                 array(__('Sent notices', 'mnw'), 'sent'),
