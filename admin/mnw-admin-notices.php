@@ -130,9 +130,8 @@ function mnw_notices() {
     <form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
       <h3><?php _e('New notice', 'mnw'); ?></h3>
       <?php wp_nonce_field('mnw-new_notice'); ?>
-      <textarea id="mnw_notice" name="mnw_notice" cols="45" rows="3" style="font-size: 2em; line-height: normal;">
-        <?php if (isset($_POST['mnw_notice'])) echo $_POST['mnw_notice'];?>
-      </textarea>
+      <textarea id="mnw_notice" name="mnw_notice" cols="45" rows="3" style="font-size: 2em; line-height: normal;"><?php if (isset($_POST['mnw_notice'])) echo $_POST['mnw_notice'];
+    ?></textarea>
       <br />
       <input type="submit" name="doaction_active" class="button-primary action" value="<?php _e('Send notice', 'mnw'); ?>" />
     </form>
