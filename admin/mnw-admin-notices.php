@@ -26,7 +26,7 @@ require_once 'omb_datastore.php';
 function mnw_post_new_notice() {
     check_admin_referer('mnw-new_notice');
     if ($_POST['mnw_notice'] === '') {
-        return 4;
+        return 1;
     }
 
     global $wpdb;
@@ -34,7 +34,7 @@ function mnw_post_new_notice() {
     $insert = 'INSERT INTO ' . MNW_NOTICES_TABLE . " (content, created) VALUES ('%s', NOW())";
     $result = $wpdb->query($wpdb->prepare($insert, $_POST['mnw_notice']));
     if ($result == 0) {
-        return 1;
+        return 2;
     }
 
     $notice = new OMB_Notice(get_own_profile(), mnw_set_action('get_notice') . '&mnw_notice_id=' . $wpdb->insert_id, $_POST['mnw_notice'], '');
@@ -43,18 +43,22 @@ function mnw_post_new_notice() {
     $result = $datastore->getSubscriptions(get_bloginfo('url'));
 
     if ($result === false) {
-        return 2;
+        return 3;
     }
 
+    $err = 0;
     foreach($result as $subscriber) {
         try {
             $service = new OMB_Service_Consumer($subscriber['url'], get_bloginfo('url'), $datastore);
             $service->setToken($subscriber['token'], $subscriber['secret']);
             $service->postNotice($notice);
         } catch (Exception $e) {
-            return 3;
+            ++$err;
+            continue;
         }
     }
+    if ($err > 0) 
+        return 3 + $err;
     return 0;
 }
 
@@ -95,16 +99,16 @@ function mnw_notices() {
         _e('Notice sent.', 'mnw');
         break;
       case 1:
-        _e('Error storing the notice.', 'mnw');
+        _e('You did not specify a notice text.', 'mnw');
         break;
       case 2:
-        _e('Error retrieving subscribers.', 'mnw');
+        _e('Error storing the notice.', 'mnw');
         break;
       case 3:
-        _e('Error sending notice.', 'mnw');
+        _e('Error retrieving subscribers.', 'mnw');
         break;
-      case 4:
-        _e('You did not specify a notice text.', 'mnw');
+      default:
+        _e('Error sending notice.', 'mnw');
         break;
     }
     echo '</p></div>';
