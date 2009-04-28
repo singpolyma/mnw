@@ -61,9 +61,6 @@ function mnw_remote_users_options() {
     echo '</p></div>';
   }
 
-  /* Get URL to this page via wordpress admin interface. */
-  $this_url = 'admin.php?page=' .  basename(dirname(__FILE__)) . '/admin_menu_remote_users.php';
-
   /* Get remote users. */
   global $wpdb;
   $users = $wpdb->get_results('SELECT id, nickname, url, token, resubtoken, license FROM ' . MNW_SUBSCRIBER_TABLE . ' WHERE token is not null or resubtoken is not null',
@@ -75,7 +72,7 @@ function mnw_remote_users_options() {
 <p><?php _e('If you delete a user, both subscriptions – if available – are removed.', 'mnw'); ?></p>
 <p><?php _e('Note that the OpenMicroBlogging standard does not yet support a block feature; Therefore the remote user is not informed about a deletion. Moreover, if another user from the same service is subscribed to you, the remote service will probably publish your messages to deleted users as well.', 'mnw');?></p>
 <p><?php _e('Likewise a user which is listed as subscriber may have canceled his subscription recently.', 'mnw');?></p>
-    <form method="post" action="<?php echo $this_url; ?>">
+    <form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
       <h3><?php _e('Remote microblog users', 'mnw'); ?></h3>
       <?php wp_nonce_field('mnw-bulk-users') ?>
       <div class="tablenav">
@@ -128,7 +125,7 @@ function mnw_remote_users_options() {
         <td><a href="<?php echo $user['license'];?>"><?php echo $user['license'];?></a></td>
         <td class='togl action-links'>
           <a href="<?php echo wp_nonce_url(
-              $this_url . '&amp;action=delete' . '&amp;user=' . $user['id'],
+              $_SERVER['REQUEST_URI'] . '&amp;action=delete' . '&amp;user=' . $user['id'],
               'mnw-delete-user_' . $user['id']); ?>"
              title="<?php _e('Delete this user', 'mnw'); ?>">
             <?php _e('Delete', 'mnw'); ?>
@@ -145,4 +142,6 @@ function mnw_remote_users_options() {
 <?php
     mnw_finish_admin_page();
 }
+
+mnw_remote_users_options();
 ?>

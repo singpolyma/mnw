@@ -120,10 +120,6 @@ function mnw_notices() {
     echo '</p></div>';
   }
 
-
-  /* Get URL to this page via wordpress admin interface. */
-  $this_url = 'admin.php?page=' .  basename(dirname(__FILE__)) . '/admin_menu_notices.php';
-
   /* Whether we should show the sent messages. */
   $show_sent = !((isset($_REQUEST['mnw_show'])
           && $_REQUEST['mnw_show'] === 'received') ||
@@ -133,11 +129,11 @@ function mnw_notices() {
                 array(__('Sent notices', 'mnw'), 'sent'),
                 array(__('Received notices', 'mnw'), 'received'));
 
-  function out_caption($item, $jackpot, $this_url) {
+  function out_caption($item, $jackpot) {
     if($jackpot) {
         echo "<em>$item[0]</em>";
     } else {
-        echo "<a href='$this_url&amp;mnw_show=$item[1]'>$item[0]</a>";
+        echo "<a href='" . $_SERVER['REQUEST_URI'] . "&amp;mnw_show=$item[1]'>$item[0]</a>";
     }
   }
 
@@ -151,7 +147,7 @@ function mnw_notices() {
 
   mnw_start_admin_page();
 ?>
-    <form method="post" action="<?php echo $this_url; ?>">
+    <form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
       <h3><?php _e('New notice', 'mnw'); ?></h3>
       <?php wp_nonce_field('mnw-new_notice'); ?>
       <textarea id="mnw_notice" name="mnw_notice" cols="45" rows="3" style="font-size: 2em; line-height: normal;"><?php if (isset($_POST['mnw_notice'])) echo $_POST['mnw_notice'];?></textarea>
@@ -159,9 +155,9 @@ function mnw_notices() {
       <input type="submit" name="doaction_active" class="button-primary action" value="<?php _e('Send notice', 'mnw'); ?>" />
     </form>
 
-    <form method="post" action="<?php echo $this_url; ?>">
+    <form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
       <input type="hidden" name="show_sent" value="<?php echo $show_sent; ?>" />
-<h3><?php out_caption($captions[0], $show_sent, $this_url); echo ' / '; out_caption($captions[1], !$show_sent, $this_url); ?></h3>
+<h3><?php out_caption($captions[0], $show_sent); echo ' / '; out_caption($captions[1], !$show_sent); ?></h3>
       <?php wp_nonce_field('mnw-bulk-notices') ?>
       <div class="tablenav">
         <div class="alignleft actions">
@@ -215,7 +211,7 @@ function mnw_notices() {
         <td><?php echo $notice['content']; ?></td>
         <td class='togl action-links'>
           <a href="<?php echo wp_nonce_url(
-              $this_url . '&amp;action=delete' . '&amp;show_sent=' . $show_sent . '&amp;notice=' . $notice['id'],
+              $_SERVER['REQUEST_URI'] . '&amp;action=delete' . '&amp;show_sent=' . $show_sent . '&amp;notice=' . $notice['id'],
               'mnw-delete-notice_' . $notice['id']); ?>"
              title="<?php _e('Delete this notice', 'mnw'); ?>">
             <?php _e('Delete', 'mnw'); ?>
@@ -232,4 +228,6 @@ function mnw_notices() {
 <?php
     mnw_finish_admin_page();
 }
+
+mnw_notices();
 ?>

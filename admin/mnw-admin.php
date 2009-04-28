@@ -19,59 +19,39 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require_once 'admin_menu_profile.php';
-require_once 'admin_menu_notices.php';
-require_once 'admin_menu_remote_users.php';
+add_action('admin_menu', 'mnw_admin_menu_setup');
+function mnw_admin_menu_setup() {
+    $dir = dirname(__FILE__) . '/';
+    add_menu_page(__('Microblog', 'mnw'), __('Microblog', 'mnw'),
+                        MNW_ACCESS_LEVEL, __FILE__);
+    /* The first submenu entry must link to __FILE__. */
+    foreach(array(array('General microblog settings', 'Settings',
+                            'mnw-admin.php', 'mnw_plugin_options'),
+                  array('Microblog profile settings', 'Profile',
+                          'mnw-admin-profile.php'),
+                  array('Remote microblog users', 'Remote users',
+                'mnw-admin-remote-users.php'),
+                  array('Microblog notices', 'Notices',
+                          'mnw-admin-notices.php'))
+         as $submenu) {
+        add_submenu_page(__FILE__, __($submenu[0], 'mnw'),
+                            __($submenu[1], 'mnw'), MNW_ACCESS_LEVEL,
+                            $dir . $submenu[2], $submenu[3]);
+    }
 
-add_action('admin_menu', 'mnw_admin_menu');
-function mnw_admin_menu() {
-    add_menu_page(__('Microblog', 'mnw'), __('Microblog', 'mnw'), MNW_ACCESS_LEVEL, __FILE__);
-    add_submenu_page(__FILE__, __('General microblog settings', 'mnw'), __('Settings', 'mnw'), MNW_ACCESS_LEVEL, __FILE__, 'mnw_plugin_options');
-    add_submenu_page(__FILE__, __('Microblog profile settings', 'mnw'), __('Profile', 'mnw'), MNW_ACCESS_LEVEL, dirname(__FILE__) . '/admin_menu_profile.php', 'mnw_profile_options');
-    add_submenu_page(__FILE__, __('Remote microblog users', 'mnw'), __('Remote users', 'mnw'), MNW_ACCESS_LEVEL, dirname(__FILE__) . '/admin_menu_remote_users.php', 'mnw_remote_users_options');
-    add_submenu_page(__FILE__, __('Microblog notices', 'mnw'), __('Notices', 'mnw'), MNW_ACCESS_LEVEL, dirname(__FILE__) . '/admin_menu_notices.php', 'mnw_notices');
 }
 
 add_action('wp_dashboard_setup', 'mnw_dashboard_setup');
 function mnw_dashboard_setup() {
-    wp_add_dashboard_widget('mnw_dashboard', __('Microblog', 'mnw'), 'mnw_dashboard');
+    wp_add_dashboard_widget('mnw_dashboard', __('Microblog', 'mnw'),
+                                                    'mnw_dashboard_wrap');
 }
 
-function mnw_dashboard() {
-    global $wpdb;
-    $title = get_bloginfo('title');
-
-    echo '<p>';
-    $subscribers = $wpdb->get_var('SELECT COUNT(*) FROM ' . MNW_SUBSCRIBER_TABLE
-                                               . ' WHERE token is not null');
-    printf(__ngettext('%s has <strong>%d subscriber</strong>.',
-                              '%s has <strong>%d subscribers</strong>.',
-                              $subscribers, 'mnw') . ' ', $title, $subscribers);
-
-    $subscribed = $wpdb->get_var('SELECT COUNT(*) FROM ' . MNW_SUBSCRIBER_TABLE
-                                              . ' WHERE resubtoken is not null');
-    printf(__ngettext('It is <strong>subscribed to %d user</strong>.',
-                      'It is <strong>subscribed to %d users</strong>.',
-                      $subscribed, 'mnw') . ' ', $subscribed);
-    echo '(<a href="admin.php?page=mnw/admin_menu_remote_users.php">' . __('User overview', 'mnw') . '</a>)';
-    echo '</p>';
-
-    echo '<p>';
-    $resps = $wpdb->get_var('SELECT COUNT(*) FROM ' . MNW_FNOTICES_TABLE .
-                                           ' WHERE to_us = 1');
-    printf(__ngettext('<strong>%d</strong> notice is listed as ' .
-                                '<strong>response</strong> to %s.',
-                              '<strong>%d</strong> notices are listed as ' .
-                                '<strong>responses</strong> to %s.',
-                              $resps, 'mnw') . ' ', $resps, $title);
-    $total = $wpdb->get_var('SELECT COUNT(*) FROM ' . MNW_FNOTICES_TABLE);
-    printf(__ngettext('It has received a total of <strong>%d message</strong>.',
-                      'It has received a total of <strong>%d messages</strong>.',
-                      $total, 'mnw') . ' ', $total);
-    echo '(<a href="admin.php?page=mnw/admin_menu_notices.php">' . __('Notices overview', 'mnw') . '</a>)';
-    echo '</p>';
+function mnw_dashboard_wrap() {
+    require_once 'mnw-admin-dashboard.php';
 }
 
+/* Library functions for admin pages. */
 function mnw_start_admin_page() {
 ?>
 <div class="wrap">

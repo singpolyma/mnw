@@ -29,7 +29,7 @@ Text Domain: mnw
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-set_include_path(get_include_path() . PATH_SEPARATOR .
+set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__) . PATH_SEPARATOR .
                     dirname(__FILE__) . '/extlib');
 
 load_plugin_textdomain('mnw', '', basename(dirname(__FILE__)) . '/languages/');
@@ -68,10 +68,10 @@ function mnw_install_wrap() {
 }
 
 /*
- * Display admin menu.
+ * Initialize admin-related stuff.
  */
 
-require_once 'admin_menu.php';
+require_once 'admin/mnw-admin.php';
 
 /*
  * Display sidebar widget.

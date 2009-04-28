@@ -95,4 +95,6 @@ function mnw_profile_options() {
 <?php
     mnw_finish_admin_page();
 }
+
+mnw_profile_options();
 ?>
