@@ -66,9 +66,16 @@ class mnw_Notice extends OMB_Notice {
     function send() {
         global $wpdb;
         /* Insert notice into MNW_NOTICES_TABLE. */
-        if ($wpdb->query($wpdb->prepare('INSERT INTO ' . MNW_NOTICES_TABLE .
+        if ($this->url === false) {
+            $query = $wpdb->prepare('INSERT INTO ' . MNW_NOTICES_TABLE .
+                    " (content, created) VALUES ('%s', NOW())",
+                    $this->content);
+        } else {
+            $query = $wpdb->prepare('INSERT INTO ' . MNW_NOTICES_TABLE .
                     " (url, content, created) VALUES ('%s', '%s', NOW())",
-            $this->url !== false ? $this->url : 'NULL', $this->content)) === 0) {
+                    $this->url, $this->content);
+        }
+        if ($wpdb->query($query) === 0) {
             throw new Exception(__('Error storing the notice.', 'mnw'));
         }
 
