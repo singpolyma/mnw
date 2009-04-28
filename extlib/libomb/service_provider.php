@@ -257,6 +257,7 @@ class OMB_Service_Provider {
   }
 
   public function handlePostNotice($omb_datastore) {
+    require_once('notice.php');
     OMB_Helper::removeMagicQuotesFromRequest();
     $req = OAuthRequest::from_request();
     $server = new OAuthServer($this->data_store);
@@ -280,7 +281,6 @@ class OMB_Service_Provider {
     }
 
     $notice = OMB_Notice::fromParameters($profile, $req->get_parameters());
-
     echo "omb_version=" . OMB_VERSION;
     return $notice;
   }
