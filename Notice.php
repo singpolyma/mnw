@@ -22,27 +22,30 @@
 require_once 'libomb/notice.php';
 require_once 'libomb/service_consumer.php';
 require_once 'omb_datastore.php';
+require_once 'lib.php';
 
 class mnw_Notice extends OMB_Notice {
 
+    /* The URL of the mapped wordpress object. false for arbitrary messages. */
     protected $url;
 
-    function __construct($content, $url) {
-      /* URI needs database ID, hence setting it to blogpost $url until we know the ID. */
-      parent::__construct(get_own_profile(), $url, $content);
-      $this->url = $url;
-      if (get_option('mnw_as_seealso') === true) {
-        $this->setSeealsoURL($url);
-        $this->setSeealsoDisposition('link');
-        $this->setSeealsoMediatype('text/html');
-      }
+    function __construct($content, $url = false) {
+        /* URI needs database ID, hence setting it to blog $url until
+           we know the ID. */
+        parent::__construct(get_own_profile(), get_bloginfo('url'), $content);
+
+        $this->url = $url;
+        if ($url && get_option('mnw_as_seealso') === true) {
+            $this->setSeealsoURL($url);
+            $this->setSeealsoDisposition('link');
+            $this->setSeealsoMediatype('text/html');
+        }
     }
 
     static function fromPost($post) {
         $str = get_option('mnw_post_template');
         $vals = array(
                     'u' => get_permalink($post->ID),
-#                    'd' => $post->post_date,
                     'n' => $post->post_title,
                     'e' => $post->post_excerpt,
                     'c' => $post->post_content);
@@ -55,43 +58,43 @@ class mnw_Notice extends OMB_Notice {
             } else {
                 $repl = '';
             }
-            $str = preg_replace('/%' . $char . '/', $repl, $str);
+            $str = preg_replace("/%$char/", $repl, $str);
         }
-        global $wpdb;
-        $content = $wpdb->escape($str);
-        $url = get_permalink($post->ID);
-        return new mnw_Notice($content, $url);
+        return new mnw_Notice($str, get_permalink($post->ID));
     }
 
     function send() {
-    global $wpdb;
-    /* Insert notice into MNW_NOTICES_TABLE. */
-    $insert = 'INSERT INTO ' . MNW_NOTICES_TABLE . " (url, content, created) VALUES ('%s', '%s', NOW())";
-    $result = $wpdb->query($wpdb->prepare($insert, $this->url, $this->content));
-    if ($result == 0) {
-        return;
-    }
-
-    // Get all subscribers.
-    $select = 'SELECT url, token, secret FROM ' . MNW_SUBSCRIBER_TABLE . ' WHERE token IS NOT NULL';
-    $result = $wpdb->get_results($select, ARRAY_A);
-
-    if ($result == 0) {
-        return;
-    }
-
-    $this->uri = mnw_set_action('get_notice') . '&mnw_notice_id=' . $wpdb->insert_id;
-    $this->param_array = false;
-
-    foreach($result as $subscriber) {
-        try {
-            $service = new OMB_Service_Consumer($subscriber['url'], get_bloginfo('url'), mnw_OMB_DataStore::getInstance());
-            $service->setToken($subscriber['token'], $subscriber['secret']);
-            $service->postNotice($this);
-        } catch (Exception $e) {
-            continue;
+        global $wpdb;
+        /* Insert notice into MNW_NOTICES_TABLE. */
+        if ($wpdb->query($wpdb->prepare('INSERT INTO ' . MNW_NOTICES_TABLE .
+                    " (url, content, created) VALUES ('%s', '%s', NOW())",
+            $this->url !== false ? $this->url : 'NULL', $this->content)) === 0) {
+            throw new Exception(__('Error storing the notice.', 'mnw'));
         }
+
+        $this->uri = mnw_set_action('get_notice') . '&mnw_notice_id=' . $wpdb->insert_id;
+        $this->param_array = false;
+
+        // Get all subscribers.
+        $datastore = mnw_OMB_DataStore::getInstance();
+        $result = $datastore->getSubscriptions(get_bloginfo('url'));
+
+        if ($result === false) {
+            throw new Exception(__('Error retrieving subscribers.', 'mnw'));
+        }
+
+        $err = array();
+        foreach($result as $subscriber) {
+            try {
+                $service = new OMB_Service_Consumer($subscriber['url'], get_bloginfo('url'), $datastore);
+                $service->setToken($subscriber['token'], $subscriber['secret']);
+                $service->postNotice($this);
+            } catch (Exception $e) {
+                $err[] = $subscriber;
+                continue;
+            }
+        }
+        return $err;
     }
 }
-
-}
+?>
