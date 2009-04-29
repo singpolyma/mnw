@@ -35,7 +35,7 @@ function mnw_subscribe_widget($args) {
     $count = $wpdb->get_var('SELECT COUNT(*) FROM ' . MNW_SUBSCRIBER_TABLE . ' WHERE token is not null');
     echo $before_widget;
 ?>
-        <img style="float: left;" src="<?php echo get_template_directory_uri(); ?>/omb.png"/>
+        <img alt="OMB" style="float: left;" src="<?php echo get_template_directory_uri(); ?>/omb.png"/>
         <div style="<?php echo get_option('mnw_subscribe_style'); ?>">
             <?php printf(__ngettext('%d OMB subscriber', '%d OMB subscribers', $count, 'mnw'), $count); ?><br />
             <a href="<?php echo get_option('mnw_themepage_url'); ?>"><?php _e('Subscribe!', 'mnw'); ?></a>
