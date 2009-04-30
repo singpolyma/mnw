@@ -8,343 +8,126 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: mail@adrianlang.de\n"
-"POT-Creation-Date: 2009-04-24 14:31+0200\n"
+"POT-Creation-Date: 2009-04-30 14:56+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: admin_menu.php:28 admin_menu.php:37 admin_menu.php:78
-msgid "Microblog"
-msgstr ""
-
-#: admin_menu.php:29
-msgid "General microblog settings"
-msgstr ""
-
-#: admin_menu.php:29
-msgid "Settings"
-msgstr ""
-
-#: admin_menu.php:30
-msgid "Microblog profile settings"
-msgstr ""
-
-#: admin_menu.php:30
-msgid "Profile"
-msgstr ""
-
-#: admin_menu.php:31 admin_menu_remote_users.php:79
-msgid "Remote microblog users"
-msgstr ""
-
-#: admin_menu.php:31
-msgid "Remote users"
-msgstr ""
-
-#: admin_menu.php:32
-msgid "Microblog notices"
-msgstr ""
-
-#: admin_menu.php:32
-msgid "Notices"
-msgstr ""
-
-#: admin_menu.php:47
-#, php-format
-msgid "%s has <strong>%d subscriber</strong>."
-msgid_plural "%s has <strong>%d subscribers</strong>."
-msgstr[0] ""
-msgstr[1] ""
-
-#: admin_menu.php:53
-#, php-format
-msgid "It is <strong>subscribed to %d user</strong>."
-msgid_plural "It is <strong>subscribed to %d users</strong>."
-msgstr[0] ""
-msgstr[1] ""
-
-#: admin_menu.php:56
-msgid "User overview"
-msgstr ""
-
-#: admin_menu.php:62
-#, php-format
-msgid ""
-"<strong>%d</strong> notice is listed as <strong>response</strong> to %s."
-msgid_plural ""
-"<strong>%d</strong> notices are listed as <strong>responses</strong> to %s."
-msgstr[0] ""
-msgstr[1] ""
-
-#: admin_menu.php:68
-#, php-format
-msgid "It has received a total of <strong>%d message</strong>."
-msgid_plural "It has received a total of <strong>%d messages</strong>."
-msgstr[0] ""
-msgstr[1] ""
-
-#: admin_menu.php:71
-msgid "Notices overview"
-msgstr ""
-
-#: admin_menu.php:85
-#, php-format
-msgid "mnw version %s"
-msgstr ""
-
-#: admin_menu.php:98
-msgid "General settings"
-msgstr ""
-
-#: admin_menu.php:101
-msgid "Wordpress microblog page URL"
-msgstr ""
-
-#: admin_menu.php:104
-msgid ""
-"URL of a wordpress page which uses mnw.php as template. All public URLs are "
-"based on this URL; you should never change it."
-msgstr ""
-
-#: admin_menu.php:108
-msgid "Redirect target after successful subscription."
-msgstr ""
-
-#: admin_menu.php:112
-msgid "Post template"
-msgstr ""
-
-#: admin_menu.php:114
-msgid ""
-"Template used to generate microblog posts on blog post or page publication."
-"<br />\n"
-"                    You may use the following placeholders:<br />\n"
-"                    %n: title of the post or page<br />\n"
-"                    %u: url of the post or page<br />\n"
-"                    %e: excerpt of the post or page<br />\n"
-"                    %c: content of the post or page"
-msgstr ""
-
-#: admin_menu.php:122
-msgid "Send a microblog notice when a post is published"
-msgstr ""
-
-#: admin_menu.php:126
-msgid "Send a microblog notice when a page is published"
-msgstr ""
-
-#: admin_menu.php:130
-msgid "Send a microblog notice when an attachment is published"
-msgstr ""
-
-#: admin_menu.php:134
-msgid "Forward user to blog post/page/attachment"
-msgstr ""
-
-#: admin_menu.php:138
-msgid "Send post/page/attachment URL as seealso"
-msgstr ""
-
-#: admin_menu.php:144
-msgid "Mirror subscription"
-msgstr ""
-
-#: admin_menu.php:147
-msgid ""
-"Automatically subscribe to a subscriber, automatically unsubscribe if the "
-"other user unsubscribes."
-msgstr ""
-
-#: admin_menu.php:154 admin_menu_profile.php:92
-msgid "Save Changes"
-msgstr ""
-
-#: admin_menu_notices.php:91 admin_menu_notices.php:157
-msgid "Send notice"
-msgstr ""
-
-#: admin_menu_notices.php:95
-msgid "Notice sent."
-msgstr ""
-
-#: admin_menu_notices.php:98
+#: Notice.php:79
 msgid "Error storing the notice."
 msgstr ""
 
-#: admin_menu_notices.php:101
+#: Notice.php:90
 msgid "Error retrieving subscribers."
 msgstr ""
 
-#: admin_menu_notices.php:104
-msgid "Error sending notice."
+#: mnw-feed.php:41
+#, php-format
+msgid "Microblog posts by %s"
 msgstr ""
 
-#: admin_menu_notices.php:107
-msgid "You did not specify a notice text."
-msgstr ""
-
-#: admin_menu_notices.php:116
-msgid "Could not delete notice."
-msgid_plural "Could not delete notices."
-msgstr[0] ""
-msgstr[1] ""
-
-#: admin_menu_notices.php:118
-msgid "Notice successfully deleted."
-msgid_plural "Notices successfully deleted."
-msgstr[0] ""
-msgstr[1] ""
-
-#: admin_menu_notices.php:131
-msgid "Sent notices"
-msgstr ""
-
-#: admin_menu_notices.php:132
-msgid "Received notices"
-msgstr ""
-
-#: admin_menu_notices.php:153
-msgid "New notice"
-msgstr ""
-
-#: admin_menu_notices.php:167 admin_menu_remote_users.php:84
-msgid "Bulk Actions"
-msgstr ""
-
-#: admin_menu_notices.php:168 admin_menu_notices.php:219
-#: admin_menu_remote_users.php:85 admin_menu_remote_users.php:134
-msgid "Delete"
-msgstr ""
-
-#: admin_menu_notices.php:170 admin_menu_remote_users.php:87
-msgid "Apply"
-msgstr ""
-
-#: admin_menu_notices.php:180 admin_menu_notices.php:190
-msgid "Author"
-msgstr ""
-
-#: admin_menu_notices.php:182 admin_menu_notices.php:192
-msgid "Content"
-msgstr ""
-
-#: admin_menu_notices.php:183 admin_menu_notices.php:193
-#: admin_menu_remote_users.php:98 admin_menu_remote_users.php:108
-msgid "Action"
-msgstr ""
-
-#: admin_menu_notices.php:202
-msgid "No notices"
-msgstr ""
-
-#: admin_menu_notices.php:218
-msgid "Delete this notice"
-msgstr ""
-
-#: admin_menu_profile.php:59
-msgid "OMB profile"
-msgstr ""
-
-#: admin_menu_profile.php:62
-msgid "Nickname (1-64 characters, only lowercase letters and digits)"
-msgstr ""
-
-#: admin_menu_profile.php:65
-msgid ""
-"The nickname is the name under which remote users will know you. You should "
-"consider thoroughly if you really want to change this setting."
-msgstr ""
-
-#: admin_menu_profile.php:69
-msgid "Full name (up to 255 characters)"
-msgstr ""
-
-#: admin_menu_profile.php:73
-msgid "Bio (less than 140 characters)"
-msgstr ""
-
-#: admin_menu_profile.php:77
-msgid "Location (less than 255 characters)"
-msgstr ""
-
-#: admin_menu_profile.php:81
-msgid "Avatar URL"
-msgstr ""
-
-#: admin_menu_profile.php:85
-msgid "License URL"
-msgstr ""
-
-#: admin_menu_remote_users.php:57
-msgid "Could not delete remote user."
-msgid_plural "Could not delete remote users."
-msgstr[0] ""
-msgstr[1] ""
-
-#: admin_menu_remote_users.php:59
-msgid "Remote user successfully deleted."
-msgid_plural "Remote users successfully deleted."
-msgstr[0] ""
-msgstr[1] ""
-
-#: admin_menu_remote_users.php:74
+#: mnw-themepage-handler.php:67
 #, php-format
 msgid ""
-"<em>Subscribers</em> are users of an OMB service who listen to your notices. "
-"The messages of <em>subscribed users</em> get published to %s and may be "
-"displayed."
+"%s supports the <a href=\"//openmicroblogging.org\"\n"
+"title=\"Official website of the OpenMicroBlogging standard\">\n"
+"OpenMicroBlogging</a> standard."
 msgstr ""
 
-#: admin_menu_remote_users.php:75
-msgid "If you delete a user, both subscriptions – if available – are removed."
-msgstr ""
-
-#: admin_menu_remote_users.php:76
+#: mnw-themepage-handler.php:71
 msgid ""
-"Note that the OpenMicroBlogging standard does not yet support a block "
-"feature; Therefore the remote user is not informed about a deletion. "
-"Moreover, if another user from the same service is subscribed to you, the "
-"remote service will probably publish your messages to deleted users as well."
+"It uses the free plugin <a href=\"//adrianlang.de/mnw\"\n"
+"title=\"Official website of mnw\">mnw</a> for OMB functionality."
 msgstr ""
 
-#: admin_menu_remote_users.php:77
+#: mnw-themepage-handler.php:82 mnw-themepage-handler.php:110
+msgid "Subscribe"
+msgstr ""
+
+#: mnw-themepage-handler.php:84
+#, php-format
 msgid ""
-"Likewise a user which is listed as subscriber may have canceled his "
-"subscription recently."
+"If you have an user account at another OMB service\n"
+"like <a href=\"//identi.ca\" title=\"identi.ca, the largest\n"
+"open microblogging service\">identi.ca</a>, you can\n"
+"easily subscribe to %s."
 msgstr ""
 
-#: admin_menu_remote_users.php:95 admin_menu_remote_users.php:105
-msgid "User"
+#: mnw-themepage-handler.php:90
+msgid ""
+"To subscribe, just enter the URL of your profile at another OMB\n"
+"service."
 msgstr ""
 
-#: admin_menu_remote_users.php:96 admin_menu_remote_users.php:106
-msgid "Direction"
+#: mnw-themepage-handler.php:92
+msgid "You will be asked to log in there if you are not yet."
 msgstr ""
 
-#: admin_menu_remote_users.php:97 admin_menu_remote_users.php:107
-msgid "License"
+#: mnw-themepage-handler.php:93
+#, php-format
+msgid ""
+"There will be a confirmation prompt showing details of\n"
+"%s."
 msgstr ""
 
-#: admin_menu_remote_users.php:118
-msgid "No remote users"
+#: mnw-themepage-handler.php:98
+#, php-format
+msgid "Error: %s"
 msgstr ""
 
-#: admin_menu_remote_users.php:127
-msgid "Both"
+#: mnw-themepage-handler.php:103
+msgid "OMB Profile URL"
 msgstr ""
 
-#: admin_menu_remote_users.php:127
-msgid "Subscriber"
+#: mnw-themepage-handler.php:117
+#, php-format
+msgid "Notice from %s"
 msgstr ""
 
-#: admin_menu_remote_users.php:127
-msgid "Subscribed user"
+#: mnw-themepage-handler.php:118
+msgid "d F Y H:i:s"
 msgstr ""
 
-#: admin_menu_remote_users.php:133
-msgid "Delete this user"
+#: mnw-themepage-handler.php:134
+msgid "Notice"
+msgstr ""
+
+#: mnw-themepage-handler.php:135
+msgid "Notice not found."
+msgstr ""
+
+#: mnw-themepage-handler.php:141
+msgid "Authorize subscription"
+msgstr ""
+
+#: mnw-themepage-handler.php:153
+#, php-format
+msgid "Do you really want to subscribe %s?"
+msgstr ""
+
+#: mnw-themepage-handler.php:162
+msgid "Yes"
+msgstr ""
+
+#: mnw-themepage-handler.php:164
+msgid "No"
+msgstr ""
+
+#: mnw-themepage-handler.php:174
+msgid "Authorization granted"
+msgstr ""
+
+#: mnw-themepage-handler.php:178
+#, php-format
+msgid ""
+"Confirm the subscribee‘s service that token %s is\n"
+"authorized."
+msgstr ""
+
+#: mnw-themepage-handler.php:181
+msgid "You rejected the subscription."
 msgstr ""
 
 #: mnw_install.php:108
@@ -461,6 +244,342 @@ msgstr ""
 
 #: subscribe.php:86
 msgid "Error storing subscriber in local database."
+msgstr ""
+
+#: admin/mnw-admin-dashboard.php:29
+#, php-format
+msgid "%s has <strong>%d subscriber</strong>."
+msgid_plural "%s has <strong>%d subscribers</strong>."
+msgstr[0] ""
+msgstr[1] ""
+
+#: admin/mnw-admin-dashboard.php:35
+#, php-format
+msgid "It is <strong>subscribed to %d user</strong>."
+msgid_plural "It is <strong>subscribed to %d users</strong>."
+msgstr[0] ""
+msgstr[1] ""
+
+#: admin/mnw-admin-dashboard.php:38
+msgid "User overview"
+msgstr ""
+
+#: admin/mnw-admin-dashboard.php:44
+#, php-format
+msgid ""
+"<strong>%d</strong> notice is listed as <strong>response</strong> to %s."
+msgid_plural ""
+"<strong>%d</strong> notices are listed as <strong>responses</strong> to %s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: admin/mnw-admin-dashboard.php:50
+#, php-format
+msgid "It has received a total of <strong>%d message</strong>."
+msgid_plural "It has received a total of <strong>%d messages</strong>."
+msgstr[0] ""
+msgstr[1] ""
+
+#: admin/mnw-admin-dashboard.php:53
+msgid "Notices overview"
+msgstr ""
+
+#: admin/mnw-admin-notices.php:27
+msgid "You did not specify a notice text."
+msgstr ""
+
+#: admin/mnw-admin-notices.php:33
+msgid "Error sending notice."
+msgstr ""
+
+#: admin/mnw-admin-notices.php:42
+msgid "No notice specified."
+msgstr ""
+
+#: admin/mnw-admin-notices.php:50
+msgid "No notices specified."
+msgstr ""
+
+#: admin/mnw-admin-notices.php:56
+msgid "Invalid action specified."
+msgstr ""
+
+#: admin/mnw-admin-notices.php:67
+msgid "Could not delete notice."
+msgid_plural "Could not delete notices."
+msgstr[0] ""
+msgstr[1] ""
+
+#: admin/mnw-admin-notices.php:76 admin/mnw-admin-notices.php:136
+msgid "Send notice"
+msgstr ""
+
+#: admin/mnw-admin-notices.php:80
+msgid "Notice sent."
+msgstr ""
+
+#: admin/mnw-admin-notices.php:91
+msgid "Notice successfully deleted."
+msgid_plural "Notices successfully deleted."
+msgstr[0] ""
+msgstr[1] ""
+
+#: admin/mnw-admin-notices.php:104
+msgid "Sent notices"
+msgstr ""
+
+#: admin/mnw-admin-notices.php:105
+msgid "Received notices"
+msgstr ""
+
+#: admin/mnw-admin-notices.php:131
+msgid "New notice"
+msgstr ""
+
+#: admin/mnw-admin-notices.php:147 admin/mnw-admin-remote-users.php:81
+msgid "Bulk Actions"
+msgstr ""
+
+#: admin/mnw-admin-notices.php:148 admin/mnw-admin-notices.php:199
+#: admin/mnw-admin-remote-users.php:82 admin/mnw-admin-remote-users.php:131
+msgid "Delete"
+msgstr ""
+
+#: admin/mnw-admin-notices.php:150 admin/mnw-admin-remote-users.php:84
+msgid "Apply"
+msgstr ""
+
+#: admin/mnw-admin-notices.php:160 admin/mnw-admin-notices.php:170
+msgid "Author"
+msgstr ""
+
+#: admin/mnw-admin-notices.php:162 admin/mnw-admin-notices.php:172
+msgid "Content"
+msgstr ""
+
+#: admin/mnw-admin-notices.php:163 admin/mnw-admin-notices.php:173
+#: admin/mnw-admin-remote-users.php:95 admin/mnw-admin-remote-users.php:105
+msgid "Action"
+msgstr ""
+
+#: admin/mnw-admin-notices.php:182
+msgid "No notices"
+msgstr ""
+
+#: admin/mnw-admin-notices.php:198
+msgid "Delete this notice"
+msgstr ""
+
+#: admin/mnw-admin-profile.php:59
+msgid "OMB profile"
+msgstr ""
+
+#: admin/mnw-admin-profile.php:62
+msgid "Nickname (1-64 characters, only lowercase letters and digits)"
+msgstr ""
+
+#: admin/mnw-admin-profile.php:65
+msgid ""
+"The nickname is the name under which remote users will know you. You should "
+"consider thoroughly if you really want to change this setting."
+msgstr ""
+
+#: admin/mnw-admin-profile.php:69
+msgid "Full name (up to 255 characters)"
+msgstr ""
+
+#: admin/mnw-admin-profile.php:73
+msgid "Bio (less than 140 characters)"
+msgstr ""
+
+#: admin/mnw-admin-profile.php:77
+msgid "Location (less than 255 characters)"
+msgstr ""
+
+#: admin/mnw-admin-profile.php:81
+msgid "Avatar URL"
+msgstr ""
+
+#: admin/mnw-admin-profile.php:85
+msgid "License URL"
+msgstr ""
+
+#: admin/mnw-admin-profile.php:92 admin/mnw-admin.php:134
+msgid "Save Changes"
+msgstr ""
+
+#: admin/mnw-admin-remote-users.php:57
+msgid "Could not delete remote user."
+msgid_plural "Could not delete remote users."
+msgstr[0] ""
+msgstr[1] ""
+
+#: admin/mnw-admin-remote-users.php:59
+msgid "Remote user successfully deleted."
+msgid_plural "Remote users successfully deleted."
+msgstr[0] ""
+msgstr[1] ""
+
+#: admin/mnw-admin-remote-users.php:71
+#, php-format
+msgid ""
+"<em>Subscribers</em> are users of an OMB service who listen to your notices. "
+"The messages of <em>subscribed users</em> get published to %s and may be "
+"displayed."
+msgstr ""
+
+#: admin/mnw-admin-remote-users.php:72
+msgid "If you delete a user, both subscriptions – if available – are removed."
+msgstr ""
+
+#: admin/mnw-admin-remote-users.php:73
+msgid ""
+"Note that the OpenMicroBlogging standard does not yet support a block "
+"feature; Therefore the remote user is not informed about a deletion. "
+"Moreover, if another user from the same service is subscribed to you, the "
+"remote service will probably publish your messages to deleted users as well."
+msgstr ""
+
+#: admin/mnw-admin-remote-users.php:74
+msgid ""
+"Likewise a user which is listed as subscriber may have canceled his "
+"subscription recently."
+msgstr ""
+
+#: admin/mnw-admin-remote-users.php:76 admin/mnw-admin.php:32
+msgid "Remote microblog users"
+msgstr ""
+
+#: admin/mnw-admin-remote-users.php:92 admin/mnw-admin-remote-users.php:102
+msgid "User"
+msgstr ""
+
+#: admin/mnw-admin-remote-users.php:93 admin/mnw-admin-remote-users.php:103
+msgid "Direction"
+msgstr ""
+
+#: admin/mnw-admin-remote-users.php:94 admin/mnw-admin-remote-users.php:104
+msgid "License"
+msgstr ""
+
+#: admin/mnw-admin-remote-users.php:115
+msgid "No remote users"
+msgstr ""
+
+#: admin/mnw-admin-remote-users.php:124
+msgid "Both"
+msgstr ""
+
+#: admin/mnw-admin-remote-users.php:124
+msgid "Subscriber"
+msgstr ""
+
+#: admin/mnw-admin-remote-users.php:124
+msgid "Subscribed user"
+msgstr ""
+
+#: admin/mnw-admin-remote-users.php:130
+msgid "Delete this user"
+msgstr ""
+
+#: admin/mnw-admin.php:25 admin/mnw-admin.php:46 admin/mnw-admin.php:58
+msgid "Microblog"
+msgstr ""
+
+#: admin/mnw-admin.php:28
+msgid "General microblog settings"
+msgstr ""
+
+#: admin/mnw-admin.php:28
+msgid "Settings"
+msgstr ""
+
+#: admin/mnw-admin.php:30
+msgid "Microblog profile settings"
+msgstr ""
+
+#: admin/mnw-admin.php:30
+msgid "Profile"
+msgstr ""
+
+#: admin/mnw-admin.php:32
+msgid "Remote users"
+msgstr ""
+
+#: admin/mnw-admin.php:34
+msgid "Microblog notices"
+msgstr ""
+
+#: admin/mnw-admin.php:34
+msgid "Notices"
+msgstr ""
+
+#: admin/mnw-admin.php:65
+#, php-format
+msgid "mnw version %s"
+msgstr ""
+
+#: admin/mnw-admin.php:78
+msgid "General settings"
+msgstr ""
+
+#: admin/mnw-admin.php:81
+msgid "Wordpress microblog page URL"
+msgstr ""
+
+#: admin/mnw-admin.php:84
+msgid ""
+"URL of a wordpress page which uses mnw.php as template. All public URLs are "
+"based on this URL; you should never change it."
+msgstr ""
+
+#: admin/mnw-admin.php:88
+msgid "Redirect target after successful subscription."
+msgstr ""
+
+#: admin/mnw-admin.php:92
+msgid "Post template"
+msgstr ""
+
+#: admin/mnw-admin.php:94
+msgid ""
+"Template used to generate microblog posts on blog post or page publication."
+"<br />\n"
+"                    You may use the following placeholders:<br />\n"
+"                    %n: title of the post or page<br />\n"
+"                    %u: url of the post or page<br />\n"
+"                    %e: excerpt of the post or page<br />\n"
+"                    %c: content of the post or page"
+msgstr ""
+
+#: admin/mnw-admin.php:102
+msgid "Send a microblog notice when a post is published"
+msgstr ""
+
+#: admin/mnw-admin.php:106
+msgid "Send a microblog notice when a page is published"
+msgstr ""
+
+#: admin/mnw-admin.php:110
+msgid "Send a microblog notice when an attachment is published"
+msgstr ""
+
+#: admin/mnw-admin.php:114
+msgid "Forward user to blog post/page/attachment"
+msgstr ""
+
+#: admin/mnw-admin.php:118
+msgid "Send post/page/attachment URL as seealso"
+msgstr ""
+
+#: admin/mnw-admin.php:124
+msgid "Mirror subscription"
+msgstr ""
+
+#: admin/mnw-admin.php:127
+msgid ""
+"Automatically subscribe to a subscriber, automatically unsubscribe if the "
+"other user unsubscribes."
 msgstr ""
 
 # Wordpress Description field in mnw.php

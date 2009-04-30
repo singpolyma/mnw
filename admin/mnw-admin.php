@@ -25,17 +25,16 @@ function mnw_admin_menu_setup() {
     add_menu_page(__('Microblog', 'mnw'), __('Microblog', 'mnw'),
                         MNW_ACCESS_LEVEL, __FILE__);
     /* The first submenu entry must link to __FILE__. */
-    foreach(array(array('General microblog settings', 'Settings',
-                            'mnw-admin.php', 'mnw_plugin_options'),
-                  array('Microblog profile settings', 'Profile',
-                          'mnw-admin-profile.php'),
-                  array('Remote microblog users', 'Remote users',
-                'mnw-admin-remote-users.php'),
-                  array('Microblog notices', 'Notices',
-                          'mnw-admin-notices.php'))
+    foreach(array(array(__('General microblog settings', 'mnw'), __('Settings',
+                        'mnw'), 'mnw-admin.php', 'mnw_plugin_options'),
+                  array(__('Microblog profile settings', 'mnw'), __('Profile',
+                        'mnw'), 'mnw-admin-profile.php'),
+                  array(__('Remote microblog users', 'mnw'), __('Remote users',
+                        'mnw'), 'mnw-admin-remote-users.php'),
+                  array(__('Microblog notices', 'mnw'), __('Notices',
+                        'mnw'), 'mnw-admin-notices.php'))
          as $submenu) {
-        add_submenu_page(__FILE__, __($submenu[0], 'mnw'),
-                            __($submenu[1], 'mnw'), MNW_ACCESS_LEVEL,
+        add_submenu_page(__FILE__, $submenu[0], $submenu[1], MNW_ACCESS_LEVEL,
                             $dir . $submenu[2], $submenu[3]);
     }
 

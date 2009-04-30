@@ -7,7 +7,7 @@ xgettext \
     --package-name='mnw' \
     --package-version='0.1' \
     --msgid-bugs-address='mail@adrianlang.de' \
-    *.php
+    *.php admin/*.php
 
 echo -n '
 # Wordpress Description field in mnw.php
