@@ -20,7 +20,7 @@ on the remote user‘s remote subscribe form.
 
 == Installation ==
 1. Copy the plugin to your wordpress plugin directory.
-1. Copy one of the themepage.LANG.php files as mnw.php to the directory of your
+1. Copy mnw-themepage.php as mnw.php to the directory of your
   current theme.
 1. Adjust the mnw.php to fit to your theme (archives.php is a good start to see
   how your theme looks like on custom pages).

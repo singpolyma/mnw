@@ -2,7 +2,7 @@ mnw is a wordpress plugin which adds openmicroblogging support to wordpress.
 
 == Installation ==
 - Copy the plugin to your wordpress‘ plugin directory.
-- Copy one of the themepage.LANG.php files as mnw.php to the directory of your
+- Copy mnw-themepage.php as mnw.php to the directory of your
   current theme.
 - Adjust the mnw.php to fit to your theme (archives.php is a good start to see
   how your theme looks like on custom pages).

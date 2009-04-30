@@ -110,41 +110,4 @@ function mnw_publish_post($post) {
         $notice->send();
     }
 }
-
-/*
- * Parsing requests to the main microblog page.
- */
-
-function mnw_parse_request() {
-    /* Assure that we have a valid themepage setting. */
-    if (get_option('mnw_themepage_url') == '') {
-        /* Since this method is only called from the themepage, we can
-           just copy the current url if something‘s broken. */
-        global $wp_query;
-        update_option('mnw_themepage_url', $wp_query->post->guid);
-    }
-
-    if (!isset($_REQUEST[MNW_ACTION])) {
-        /* No action at all – display the standard page. */
-        return array('', array());
-    }
-
-    /* Hash containing file and procedure name to handle the request. */
-    $actions = array('subscribe' => array('subscribe.php', 'mnw_parse_subscribe'),
-                     'get_notice' => array('get_notice.php', 'mnw_get_notice'),
-                     'xrds' => array('mnw_provider.php', 'mnw_get_xrds'),
-                     'oauth' => array('mnw_provider.php', 'mnw_handle_oauth'),
-                     'omb' => array('mnw_provider.php', 'mnw_handle_omb'));
-
-    if (!isset($actions[$_REQUEST[MNW_ACTION]])) {
-        /* Save a poor user who entered a wrong action. */
-        wp_redirect(get_option('mnw_themepage_url'));
-        return array(false, array());
-    }
-
-    /* Load file and call method for this action request. */
-    $action = $actions[$_REQUEST[MNW_ACTION]];
-    require_once $action[0];
-    return $action[1]();
-}
 ?>
