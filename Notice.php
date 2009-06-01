@@ -90,6 +90,10 @@ class mnw_Notice extends OMB_Notice {
             throw new Exception(__('Error retrieving subscribers.', 'mnw'));
         }
 
+        if (is_null($result)) {
+            return array();
+        }
+
         $err = array();
         foreach($result as $subscriber) {
             try {
