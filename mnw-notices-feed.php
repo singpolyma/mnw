@@ -19,6 +19,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+require_once 'lib.php';
+
 function mnw_notices_feed($type, $offset, $more, $notices) {
     if ($type == 'sent') {
         $title = __('Microblog posts by %s', 'mnw');
@@ -27,8 +29,9 @@ function mnw_notices_feed($type, $offset, $more, $notices) {
     }
 
     $updated = ($notices !== null) ? mysql2date('Y-m-d\TH:i:s\Z', $notices[0]['created']) : date('Y-m-d\TH:i:s\Z');
-    $my_url = mnw_set_action('notices') . "&type=$type" . ($offset != 0 ? "&offset=$offset" : '') . "&format=atom";
-    $html_url = preg_replace('/format=atom/', 'format=html', $my_url);
+    $baseurl = mnw_set_action('notices') . "&type=$type" . ($offset != 0 ? "&offset=$offset" : '');
+    $my_url = $baseurl . "&format=atom";
+    $html_url = $baseurl . "&format=html";
 
     header('Content-Type: application/atom+xml; charset=' . get_option('blog_charset'), true);
     echo '<?xml version="1.0" encoding="' . get_option('blog_charset') . '" ?' . '>';
