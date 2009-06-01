@@ -197,8 +197,8 @@ authorized.', 'mnw'), $data['token']);
             <p>
                 <ul>
 <?php
-            if ($data[1] !== null) {
-                foreach($data[1] as $notice) {
+            if ($data[3] !== null) {
+                foreach($data[3] as $notice) {
                 echo '<li>';
                 if ($show_sent) {
                 printf('„%s“ @ <a href="%s">%s</a>', $notice['content'], $notice['noticeurl'], $notice['created']);
@@ -211,7 +211,15 @@ authorized.', 'mnw'), $data['token']);
 
 ?>
                 </ul>
-               <a href="<?php echo attribute_escape(mnw_set_action('notices') . "&type=$data[0]&format=atom"); ?>" title="<?php _e('Atom feed', 'mnw');?>">Atom feed</a>
+                <ul>
+               <li><a href="<?php echo attribute_escape(mnw_set_action('notices') . "&type=$data[0]&format=atom"); ?>" title="<?php _e('Display Atom feed of notices', 'mnw');?>"><?php _e('Atom feed', 'mnw'); ?></a></li>
+<?php if ($data[1] != 0) { ?>
+               <li><a href="<?php echo attribute_escape(mnw_set_action('notices') . "&type=$data[0]&offset=" . ((int) $data[1] - 10)); ?>" title="<?php _e('Display later notices', 'mnw');?>"><?php _e('Later notices', 'mnw'); ?></a></li>
+<?php } ?>
+<?php if ($data[2]) { ?>
+               <li><a href="<?php echo attribute_escape(mnw_set_action('notices') . "&type=$data[0]&offset=" . ((int) $data[1] + 10)); ?>" title="<?php _e('Display earlier notices', 'mnw');?>"><?php _e('Earlier notices', 'mnw'); ?></a></li>
+<?php } ?>
+                </ul>
             </p>
 <?php
             break;

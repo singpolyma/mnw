@@ -56,12 +56,13 @@ function mnw_notices() {
     global $wpdb;
     $notices = $wpdb->get_results($types[$type] . ' ' .
                                   'ORDER BY notice.created DESC ' . 
-                                  'LIMIT ' . $offset . ', 10', ARRAY_A);
+                                  'LIMIT ' . $offset . ', 11', ARRAY_A);
 
-    $my_url = mnw_set_action('notices') . "&type=$type" . ($offset != 0 ? "&offset=$offset" : '') . "&format=$format";
+    $more = !is_null($notices) && count($notices) == 11;
+    unset($notices[10]);
 
     /* Send notices to output engine. */
     require_once $formats[$format][0];
-    return $formats[$format][1]($type, $my_url, $notices);
+    return $formats[$format][1]($type, $offset, $more, $notices);
 }
 ?>
