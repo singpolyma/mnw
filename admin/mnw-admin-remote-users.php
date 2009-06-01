@@ -61,10 +61,20 @@ function mnw_remote_users_options() {
     echo '</p></div>';
   }
 
+  if (isset($_REQUEST['paged'])) {
+    $paged = (int) $_REQUEST['paged'];
+  } else {
+    $paged = 1;
+  }
+
   /* Get remote users. */
   global $wpdb;
-  $users = $wpdb->get_results('SELECT id, nickname, url, token, resubtoken, license FROM ' . MNW_SUBSCRIBER_TABLE . ' WHERE token is not null or resubtoken is not null',
-                                    ARRAY_A);
+  $users = $wpdb->get_results('SELECT SQL_CALC_FOUND_ROWS id, nickname, url, token, resubtoken, license FROM ' . MNW_SUBSCRIBER_TABLE .
+                              ' WHERE token is not null or resubtoken is not null ' .
+                              'LIMIT ' . floor(($paged - 1) * 15) . ', 15',
+                              ARRAY_A);
+
+  $total = $wpdb->get_var('SELECT FOUND_ROWS()');
 
   mnw_start_admin_page();
 ?>
@@ -82,6 +92,25 @@ function mnw_remote_users_options() {
             <option value="delete-selected"><?php _e('Delete'); ?></option>
           </select>
           <input type="submit" name="doaction_active" value="<?php _e('Apply'); ?>" class="button-secondary action" />
+        </div>
+        <div class="tablenav-pages">
+            <span class="displaying-num">
+<?php
+                printf(__('Displaying %s–%s of %s', 'mnw'),
+                    number_format_i18n(($paged - 1) * 15 + 1),
+                    number_format_i18n(min($paged * 15, $total)),
+                    number_format_i18n($total));
+?>
+            </span>
+<?php
+            echo paginate_links(array(
+                'base' => add_query_arg( 'paged', '%#%' ),
+                'format' => '',
+                'prev_text' => __('&laquo;'),
+                'next_text' => __('&raquo;'),
+                'total' => ceil($total / 15.0),
+                'current' => $paged));
+?>
         </div>
       </div>
       <div class="clear" />
