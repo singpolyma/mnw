@@ -117,26 +117,28 @@ function mnw_notices() {
         }
     }
 
-    if (isset($_REQUEST['offset'])) {
-        $offset = (int) $_REQUEST['offset'];
+    if (isset($_REQUEST['paged'])) {
+        $paged = (int) $_REQUEST['paged'];
     } else {
-        $offset = 0;
+        $paged = 1;
     }
 
     /* Get notices. */
     global $wpdb;
     if ($show_sent) {
-        $query = 'SELECT id, content FROM ' . MNW_NOTICES_TABLE;
+        $query = 'id, content FROM ' . MNW_NOTICES_TABLE;
     } else {
-        $query = 'SELECT ' . MNW_FNOTICES_TABLE . '.id, content, ' .
+        $query = MNW_FNOTICES_TABLE . '.id, content, ' .
                  'nickname as author FROM ' . MNW_FNOTICES_TABLE . ' ' .
                  'JOIN ' . MNW_SUBSCRIBER_TABLE . ' ON ' . 'user_id = ' .
                  MNW_SUBSCRIBER_TABLE . '.id';
     }
-    $notices = $wpdb->get_results("$query ORDER BY created DESC LIMIT $offset, 11", ARRAY_A);
+    $notices = $wpdb->get_results("SELECT SQL_CALC_FOUND_ROWS $query " .
+                                  'ORDER BY created DESC ' .
+                                  'LIMIT ' . floor(($paged - 1) * 15) . ', 15',
+                                  ARRAY_A);
 
-    $more = !is_null($notices) && count($notices) == 11;
-    unset($notices[10]);
+    $total = $wpdb->get_var('SELECT FOUND_ROWS()');
 
     mnw_start_admin_page();
 ?>
@@ -162,6 +164,25 @@ function mnw_notices() {
           </select>
           <input type="submit" name="doaction_active" value="<?php _e('Apply'); ?>" class="button-secondary action" />
         </div>
+        <div class="tablenav-pages">
+            <span class="displaying-num">
+<?php
+                printf(__('Displaying %s–%s of %s', 'mnw'),
+                    number_format_i18n(($paged - 1) * 15 + 1),
+                    number_format_i18n(min($paged * 15, $total)),
+                    number_format_i18n($total));
+?>
+            </span>
+<?php
+            echo paginate_links(array(
+                'base' => add_query_arg( 'paged', '%#%' ),
+                'format' => '',
+                'prev_text' => __('&laquo;'),
+                'next_text' => __('&raquo;'),
+                'total' => ceil($total / 15.0),
+                'current' => $paged));
+?>
+  </div>
       </div>
       <div class="clear" />
 
@@ -219,12 +240,6 @@ function mnw_notices() {
 ?>
     </tbody>
 </table>
-<?php if ($offset > 0) { ?>
-    <a href="<?php echo attribute_escape(mnw_set_param($_SERVER['REQUEST_URI'], 'offset', max(0, $offset - 10))); ?>" title="<?php _e('Display later notices', 'mnw'); ?>"><?php _e('Later', 'mnw'); ?></a>
-<?php } ?>
-<?php if ($more) { ?>
-    <a href="<?php echo attribute_escape(mnw_set_param($_SERVER['REQUEST_URI'], 'offset', $offset + 10)); ?>" title="<?php _e('Display earlier notices', 'mnw'); ?>"><?php _e('Earlier', 'mnw'); ?></a>
-<?php } ?>
 </form>
 <?php
     mnw_finish_admin_page();
