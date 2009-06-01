@@ -112,4 +112,11 @@ function mnw_set_action($action) {
     }
     return $themepage . MNW_ACTION . '=' . $action;
 }
+
+function mnw_set_param($url, $param_name, $newval) {
+    if (strpos($url, $param_name) !== false) {
+        return preg_replace("/([?&]$param_name=)[^&]*/", '${1}' . $newval, $url);
+    }
+    return $url . (strpos($url, '?') === false ? '?' : '&') . $param_name . '=' . $newval;
+}
 ?>

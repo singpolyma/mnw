@@ -21,7 +21,37 @@
 
 require_once 'lib.php';
 
-function mnw_post_new_notice() {
+/* Perform action and display result message. */
+function mnw_notices_parse_action() {
+    if (!isset($_REQUEST['action']) || empty($_REQUEST['action']) ) {
+        return;
+    }
+?>
+    <div id="message" class="updated fade"><p>
+<?php
+    try {
+
+        switch ($_REQUEST['action']) {
+        case 'delete': case 'delete-selected':
+            echo __ngettext('Notice successfully deleted.',
+                 'Notices successfully deleted.', mnw_notices_delete(), 'mnw');
+            break;
+        case __('Send notice', 'mnw'):
+            mnw_notices_send();
+            _e('Notice sent.', 'mnw');
+            break;
+        default:
+            throw new Exception(__('Invalid action specified.', 'mnw'));
+        }
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
+?>
+    </p></div>
+<?php
+}
+
+function mnw_notices_send() {
     check_admin_referer('mnw-new_notice');
     if ($_POST['mnw_notice'] === '') {
         throw new Exception(__('You did not specify a notice text.', 'mnw'));
@@ -34,7 +64,8 @@ function mnw_post_new_notice() {
     }
 }
 
-function mnw_notices_parse_action() {
+
+function mnw_notices_delete() {
     switch ($_REQUEST['action']) {
     case 'delete':
         check_admin_referer('mnw-delete-notice_' . $_GET['notice']);
@@ -52,14 +83,10 @@ function mnw_notices_parse_action() {
         $notices = $_POST['checked'];
         break;
 
-    default:
-        throw new Exception(__('Invalid action specified.', 'mnw'));
     }
 
     global $wpdb;
-    foreach ($notices as $k => $v) {
-        $notices[$k] = $wpdb->escape($v);
-    }
+    $notices = array_map($wpdb->escape, $notices);
     $notice_count = count($notices);
     if($notice_count !== $wpdb->query('DELETE FROM ' .
           ($_REQUEST['show_sent'] ? MNW_NOTICES_TABLE : MNW_FNOTICES_TABLE) .
@@ -71,30 +98,7 @@ function mnw_notices_parse_action() {
 }
 
 function mnw_notices() {
-    /* Perform action and display result message. */
-    if (isset($_POST['doaction_active']) &&
-            $_POST['doaction_active'] == __('Send notice', 'mnw')) {
-        echo '<div id="message" class="updated fade"><p>';
-        try {
-            mnw_post_new_notice();
-            _e('Notice sent.', 'mnw');
-        } catch (Exception $e) {
-            echo $e->getMessage();
-        }
-        echo '</p></div>';
-    }
-
-    if (isset($_REQUEST['action']) && !empty($_REQUEST['action']) ) {
-        echo '<div id="message" class="updated fade"><p>';
-        try {
-            $result = mnw_notices_parse_action();
-            echo __ngettext('Notice successfully deleted.',
-                            'Notices successfully deleted.', $result, 'mnw');
-        } catch (Exception $e) {
-            echo $e->getMessage();
-        }
-        echo '</p></div>';
-    }
+    mnw_notices_parse_action();
 
     /* Whether we should show the sent messages. */
     $show_sent = !((isset($_REQUEST['mnw_show'])
@@ -108,22 +112,31 @@ function mnw_notices() {
         if($jackpot) {
             echo "<em>$item[0]</em>";
         } else {
-            echo "<a href='" . $_SERVER['REQUEST_URI'] .
-                                "&amp;mnw_show=$item[1]'>$item[0]</a>";
+            echo "<a href='" . attribute_escape(mnw_set_param(
+             $_SERVER['REQUEST_URI'], 'mnw_show', $item[1])) . "'>$item[0]</a>";
         }
+    }
+
+    if (isset($_REQUEST['offset'])) {
+        $offset = (int) $_REQUEST['offset'];
+    } else {
+        $offset = 0;
     }
 
     /* Get notices. */
     global $wpdb;
     if ($show_sent) {
-        $notices = $wpdb->get_results('SELECT id, content FROM ' .
-                                                MNW_NOTICES_TABLE, ARRAY_A);
+        $query = 'SELECT id, content FROM ' . MNW_NOTICES_TABLE;
     } else {
-        $notices = $wpdb->get_results('SELECT ' . MNW_FNOTICES_TABLE .
-                '.id, content, nickname as author FROM ' . MNW_FNOTICES_TABLE .
-                ' JOIN ' . MNW_SUBSCRIBER_TABLE . ' ON ' .
-                'user_id = ' . MNW_SUBSCRIBER_TABLE . '.id', ARRAY_A);
+        $query = 'SELECT ' . MNW_FNOTICES_TABLE . '.id, content, ' .
+                 'nickname as author FROM ' . MNW_FNOTICES_TABLE . ' ' .
+                 'JOIN ' . MNW_SUBSCRIBER_TABLE . ' ON ' . 'user_id = ' .
+                 MNW_SUBSCRIBER_TABLE . '.id';
     }
+    $notices = $wpdb->get_results("$query ORDER BY created DESC LIMIT $offset, 11", ARRAY_A);
+
+    $more = !is_null($notices) && count($notices) == 11;
+    unset($notices[10]);
 
     mnw_start_admin_page();
 ?>
@@ -133,7 +146,7 @@ function mnw_notices() {
       <textarea id="mnw_notice" name="mnw_notice" cols="45" rows="3" style="font-size: 2em; line-height: normal;"><?php if (isset($_POST['mnw_notice'])) echo $_POST['mnw_notice'];
     ?></textarea>
       <br />
-      <input type="submit" name="doaction_active" class="button-primary action" value="<?php _e('Send notice', 'mnw'); ?>" />
+      <input type="submit" name="action" class="button-primary action" value="<?php _e('Send notice', 'mnw'); ?>" />
     </form>
 
     <form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
@@ -206,6 +219,12 @@ function mnw_notices() {
 ?>
     </tbody>
 </table>
+<?php if ($offset > 0) { ?>
+    <a href="<?php echo attribute_escape(mnw_set_param($_SERVER['REQUEST_URI'], 'offset', max(0, $offset - 10))); ?>" title="<?php _e('Display later notices', 'mnw'); ?>"><?php _e('Later', 'mnw'); ?></a>
+<?php } ?>
+<?php if ($more) { ?>
+    <a href="<?php echo attribute_escape(mnw_set_param($_SERVER['REQUEST_URI'], 'offset', $offset + 10)); ?>" title="<?php _e('Display earlier notices', 'mnw'); ?>"><?php _e('Earlier', 'mnw'); ?></a>
+<?php } ?>
 </form>
 <?php
     mnw_finish_admin_page();
