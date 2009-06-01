@@ -2,8 +2,7 @@ mnw is a wordpress plugin which adds openmicroblogging support to wordpress.
 
 == Installation ==
 - Copy the plugin to your wordpress‘ plugin directory.
-- Copy mnw-themepage.php as mnw.php to the directory of your
-  current theme.
+- Copy mnw-themepage.php as mnw.php to the directory of your current theme.
 - Adjust the mnw.php to fit to your theme (archives.php is a good start to see
   how your theme looks like on custom pages).
 - Create a new page in wordpress. This page is the main frontend of your OMB
@@ -71,3 +70,5 @@ Validate.php does not use mb_strlen.
 Don‘t overwrite existing values with empty ones if they are not passed at all.
 Not compatible with WordpressMU
 Locale for dates is somehow broken
+Page titles at themepage are somewhat ugly
+SeealsoMediatype is probably not appropriate for attachments?
