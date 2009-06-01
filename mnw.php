@@ -89,7 +89,7 @@ function mnw_publish_yadis() {
     if (get_option('mnw_themepage_url') != '') {
         require_once 'lib.php';
         echo '<meta http-equiv="X-XRDS-Location" content="' .
-             htmlspecialchars(mnw_set_action('xrds')) . '"/>';
+             attribute_escape(mnw_set_action('xrds')) . '"/>';
     }
 }
 
