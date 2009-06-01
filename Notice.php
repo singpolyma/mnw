@@ -54,7 +54,7 @@ class mnw_Notice extends OMB_Notice {
             if ($spleft >= mb_strlen($content)) {
                 $repl = $content;
             } else if ($spleft > 0) {
-                $repl = substr($content, 0, $spleft - 1) . '…';
+                $repl = mb_substr($content, 0, $spleft - 1) . '…';
             } else {
                 $repl = '';
             }
