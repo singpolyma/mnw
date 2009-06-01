@@ -21,7 +21,7 @@
 
 require_once 'lib.php';
 
-function mnw_notices_feed($type, $offset, $more, $notices) {
+function mnw_notices_feed($type, $paged, $total, $notices) {
     if ($type == 'sent') {
         $title = __('Microblog posts by %s', 'mnw');
     } else {
@@ -29,7 +29,7 @@ function mnw_notices_feed($type, $offset, $more, $notices) {
     }
 
     $updated = ($notices !== null) ? mysql2date('Y-m-d\TH:i:s\Z', $notices[0]['created']) : date('Y-m-d\TH:i:s\Z');
-    $baseurl = mnw_set_action('notices') . "&type=$type" . ($offset != 0 ? "&offset=$offset" : '');
+    $baseurl = mnw_set_action('notices') . "&type=$type" . ($paged != 0 ? "&offset=$paged" : '');
     $my_url = $baseurl . "&format=atom";
     $html_url = $baseurl . "&format=html";
 

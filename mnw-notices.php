@@ -24,8 +24,8 @@ require_once 'lib.php';
 function mnw_notices() {
     /* Parse input type request. */
     $types = array(
-        'sent' => 'SELECT *, CONCAT("' . mnw_set_action('get_notice') . '&mnw_notice_id=' . '", id) AS "noticeurl" FROM ' . MNW_NOTICES_TABLE . ' AS notice',
-        'received' => 'SELECT *, author.url AS "authorurl", notice.url as "noticeurl" FROM ' . MNW_FNOTICES_TABLE . ' AS notice, ' .
+        'sent' => '*, CONCAT("' . mnw_set_action('get_notice') . '&mnw_notice_id=' . '", id) AS "noticeurl" FROM ' . MNW_NOTICES_TABLE . ' AS notice',
+        'received' => '*, author.url AS "authorurl", notice.url as "noticeurl" FROM ' . MNW_FNOTICES_TABLE . ' AS notice, ' .
                     MNW_SUBSCRIBER_TABLE . ' AS author ' . 
                     'WHERE to_us = 1 AND notice.user_id = author.id');
 
@@ -45,24 +45,23 @@ function mnw_notices() {
         $format = 'html';
     }
 
-    /* Get offset. */
-    if (isset($_GET['offset'])) {
-        $offset = (int) $_GET['offset'];
+    /* Get page. */
+    if (isset($_GET['paged'])) {
+        $paged = (int) $_GET['paged'];
     } else {
-        $offset = 0;
+        $paged = 1;
     }
 
     /* Get notices. */
     global $wpdb;
-    $notices = $wpdb->get_results($types[$type] . ' ' .
+    $notices = $wpdb->get_results('SELECT SQL_CALC_FOUND_ROWS ' . $types[$type] . ' ' .
                                   'ORDER BY notice.created DESC ' . 
-                                  'LIMIT ' . $offset . ', 11', ARRAY_A);
+                                  'LIMIT ' . floor(($paged - 1) * 15) . ', 15', ARRAY_A);
 
-    $more = !is_null($notices) && count($notices) == 11;
-    unset($notices[10]);
+    $total = $wpdb->get_var('SELECT FOUND_ROWS()');
 
     /* Send notices to output engine. */
     require_once $formats[$format][0];
-    return $formats[$format][1]($type, $offset, $more, $notices);
+    return $formats[$format][1]($type, $paged, $total, $notices);
 }
 ?>

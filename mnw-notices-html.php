@@ -21,7 +21,7 @@
 
 require_once 'lib.php';
 
-function mnw_notices_html($type, $offset, $more, $notices) {
-    return array('notices', array($type, $offset, $more, $notices));
+function mnw_notices_html($type, $paged, $total, $notices) {
+    return array('notices', array($type, $paged, $total, $notices));
 }
 ?>

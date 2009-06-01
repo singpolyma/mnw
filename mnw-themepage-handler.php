@@ -192,9 +192,11 @@ authorized.', 'mnw'), $data['token']);
 
         case 'notices':
             $show_sent = ($data[0] == 'sent');
+            $paged = $data[1];
+            $total = $data[2];
 ?>
             <h3><?php if ($show_sent) { _e('Sent notices', 'mnw'); } else { _e('Received notices', 'mnw');} ?></h3>
-            <p>
+            <div>
                 <ul>
 <?php
             if ($data[3] !== null) {
@@ -211,16 +213,27 @@ authorized.', 'mnw'), $data['token']);
 
 ?>
                 </ul>
-                <ul>
-               <li><a href="<?php echo attribute_escape(mnw_set_action('notices') . "&type=$data[0]&format=atom"); ?>" title="<?php _e('Display Atom feed of notices', 'mnw');?>"><?php _e('Atom feed', 'mnw'); ?></a></li>
-<?php if ($data[1] != 0) { ?>
-               <li><a href="<?php echo attribute_escape(mnw_set_action('notices') . "&type=$data[0]&offset=" . ((int) $data[1] - 10)); ?>" title="<?php _e('Display later notices', 'mnw');?>"><?php _e('Later notices', 'mnw'); ?></a></li>
-<?php } ?>
-<?php if ($data[2]) { ?>
-               <li><a href="<?php echo attribute_escape(mnw_set_action('notices') . "&type=$data[0]&offset=" . ((int) $data[1] + 10)); ?>" title="<?php _e('Display earlier notices', 'mnw');?>"><?php _e('Earlier notices', 'mnw'); ?></a></li>
-<?php } ?>
-                </ul>
-            </p>
+        <div style="float: right;">
+            <span>
+<?php
+                printf(__('Displaying %s–%s of %s', 'mnw'),
+                    number_format_i18n(($paged - 1) * 15 + 1),
+                    number_format_i18n(min($paged * 15, $total)),
+                    number_format_i18n($total));
+?>
+            </span>
+<?php
+            echo paginate_links(array(
+                'base' => add_query_arg( 'paged', '%#%' ),
+                'format' => '',
+                'prev_text' => __('&laquo;'),
+                'next_text' => __('&raquo;'),
+                'total' => ceil($total / 15.0),
+                'current' => $paged));
+?>
+  </div>
+               <a href="<?php echo attribute_escape(mnw_set_action('notices') . "&type=$data[0]&format=atom"); ?>" title="<?php _e('Display Atom feed of notices', 'mnw');?>"><?php _e('Atom feed', 'mnw'); ?></a>
+            </div>
 <?php
             break;
         }
