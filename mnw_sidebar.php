@@ -95,7 +95,9 @@ function mnw_notices_widget($args) {
 if ($notices) {
 echo "<ul>";
       foreach($notices as $notice) {
-        $notice['%c'] = date('d. F Y H:i:s', strtotime($notice['%c']));
+        if (isset($notice['%c'])) {
+            $notice['%c'] = date('d. F Y H:i:s', strtotime($notice['%c']));
+        }
         if ($strip_at) {
           $notice['%t'] = preg_replace('/^(?:T |@)' . get_option('omb_nickname') . '(?::\s*|\s*([A-Z]))/', '\1', $notice['%t']);
         }
