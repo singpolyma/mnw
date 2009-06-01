@@ -47,7 +47,6 @@ on the remote user‘s remote subscribe form.
 
 Additional features
 - Publish micro formats
-- Provide complete list of received & sent notices
 - Support multiple users
 - Configure post/page/comment broadcasting on a per-post/page base
 - Send notice for new comments
@@ -57,10 +56,10 @@ Additional features
 - Store images locally
 - Validate own user profile via libomb
 - Handle licenses
-- Allow multiple notice widgets
-- Allow notice widgets for certain users.
-- Add public list of own notices.
-- Paging for many lists.
+- Allow multiple notice widgets && Allow notice widgets for certain users. This
+  will happen with the transition to Wordpress 2.8.
+- Support commenting as presented in
+  http://deflexion.com/2009/04/tweeting-comments-about-blog-items-and
 
 == Bugs ==
 Use better default for omb_bio
