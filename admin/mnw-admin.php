@@ -52,9 +52,16 @@ function mnw_dashboard_wrap() {
 
 /* Library functions for admin pages. */
 function mnw_start_admin_page() {
+    if (get_option('mnw_themepage_url') == '') {
 ?>
-<div class="wrap">
-    <h2><?php _e('Microblog', 'mnw'); ?></h2>
+        <div id="message" class="updated fade"><p>
+            <?php _e('You have no theme page specified. Please follow the steps described in README to set up a theme page for mnw.', 'mnw'); ?>
+        </p></div>
+<?php
+    }
+?>
+    <div class="wrap">
+        <h2><?php _e('Microblog', 'mnw'); ?></h2>
 <?php
 }
 
