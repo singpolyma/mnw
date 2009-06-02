@@ -39,6 +39,9 @@ function mnw_notices_parse_action() {
         case __('Send notice', 'mnw'):
             mnw_notices_send();
             _e('Notice sent.', 'mnw');
+            /* Do not display the message in the input box if it has been
+               sent. */
+            unset($_POST['mnw_notice']);
             break;
         default:
             throw new Exception(__('Invalid action specified.', 'mnw'));
