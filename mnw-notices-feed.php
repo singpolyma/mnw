@@ -65,13 +65,13 @@ foreach($notices as $notice) {
     }
 ?>
     <entry>
-        <id><?php echo htmlentities($notice['noticeurl']); ?></id>
+        <id><?php echo htmlspecialchars($notice['noticeurl']); ?></id>
         <link rel="alternate" href="<?php echo attribute_escape($notice['noticeurl']); ?>" type="<?php bloginfo_rss('html_type'); ?>" />
-        <title><?php echo $title; ?></title>
+        <title><?php echo htmlspecialchars($title); ?></title>
 <?php if ($type != 'sent') {?>
-        <author><name><?php echo $notice['nickname'];?></name><uri><?php echo htmlentities($notice['authorurl']); ?></uri></author>
+        <author><name><?php echo htmlspecialchars($notice['nickname']); ?></name><uri><?php echo htmlspecialchars($notice['authorurl']); ?></uri></author>
 <?php } ?>
-        <content><?php echo htmlentities($notice['content']); ?></content>
+        <content><?php echo htmlspecialchars($notice['content']); ?></content>
         <updated><?php echo mysql2date('Y-m-d\TH:i:s\Z', $notice['created'], false); ?></updated>
         <published><?php echo mysql2date('Y-m-d\TH:i:s\Z', $notice['created'], false); ?></published>
     </entry>
