@@ -50,13 +50,13 @@ function get_own_profile() {
   if (is_null($profile)) {
     $profile = new OMB_Profile(get_bloginfo('url'));
     $profile->setProfileURL(get_bloginfo('url'));
-    $profile->setNickname(get_option('omb_nickname'));
-    $profile->setLicenseURL(get_option('omb_license'));
-    $profile->setFullname(get_option('omb_full_name'));
     $profile->setHomepage(get_bloginfo('url'));
-    $profile->setBio(get_option('omb_bio'));
-    $profile->setLocation(get_option('omb_location'));
-    $profile->setAvatarURL(get_option('omb_avatar'));
+    if($v = get_option('omb_nickname')) $profile->setNickname($v);
+    if($v = get_option('omb_license')) $profile->setLicenseURL($v);
+    if($v = get_option('omb_full_name')) $profile->setFullname($v);
+    if($v = get_option('omb_bio')) $profile->setBio($v);
+    if($v = get_option('omb_location')) $profile->setLocation($v);
+    if($v = get_option('omb_avatar')) $profile->setAvatarURL($v);
   }
   return $profile;
 }
