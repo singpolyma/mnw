@@ -38,6 +38,29 @@ class OMB_Service_Provider {
     $this->data_store = $data_store;
   }
 
+  /* Add to xrds-simple plugin */
+  public function add_xrds(&$xrds, $oauth_base_url, $omb_base_url) {
+     if($oauth_base_url) {
+       $supports = array(OAUTH_AUTH_HEADER,OAUTH_POST_BODY,OAUTH_HMAC_SHA1);
+       $oauth = xrds_add_xrd($xrds, 'oauth', 'xri://$xrds*simple');
+       $oauth->service[] = new XRDS_Service(array(-1=>OAUTH_ENDPOINT_REQUEST)+$supports,
+                                            null, new XRDS_URI($oauth_base_url . 'requesttoken'),
+                                            new XRDS_LocalID($this->user->getIdentifierURI()));
+       $oauth->service[] = new XRDS_Service(array(-1=>OAUTH_ENDPOINT_AUTHORIZE)+$supports,
+                                            null, new XRDS_URI($oauth_base_url . 'userauthorization'));
+       $oauth->service[] = new XRDS_Service(array(-1=>OAUTH_ENDPOINT_ACCESS)+$supports,
+                                            null, new XRDS_URI($oauth_base_url . 'accesstoken'));
+       $oauth->service[] = new XRDS_Service(array(-1=>OAUTH_ENDPOINT_RESOURCE)+$supports);
+       xrds_add_simple_service($xrds, 'oAuth', OAUTH_DISCOVERY, '#oauth');
+     }
+     if($omb_base_url) {
+       $omb = xrds_add_xrd($xrds, 'omb', 'xri://$xrds*simple');
+       $omb->service[] = new XRDS_Service(OMB_ENDPOINT_POSTNOTICE, null, new XRDS_URI($omb_base_url . 'postnotice'));
+       $omb->service[] = new XRDS_Service(OMB_ENDPOINT_UPDATEPROFILE, null, new XRDS_URI($omb_base_url . 'updateprofile'));
+       xrds_add_simple_service($xrds, 'OMB', OMB_VERSION, '#omb');
+     }
+  }
+
   public function writeXRDS($oauth_base_url, $omb_base_url) {
     header('Content-Type: application/xrds+xml');
     $xw = new omb_XMLWriter();

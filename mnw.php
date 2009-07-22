@@ -29,6 +29,16 @@ Text Domain: mnw
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Pre-2.6 compatibility
+if ( ! defined( 'WP_CONTENT_URL' ) )
+    define( 'WP_CONTENT_URL', get_option( 'siteurl' ) . '/wp-content' );
+if ( ! defined( 'WP_CONTENT_DIR' ) )
+    define( 'WP_CONTENT_DIR', ABSPATH . 'wp-content' );
+if ( ! defined( 'WP_PLUGIN_URL' ) )
+    define( 'WP_PLUGIN_URL', WP_CONTENT_URL. '/plugins' );
+if ( ! defined( 'WP_PLUGIN_DIR' ) )
+    define( 'WP_PLUGIN_DIR', WP_CONTENT_DIR . '/plugins' );
+
 set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__) . PATH_SEPARATOR .
                     dirname(__FILE__) . '/extlib');
 
@@ -83,14 +93,22 @@ require_once 'mnw_sidebar.php';
  * Publish Yadis header.
  */
 
-add_action('wp_head', 'mnw_publish_yadis');
-
-function mnw_publish_yadis() {
-    if (get_option('mnw_themepage_url') != '') {
-        require_once 'lib.php';
-        echo '<meta http-equiv="X-XRDS-Location" content="' .
-             attribute_escape(mnw_set_action('xrds')) . '"/>';
-    }
+if(function_exists('xrds_plugin_file') || file_exists(WP_PLUGIN_DIR . '/xrds-simple')) {
+	/* Use DiSo XRDS-Simple plugin */
+	add_action('xrds_simple', 'mnw_xrds_simple');
+	function mnw_xrds_simple(&$xrds) {
+      require_once 'mnw_provider.php';
+      mnw_get_xrds($xrds);
+	}
+} else {
+	add_action('wp_head', 'mnw_publish_yadis');
+	function mnw_publish_yadis() {
+		 if (get_option('mnw_themepage_url') != '') {
+			  require_once 'lib.php';
+			  echo '<meta http-equiv="X-XRDS-Location" content="' .
+					 attribute_escape(mnw_set_action('xrds')) . '"/>';
+		 }
+	}
 }
 
 /*

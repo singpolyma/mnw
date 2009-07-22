@@ -23,10 +23,15 @@ require_once 'lib.php';
 require_once 'datastore.php';
 require_once 'omb_datastore.php';
 
-function mnw_get_xrds() {
+function mnw_get_xrds(&$xrds=null) {
   $srv = new OMB_Service_Provider(get_own_profile());
-  $srv->writeXRDS(mnw_set_action('oauth') . '&' . MNW_OAUTH_ACTION . '=',
-                mnw_set_action('omb') . '&' . MNW_OMB_ACTION . '=');
+  if($xrds) {
+    $srv->add_xrds($xrds, mnw_set_action('oauth') . '&' . MNW_OAUTH_ACTION . '=',
+                    mnw_set_action('omb') . '&' . MNW_OMB_ACTION . '=');
+  } else {
+    $srv->writeXRDS(mnw_set_action('oauth') . '&' . MNW_OAUTH_ACTION . '=',
+                    mnw_set_action('omb') . '&' . MNW_OMB_ACTION . '=');
+  }
   return array(false, array());
 }
 
