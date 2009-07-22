@@ -19,11 +19,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// Pre-2.6 compatibility
+if ( ! defined( 'WP_CONTENT_URL' ) )
+    define( 'WP_CONTENT_URL', get_option( 'siteurl' ) . '/wp-content' );
+if ( ! defined( 'WP_CONTENT_DIR' ) )
+    define( 'WP_CONTENT_DIR', ABSPATH . 'wp-content' );
+if ( ! defined( 'WP_PLUGIN_URL' ) )
+    define( 'WP_PLUGIN_URL', WP_CONTENT_URL. '/plugins' );
+if ( ! defined( 'WP_PLUGIN_DIR' ) )
+    define( 'WP_PLUGIN_DIR', WP_CONTENT_DIR . '/plugins' );
+
 add_action('admin_menu', 'mnw_admin_menu_setup');
 function mnw_admin_menu_setup() {
-    $dir = dirname(__FILE__) . '/';
+    $dir = WP_PLUGIN_DIR . '/mnw/admin/';
     add_menu_page(__('Microblog', 'mnw'), __('Microblog', 'mnw'),
-                        MNW_ACCESS_LEVEL, __FILE__);
+                        MNW_ACCESS_LEVEL, __FILE__, 'mnw_plugin_options');
+    add_submenu_page(__FILE__, null, null, MNW_ACCESS_LEVEL, __FILE__, 'mnw_plugin_options');
     /* The first submenu entry must link to __FILE__. */
     foreach(array(array(__('General microblog settings', 'mnw'), __('Settings',
                         'mnw'), 'mnw-admin.php', 'mnw_plugin_options'),
